@@ -34,6 +34,7 @@ export default function RootLayout({
             })(window,document,'script','dataLayer','GTM-P3R9BX7H');
           `}
         </Script>
+        <Script id="cpm-network" src="https://pl30575787.effectivecpmnetwork.com/4a/9b/ad/4a9badee2bc1f72d10b2e2f5888ab411.js" strategy="afterInteractive" />
       </head>
       <body suppressHydrationWarning>
         <noscript>
