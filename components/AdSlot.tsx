@@ -19,7 +19,7 @@ const AdSlot = React.memo(function AdSlot({ placement }: AdSlotProps) {
   if (!config) return null;
 
   return (
-    <div className={`ad-slot ad-slot--${placement}`} style={{ display: 'flex', justifyContent: 'center', margin: '16px 0', overflow: 'hidden' }}>
+    <div className={`promo-box promo-box--${placement}`} style={{ display: 'flex', justifyContent: 'center', margin: '16px 0', overflow: 'hidden' }}>
       <iframe
         src={`/ad.html?key=${config.key}&w=${config.width}&h=${config.height}`}
         width={config.width}
