@@ -1,92 +1,57 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
 import React from 'react';
-
-interface Ad {
-  id: string;
-  imageUrl: string;
-  linkUrl: string;
-  placement: string;
-  label: string;
-}
 
 interface AdSlotProps {
   placement: 'sidebar' | 'banner-home' | 'game-below' | 'game-side' | 'profile';
 }
 
+const adConfigs: Record<string, { key: string, width: number, height: number }> = {
+  'sidebar': { key: 'f7f8fe548a743e896041ef92b92e6deb', width: 160, height: 600 },
+  'banner-home': { key: '43c31b5154eee340f6dc013fb088e988', width: 728, height: 90 },
+  'game-below': { key: '43c31b5154eee340f6dc013fb088e988', width: 728, height: 90 },
+  'game-side': { key: 'def431e6f8a36ee4eeca81f8d6d841f3', width: 300, height: 250 },
+  'profile': { key: 'def431e6f8a36ee4eeca81f8d6d841f3', width: 300, height: 250 }
+};
+
 const AdSlot = React.memo(function AdSlot({ placement }: AdSlotProps) {
-  const [ad, setAd] = useState<Ad | null>(null);
-  const adSenseClientId = process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID;
-  const isAdSense = !!adSenseClientId;
+  const config = adConfigs[placement];
+  if (!config) return null;
 
-  useEffect(() => {
-    let mounted = true;
-    
-    if (isAdSense) {
-      try {
-        if (typeof window !== 'undefined' && !(window as any).adsbygoogle?.loaded) {
-          ((window as any).adsbygoogle = (window as any).adsbygoogle || []).push({});
-        }
-      } catch (e) {
-        console.error('AdSense error', e);
-      }
-      return;
-    }
-
-    const fetchAd = async () => {
-      try {
-        const res = await fetch(`/api/ads/${placement}`);
-        if (res.ok) {
-          const ads: Ad[] = await res.json();
-          if (ads.length > 0 && mounted) {
-            const randomAd = ads[Math.floor(Math.random() * ads.length)];
-            setAd(randomAd);
-            fetch(`/api/ads/${randomAd.id}/impression`, { method: 'POST' }).catch(() => {});
-          }
-        }
-      } catch {
-        
-      }
-    };
-
-    fetchAd();
-
-    return () => {
-      mounted = false;
-    };
-  }, [placement, isAdSense]);
-
-  if (isAdSense) {
-    
-    return (
-      <div className={`ad-slot ad-slot--${placement}`} style={{ border: 'none', background: 'transparent' }}>
-        <ins 
-          className="adsbygoogle"
-          style={{ display: 'block', width: '100%', height: '100%' }}
-          data-ad-client={adSenseClientId}
-          data-ad-slot="" // Optional: Configure slot ID per placement if needed
-          data-ad-format="auto"
-          data-full-width-responsive="true"
-        />
-      </div>
-    );
-  }
-
-  if (!ad) return null;
-
-  const handleClick = () => {
-    fetch(`/api/ads/${ad.id}/click`, { method: 'POST' }).catch(() => {});
-  };
+  const html = `
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <style>
+          body { margin: 0; padding: 0; display: flex; justify-content: center; align-items: center; background: transparent; overflow: hidden; }
+        </style>
+      </head>
+      <body>
+        <script>
+          atOptions = {
+            'key' : '${config.key}',
+            'format' : 'iframe',
+            'height' : ${config.height},
+            'width' : ${config.width},
+            'params' : {}
+          };
+        </script>
+        <script src="https://www.highperformanceformat.com/${config.key}/invoke.js"></script>
+      </body>
+    </html>
+  `;
 
   return (
-    <div className={`ad-slot ad-slot--${placement}`}>
-      <span className="ad-slot__badge">{ad.label || 'Ad'}</span>
-      <Link href={ad.linkUrl} target="_blank" rel="noopener noreferrer" onClick={handleClick} className="ad-slot__link">
-        <Image src={ad.imageUrl} alt="Advertisement" className="ad-slot__image" fill sizes="(max-width: 768px) 100vw, 300px" style={{ objectFit: 'cover' }} />
-      </Link>
+    <div className={`ad-slot ad-slot--${placement}`} style={{ display: 'flex', justifyContent: 'center', margin: '16px 0', overflow: 'hidden' }}>
+      <iframe
+        srcDoc={html}
+        width={config.width}
+        height={config.height}
+        frameBorder="0"
+        scrolling="no"
+        style={{ border: 'none', background: 'transparent' }}
+        title="Advertisement"
+      />
     </div>
   );
 });
