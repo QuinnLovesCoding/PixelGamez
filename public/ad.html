@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body { margin: 0; padding: 0; display: flex; justify-content: center; align-items: center; background: transparent; overflow: hidden; }
+  </style>
+</head>
+<body>
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const key = urlParams.get('key');
+    const w = urlParams.get('w');
+    const h = urlParams.get('h');
+    
+    if (key && w && h) {
+      window.atOptions = {
+        'key' : key,
+        'format' : 'iframe',
+        'height' : parseInt(h, 10),
+        'width' : parseInt(w, 10),
+        'params' : {}
+      };
+      document.write('<scr' + 'ipt type="text/javascript" src="https://www.highperformanceformat.com/' + key + '/invoke.js"></scr' + 'ipt>');
+    }
+  </script>
+</body>
+</html>

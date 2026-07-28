@@ -18,33 +18,10 @@ const AdSlot = React.memo(function AdSlot({ placement }: AdSlotProps) {
   const config = adConfigs[placement];
   if (!config) return null;
 
-  const html = `
-    <!DOCTYPE html>
-    <html>
-      <head>
-        <style>
-          body { margin: 0; padding: 0; display: flex; justify-content: center; align-items: center; background: transparent; overflow: hidden; }
-        </style>
-      </head>
-      <body>
-        <script>
-          atOptions = {
-            'key' : '${config.key}',
-            'format' : 'iframe',
-            'height' : ${config.height},
-            'width' : ${config.width},
-            'params' : {}
-          };
-        </script>
-        <script src="https://www.highperformanceformat.com/${config.key}/invoke.js"></script>
-      </body>
-    </html>
-  `;
-
   return (
     <div className={`ad-slot ad-slot--${placement}`} style={{ display: 'flex', justifyContent: 'center', margin: '16px 0', overflow: 'hidden' }}>
       <iframe
-        srcDoc={html}
+        src={`/ad.html?key=${config.key}&w=${config.width}&h=${config.height}`}
         width={config.width}
         height={config.height}
         frameBorder="0"
