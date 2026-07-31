@@ -20,6 +20,7 @@ export interface User {
   displayName: string;
   passwordHash: string;
   role: 'user' | 'moderator' | 'owner';
+  roles?: string[];
   avatarUrl: string;
   bannerUrl: string;
   createdAt: string;

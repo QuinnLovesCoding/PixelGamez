@@ -166,7 +166,11 @@ export default async function GamePage({ params }: { params: Promise<{ id: strin
           initialPlays={initialPlays}
         />
 
-        <div className="game-player__description-container" style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+        <div 
+          className="game-player__description-container" 
+          style={{ display: 'flex', flexDirection: 'column', gap: '24px', userSelect: 'none' }}
+          onContextMenu={(e) => e.preventDefault()}
+        >
           <div className="game-player__description-card" style={{ backgroundColor: 'var(--surface-color)', padding: '24px', borderRadius: '12px', border: '1px solid var(--border-color)' }}>
             <AdSlot placement="game-above" />
             <h2 style={{ marginBottom: '16px', fontSize: '1.5rem', fontWeight: 600 }}>About {gameData.title}</h2>

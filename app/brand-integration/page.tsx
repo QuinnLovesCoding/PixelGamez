@@ -36,9 +36,10 @@ export default function BrandIntegrationPage() {
       <div style={{ background: 'var(--bg-secondary)', padding: '24px', borderRadius: 'var(--radius-lg)', marginBottom: '32px', border: '1px solid var(--border)' }}>
         <h2 style={{ fontSize: '1.5rem', marginBottom: '16px' }}>Partnership Opportunities</h2>
         <ul style={{ listStyleType: 'disc', paddingLeft: '24px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
-          <li><strong>Sponsored Games:</strong> Feature your custom-branded games directly on our platform.</li>
-          <li><strong>In-Game Advertising:</strong> Seamlessly integrate your brand into existing popular titles.</li>
-          <li><strong>Homepage Takeovers:</strong> Maximize visibility with premium placement on our front page.</li>
+          <li><strong>Spotlight Partner:</strong> Homepage takeover, permanent spot in our Trusted Partners logo strip, dedicated shoutouts across TikTok, YouTube, Twitter, and Discord, plus a featured branded game slot.</li>
+          <li><strong>Network Partner:</strong> Logo placement in our Trusted Partners strip, plus one dedicated social mention per month across your platform of choice.</li>
+          <li><strong>Logo Partner:</strong> A permanent, clickable spot in our Trusted Partners logo strip — always visible, always linked back to you.</li>
+          <li><strong>Verified Engagement Reporting:</strong> Unlike a standard banner, every placement is backed by real engagement data—so you always know what’s working.</li>
         </ul>
       </div>
 

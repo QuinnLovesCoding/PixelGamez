@@ -521,6 +521,14 @@ h3 { font-size: var(--font-size-md); }
   white-space: nowrap;
 }
 .hero-card--large .hero-card__title { font-size: var(--font-size-xl); white-space: normal; }
+.game-page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  max-width: 1200px;
+  margin: 0 auto;
+  user-select: none;
+}
 .hero-card__side {
   display: flex;
   flex-direction: column;

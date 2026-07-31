@@ -7,6 +7,7 @@ interface User {
   email: string;
   displayName: string;
   role: 'user' | 'moderator' | 'owner';
+  roles?: string[];
   avatarUrl: string;
   aboutMe: string;
   workingOn: string;

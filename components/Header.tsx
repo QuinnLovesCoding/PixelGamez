@@ -197,6 +197,34 @@ export default function Header() {
 
         {isLoggedIn && user ? (
           <>
+            <div className="header__notif-wrapper" style={{ position: 'relative' }} ref={notifMenuRef}>
+              <button className="header__theme-btn" onClick={handleNotifClick} aria-label="Notifications" title="Notifications" style={{ position: 'relative' }}>
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+                {unreadCount > 0 && (
+                  <span style={{ position: 'absolute', top: '0', right: '0', background: 'var(--accent-primary)', color: 'white', borderRadius: '50%', width: '16px', height: '16px', fontSize: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    {unreadCount}
+                  </span>
+                )}
+              </button>
+              {isNotifOpen && (
+                <div className="header__notif-dropdown" style={{ position: 'absolute', top: '100%', right: '0', background: 'var(--surface-color)', border: '1px solid var(--border-color)', borderRadius: '12px', padding: '16px', minWidth: '300px', boxShadow: '0 8px 32px rgba(0,0,0,0.2)', zIndex: 100, marginTop: '8px' }}>
+                  <h3 style={{ fontSize: '1rem', fontWeight: 600, marginBottom: '12px' }}>Notifications</h3>
+                  {notifications.length > 0 ? (
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', maxHeight: '300px', overflowY: 'auto' }}>
+                      {notifications.map(notif => (
+                        <div key={notif.id} style={{ padding: '12px', background: 'var(--bg-secondary)', borderRadius: '8px', fontSize: '0.9rem' }}>
+                          <div style={{ fontWeight: 500, marginBottom: '4px' }}>{notif.title}</div>
+                          <div style={{ color: 'var(--text-secondary)' }}>{notif.message}</div>
+                          <div style={{ color: 'var(--text-dim)', fontSize: '0.75rem', marginTop: '6px' }}>{new Date(notif.createdAt).toLocaleDateString()}</div>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <div style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', textAlign: 'center', padding: '24px 0' }}>No new notifications</div>
+                  )}
+                </div>
+              )}
+            </div>
             <div className="header__user" ref={userMenuRef}>
               <button className="header__avatar" onClick={() => { setIsUserMenuOpen(!isUserMenuOpen); setIsEditingProfile(false); }} aria-label="User menu">
                 {user.displayName.charAt(0).toUpperCase()}
@@ -213,6 +241,8 @@ export default function Header() {
                           <div className="header__user-email">{user.email}</div>
                           {isOwner && <span className="header__user-badge">Owner</span>}
                           {!isOwner && isModerator && <span className="header__user-badge">Moderator</span>}
+                          {user.roles?.includes('developer') && <span className="header__user-badge" style={{ backgroundColor: '#25D366', color: '#fff', marginLeft: '4px' }}>Developer</span>}
+                          {user.roles?.includes('partner') && <span className="header__user-badge" style={{ backgroundColor: '#FFD700', color: '#000', marginLeft: '4px' }}>Partner</span>}
                         </div>
                       </div>
                     </div>

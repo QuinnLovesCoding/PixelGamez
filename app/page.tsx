@@ -85,20 +85,20 @@ export default function Home() {
       )}
 
       {favoriteGames.length > 0 && (
-        <GameGrid title="Your Favorites" games={favoriteGames.slice(0, 12)} viewMoreLink="/liked" />
+        <GameCarousel title="Your Favorites" games={favoriteGames.slice(0, 12)} viewMoreLink="/liked" />
       )}
 
       {topPicks.length > 0 && (
-        <GameGrid title={t('top_picks')} games={topPicks.slice(0, 12)} viewMoreLink="/recommended" />
+        <GameCarousel title={t('top_picks')} games={topPicks.slice(0, 12)} viewMoreLink="/recommended" />
       )}
 
-      <GameGrid title={t('trending')} games={trendingGames.slice(0, 18)} viewMoreLink="/trending" />
+      <GameCarousel title={t('trending')} games={trendingGames.slice(0, 18)} viewMoreLink="/trending" />
       
       <div style={{ margin: '32px 0' }}>
         <AdSlot placement="banner-home" />
       </div>
 
-      <GameGrid title={t('new')} games={newGames.slice(0, 18)} viewMoreLink="/new" />
+      <GameCarousel title={t('new')} games={newGames.slice(0, 18)} viewMoreLink="/new" />
       
       <div style={{ margin: '32px 0' }}>
         <AdSlot placement="banner-home" />
@@ -111,7 +111,7 @@ export default function Home() {
         <AdSlot placement="banner-home" />
       </div>
       
-      <GameGrid title={t('popular')} games={popularGames.slice(0, 18)} viewMoreLink="/popular" />
+      <GameCarousel title={t('popular')} games={popularGames.slice(0, 18)} viewMoreLink="/popular" />
 
       {categories.map(category => {
         const games = getGamesByCategory(category.id);
