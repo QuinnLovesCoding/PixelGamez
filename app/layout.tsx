@@ -7,6 +7,7 @@ import { AuthProvider } from '../components/AuthContext';
 import { ThemeProvider } from '../components/ThemeContext';
 import { I18nProvider } from '../components/I18nContext';
 import AuthModal from '../components/AuthModal';
+import NotificationSystem from '../components/NotificationSystem';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 
 export const metadata: Metadata = {
@@ -71,6 +72,7 @@ export default function RootLayout({
                 </main>
               </div>
               <AuthModal />
+              <NotificationSystem />
             </ThemeProvider>
           </AuthProvider>
           </I18nProvider>

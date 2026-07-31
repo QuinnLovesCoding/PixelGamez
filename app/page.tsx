@@ -9,6 +9,8 @@ import AdSlot from '../components/AdSlot';
 import Link from 'next/link';
 import { useI18n } from '../components/I18nContext';
 import { useAuth } from '../components/AuthContext';
+import TrustedPartners from '../components/TrustedPartners';
+import { triggerNotification } from '../components/NotificationSystem';
 
 export default function Home() {
   const { t } = useI18n();
@@ -31,6 +33,29 @@ export default function Home() {
     fetchPlays();
     const interval = setInterval(fetchPlays, 15 * 60 * 1000); // 15 mins
     return () => { active = false; clearInterval(interval); };
+  }, []);
+
+  useEffect(() => {
+    // Demonstration of Notification System
+    const timer1 = setTimeout(() => {
+      triggerNotification({
+        type: 'partnership',
+        title: 'New Spotlight Partner!',
+        message: 'Welcome to EpicQuest Gaming, our newest spotlight partner.',
+        duration: 8000
+      });
+    }, 2000);
+
+    const timer2 = setTimeout(() => {
+      triggerNotification({
+        type: 'winner',
+        title: 'Competition Winner!',
+        message: 'Congratulations to PlayerOne for winning the monthly Brawl!',
+        duration: 8000
+      });
+    }, 6000);
+
+    return () => { clearTimeout(timer1); clearTimeout(timer2); };
   }, []);
 
   const featuredGames = getFeaturedGames();
@@ -83,6 +108,8 @@ export default function Home() {
           </div>
         </section>
       )}
+
+      <TrustedPartners />
 
       {favoriteGames.length > 0 && (
         <GameCarousel title="Your Favorites" games={favoriteGames.slice(0, 12)} viewMoreLink="/liked" />

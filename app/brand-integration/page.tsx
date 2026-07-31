@@ -33,14 +33,59 @@ export default function BrandIntegrationPage() {
         Welcome to the Brand Integration hub. Pixel Gamez offers unique opportunities for brands to connect with our highly engaged gaming community. 
       </p>
 
-      <div style={{ background: 'var(--bg-secondary)', padding: '24px', borderRadius: 'var(--radius-lg)', marginBottom: '32px', border: '1px solid var(--border)' }}>
-        <h2 style={{ fontSize: '1.5rem', marginBottom: '16px' }}>Partnership Opportunities</h2>
-        <ul style={{ listStyleType: 'disc', paddingLeft: '24px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
-          <li><strong>Spotlight Partner:</strong> Homepage takeover, permanent spot in our Trusted Partners logo strip, dedicated shoutouts across TikTok, YouTube, Twitter, and Discord, plus a featured branded game slot.</li>
-          <li><strong>Network Partner:</strong> Logo placement in our Trusted Partners strip, plus one dedicated social mention per month across your platform of choice.</li>
-          <li><strong>Logo Partner:</strong> A permanent, clickable spot in our Trusted Partners logo strip — always visible, always linked back to you.</li>
-          <li><strong>Verified Engagement Reporting:</strong> Unlike a standard banner, every placement is backed by real engagement data—so you always know what’s working.</li>
-        </ul>
+      <div style={{ marginBottom: '40px' }}>
+        <h2 style={{ fontSize: '2rem', marginBottom: '24px', textAlign: 'center', background: 'linear-gradient(90deg, #ec4899, #8b5cf6)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Partnership Opportunities</h2>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '20px' }}>
+          
+          {/* Spotlight Partner */}
+          <div style={{ background: 'rgba(236, 72, 153, 0.05)', padding: '24px', borderRadius: '16px', border: '1px solid rgba(236, 72, 153, 0.2)', position: 'relative', overflow: 'hidden', boxShadow: '0 8px 32px rgba(236, 72, 153, 0.1)', transition: 'transform 0.3s ease, box-shadow 0.3s ease' }} className="partner-card">
+            <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '4px', background: 'linear-gradient(90deg, #ec4899, #f43f5e)' }}></div>
+            <h3 style={{ fontSize: '1.25rem', marginBottom: '12px', color: '#ec4899', display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <span style={{ fontSize: '1.5rem' }}>✨</span> Spotlight Partner
+            </h3>
+            <p style={{ color: 'var(--text-dim)', lineHeight: 1.5, fontSize: '0.95rem' }}>
+              Homepage takeover, permanent spot in our Trusted Partners logo strip, dedicated shoutouts across TikTok, YouTube, Twitter, and Discord, plus a featured branded game slot.
+            </p>
+          </div>
+
+          {/* Network Partner */}
+          <div style={{ background: 'var(--bg-secondary)', padding: '24px', borderRadius: '16px', border: '1px solid var(--border)', transition: 'transform 0.3s ease, box-shadow 0.3s ease' }} className="partner-card">
+            <h3 style={{ fontSize: '1.25rem', marginBottom: '12px', color: '#8b5cf6', display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <span style={{ fontSize: '1.5rem' }}>🌐</span> Network Partner
+            </h3>
+            <p style={{ color: 'var(--text-dim)', lineHeight: 1.5, fontSize: '0.95rem' }}>
+              Logo placement in our Trusted Partners strip, plus one dedicated social mention per month across your platform of choice.
+            </p>
+          </div>
+
+          {/* Logo Partner */}
+          <div style={{ background: 'var(--bg-secondary)', padding: '24px', borderRadius: '16px', border: '1px solid var(--border)', transition: 'transform 0.3s ease, box-shadow 0.3s ease' }} className="partner-card">
+            <h3 style={{ fontSize: '1.25rem', marginBottom: '12px', color: '#3b82f6', display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <span style={{ fontSize: '1.5rem' }}>🖼️</span> Logo Partner
+            </h3>
+            <p style={{ color: 'var(--text-dim)', lineHeight: 1.5, fontSize: '0.95rem' }}>
+              A permanent, clickable spot in our Trusted Partners logo strip — always visible, always linked back to you.
+            </p>
+          </div>
+
+          {/* Verified Engagement Reporting */}
+          <div style={{ background: 'var(--bg-secondary)', padding: '24px', borderRadius: '16px', border: '1px solid var(--border)', transition: 'transform 0.3s ease, box-shadow 0.3s ease' }} className="partner-card">
+            <h3 style={{ fontSize: '1.25rem', marginBottom: '12px', color: '#10b981', display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <span style={{ fontSize: '1.5rem' }}>📊</span> Verified Engagement
+            </h3>
+            <p style={{ color: 'var(--text-dim)', lineHeight: 1.5, fontSize: '0.95rem' }}>
+              Unlike a standard banner, every placement is backed by real engagement data — so you always know what’s working.
+            </p>
+          </div>
+
+        </div>
+        <style jsx>{`
+          .partner-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+            border-color: rgba(255, 255, 255, 0.2);
+          }
+        `}</style>
       </div>
 
       <div style={{ background: 'var(--bg-secondary)', padding: '32px', borderRadius: 'var(--radius-lg)', border: '2px solid var(--accent-primary)', boxShadow: '0 8px 32px rgba(236, 72, 153, 0.1)' }}>

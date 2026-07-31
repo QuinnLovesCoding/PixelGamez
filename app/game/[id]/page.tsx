@@ -118,130 +118,142 @@ async function loadDescription(gameId: string, gameTitle: string): Promise<strin
 }
 
 export default async function GamePage({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = await params;
-  const game = getGameById(id);
-
-  if (!game) {
-    notFound();
-  }
-
-  const detailedDescriptionHtml = await loadDescription(game.id, game.title);
-  const relatedGames = getRelatedGames(game.id, 30);
-
-  const gameData = { ...game };
-  let initialLikes = 0;
-  let initialDislikes = 0;
-  let initialPlays = 0;
   try {
-    const [dbGame, likesCount, dislikesCount] = await Promise.all([
-      prisma.game.findUnique({ where: { id: gameData.id } }),
-      prisma.vote.count({ where: { gameId: gameData.id, type: 'up' } }),
-      prisma.vote.count({ where: { gameId: gameData.id, type: 'down' } })
-    ]);
+    const { id } = await params;
+    const game = getGameById(id);
 
-    initialLikes = likesCount;
-    initialDislikes = dislikesCount;
-
-    if (dbGame) {
-      initialPlays = dbGame.plays;
-
-      if (dbGame.discordUrl) gameData.discordUrl = dbGame.discordUrl;
-      if (dbGame.steamUrl) gameData.steamUrl = dbGame.steamUrl;
-      if (dbGame.itchUrl) gameData.itchUrl = dbGame.itchUrl;
-      if (dbGame.twitterUrl) gameData.twitterUrl = dbGame.twitterUrl;
-      if (dbGame.videoUrl) gameData.videoUrl = dbGame.videoUrl;
-      if (dbGame.downloadUrl) gameData.downloadUrl = dbGame.downloadUrl;
+    if (!game) {
+      notFound();
     }
-  } catch (err) {
-    console.error('Failed to fetch initial stats', err);
-  }
 
-  return (
-    <div className="game-page animate-fade-in">
-      <div className="game-player-fullwidth" style={{ width: '100%', marginBottom: '24px' }}>
-        <GamePlayer
-          game={gameData}
-          initialLikes={initialLikes}
-          initialDislikes={initialDislikes}
-          initialPlays={initialPlays}
-        />
+    const detailedDescriptionHtml = await loadDescription(game.id, game.title);
+    const relatedGames = getRelatedGames(game.id, 30);
 
-        <div 
-          className="game-player__description-container" 
-          style={{ display: 'flex', flexDirection: 'column', gap: '24px', userSelect: 'none' }}
-        >
-          <div className="game-player__description-card" style={{ backgroundColor: 'var(--surface-color)', padding: '24px', borderRadius: '12px', border: '1px solid var(--border-color)' }}>
-            <AdSlot placement="game-above" />
-            <h2 style={{ marginBottom: '16px', fontSize: '1.5rem', fontWeight: 600 }}>About {gameData.title}</h2>
-            {detailedDescriptionHtml ? (
-              <div
-                className="game-player__detailed-desc"
-                dangerouslySetInnerHTML={{ __html: detailedDescriptionHtml }}
-              />
-            ) : (
-              <p className="game-player__desc" style={{ color: 'var(--text-secondary)' }}>{gameData.description}</p>
-            )}
+    const gameData = { ...game };
+    let initialLikes = 0;
+    let initialDislikes = 0;
+    let initialPlays = 0;
+    try {
+      const [dbGame, likesCount, dislikesCount] = await Promise.all([
+        prisma.game.findUnique({ where: { id: gameData.id } }),
+        prisma.vote.count({ where: { gameId: gameData.id, type: 'up' } }),
+        prisma.vote.count({ where: { gameId: gameData.id, type: 'down' } })
+      ]);
 
-            {(gameData.discordUrl || gameData.steamUrl || gameData.developerLink || gameData.itchUrl || gameData.twitterUrl || gameData.videoUrl) && (
-              <div className="game-player__links" style={{ display: 'flex', gap: '12px', marginTop: '16px', flexWrap: 'wrap' }}>
-                {gameData.discordUrl && (
-                  <a href={gameData.discordUrl} target="_blank" rel="noopener noreferrer" className="game-player__btn" style={{ textDecoration: 'none' }}>
-                    <span className="icon">💬</span> Discord
-                  </a>
-                )}
-                {gameData.steamUrl && (
-                  <a href={gameData.steamUrl} target="_blank" rel="noopener noreferrer" className="game-player__btn" style={{ textDecoration: 'none' }}>
-                    <span className="icon">🎮</span> Steam
-                  </a>
-                )}
-                {gameData.itchUrl && (
-                  <a href={gameData.itchUrl} target="_blank" rel="noopener noreferrer" className="game-player__btn" style={{ textDecoration: 'none', backgroundColor: '#fa5c5c', color: '#fff' }}>
-                    <span className="icon">🕹️</span> Itch.io
-                  </a>
-                )}
-                {gameData.twitterUrl && (
-                  <a href={gameData.twitterUrl} target="_blank" rel="noopener noreferrer" className="game-player__btn" style={{ textDecoration: 'none', backgroundColor: '#1DA1F2', color: '#fff' }}>
-                    <span className="icon">🐦</span> Twitter
-                  </a>
-                )}
-                {gameData.videoUrl && (
-                  <a href={gameData.videoUrl} target="_blank" rel="noopener noreferrer" className="game-player__btn" style={{ textDecoration: 'none', backgroundColor: '#FF0000', color: '#fff' }}>
-                    <span className="icon">▶️</span> Video Trailer
-                  </a>
-                )}
-                {gameData.downloadUrl && (
-                  <a href={gameData.downloadUrl} target="_blank" rel="noopener noreferrer" className="game-player__btn" style={{ textDecoration: 'none', backgroundColor: '#10B981', color: '#fff' }}>
-                    <span className="icon">⬇️</span> Download Game
-                  </a>
-                )}
-                {gameData.developerLink && (
-                  <a href={gameData.developerLink} target="_blank" rel="noopener noreferrer" className="game-player__btn" style={{ textDecoration: 'none', backgroundColor: '#6D28D9', color: '#fff' }}>
-                    <span className="icon">💖</span> Support Creator
-                  </a>
-                )}
-              </div>
-            )}
-          </div>
-          <AdSlot placement="game-below" />
-        </div>
-      </div>
+      initialLikes = likesCount;
+      initialDislikes = dislikesCount;
 
-      <div className="game-layout-container">
-        {relatedGames.length > 0 && (
-          <aside className="game-side-content">
-            <h3 className="side-title">Related Games</h3>
-            <div className="side-grid">
-              {relatedGames.slice(0, 12).map(g => (
-                <GameCard key={g.id} game={g} />
-              ))}
+      if (dbGame) {
+        initialPlays = dbGame.plays;
+
+        if (dbGame.discordUrl) gameData.discordUrl = dbGame.discordUrl;
+        if (dbGame.steamUrl) gameData.steamUrl = dbGame.steamUrl;
+        if (dbGame.itchUrl) gameData.itchUrl = dbGame.itchUrl;
+        if (dbGame.twitterUrl) gameData.twitterUrl = dbGame.twitterUrl;
+        if (dbGame.videoUrl) gameData.videoUrl = dbGame.videoUrl;
+        if (dbGame.downloadUrl) gameData.downloadUrl = dbGame.downloadUrl;
+        if (dbGame.developerLink) gameData.developerLink = dbGame.developerLink;
+        if (dbGame.developerName) gameData.developerName = dbGame.developerName;
+      }
+    } catch (err) {
+      console.error('Failed to fetch initial stats', err);
+    }
+
+    return (
+      <div className="game-page animate-fade-in">
+        <div className="game-player-fullwidth" style={{ width: '100%', marginBottom: '24px' }}>
+          <GamePlayer
+            game={gameData}
+            initialLikes={initialLikes}
+            initialDislikes={initialDislikes}
+            initialPlays={initialPlays}
+          />
+
+          <div 
+            className="game-player__description-container" 
+            style={{ display: 'flex', flexDirection: 'column', gap: '24px', userSelect: 'none' }}
+          >
+            <div className="game-player__description-card" style={{ backgroundColor: 'var(--surface-color)', padding: '24px', borderRadius: '12px', border: '1px solid var(--border-color)' }}>
+              <AdSlot placement="game-above" />
+              <h2 style={{ marginBottom: '16px', fontSize: '1.5rem', fontWeight: 600 }}>About {gameData.title}</h2>
+              {detailedDescriptionHtml ? (
+                <div
+                  className="game-player__detailed-desc"
+                  dangerouslySetInnerHTML={{ __html: detailedDescriptionHtml }}
+                />
+              ) : (
+                <p className="game-player__desc" style={{ color: 'var(--text-secondary)' }}>{gameData.description}</p>
+              )}
+
+              {(gameData.discordUrl || gameData.steamUrl || gameData.developerLink || gameData.itchUrl || gameData.twitterUrl || gameData.videoUrl || gameData.downloadUrl) && (
+                <div className="game-player__links" style={{ display: 'flex', gap: '12px', marginTop: '16px', flexWrap: 'wrap' }}>
+                  {gameData.discordUrl && (
+                    <a href={gameData.discordUrl} target="_blank" rel="noopener noreferrer" className="game-player__btn" style={{ textDecoration: 'none' }}>
+                      <span className="icon">💬</span> Discord
+                    </a>
+                  )}
+                  {gameData.steamUrl && (
+                    <a href={gameData.steamUrl} target="_blank" rel="noopener noreferrer" className="game-player__btn" style={{ textDecoration: 'none' }}>
+                      <span className="icon">🎮</span> Steam
+                    </a>
+                  )}
+                  {gameData.itchUrl && (
+                    <a href={gameData.itchUrl} target="_blank" rel="noopener noreferrer" className="game-player__btn" style={{ textDecoration: 'none', backgroundColor: '#fa5c5c', color: '#fff' }}>
+                      <span className="icon">🕹️</span> Itch.io
+                    </a>
+                  )}
+                  {gameData.twitterUrl && (
+                    <a href={gameData.twitterUrl} target="_blank" rel="noopener noreferrer" className="game-player__btn" style={{ textDecoration: 'none', backgroundColor: '#1DA1F2', color: '#fff' }}>
+                      <span className="icon">🐦</span> Twitter
+                    </a>
+                  )}
+                  {gameData.videoUrl && (
+                    <a href={gameData.videoUrl} target="_blank" rel="noopener noreferrer" className="game-player__btn" style={{ textDecoration: 'none', backgroundColor: '#FF0000', color: '#fff' }}>
+                      <span className="icon">▶️</span> Video Trailer
+                    </a>
+                  )}
+                  {gameData.downloadUrl && (
+                    <a href={gameData.downloadUrl} target="_blank" rel="noopener noreferrer" className="game-player__btn" style={{ textDecoration: 'none', backgroundColor: '#10B981', color: '#fff' }}>
+                      <span className="icon">⬇️</span> Download Game
+                    </a>
+                  )}
+                  {gameData.developerLink && (
+                    <a href={gameData.developerLink} target="_blank" rel="noopener noreferrer" className="game-player__btn" style={{ textDecoration: 'none', backgroundColor: '#6D28D9', color: '#fff' }}>
+                      <span className="icon">💖</span> Support Creator
+                    </a>
+                  )}
+                </div>
+              )}
             </div>
-          </aside>
+            <AdSlot placement="game-below" />
+          </div>
+        </div>
+
+        <div className="game-layout-container">
+          {relatedGames.length > 0 && (
+            <aside className="game-side-content">
+              <h3 className="side-title">Related Games</h3>
+              <div className="side-grid">
+                {relatedGames.slice(0, 12).map(g => (
+                  <GameCard key={g.id} game={g} />
+                ))}
+              </div>
+            </aside>
+          )}
+        </div>
+
+        {relatedGames.length > 12 && (
+          <GameGrid title="More Games You Might Like" games={relatedGames.slice(12, 30)} />
         )}
       </div>
-
-      {relatedGames.length > 12 && (
-        <GameGrid title="More Games You Might Like" games={relatedGames.slice(12, 30)} />
-      )}
-    </div>
-  );
+    );
+  } catch (error: any) {
+    if (error.message === 'NEXT_NOT_FOUND') throw error;
+    return (
+      <div style={{ padding: '50px', color: 'white', background: 'red', borderRadius: '8px', margin: '20px' }}>
+        <h1>Production Error Debug:</h1>
+        <pre style={{ whiteSpace: 'pre-wrap' }}>{error.stack || error.message || String(error)}</pre>
+      </div>
+    );
+  }
 }
