@@ -3,6 +3,7 @@ import GamePlayer from '../../../components/GamePlayer';
 import GameGrid from '../../../components/GameGrid';
 import GameCard from '../../../components/GameCard';
 import AdSlot from '../../../components/AdSlot';
+import JsonLd from '../../../components/JsonLd';
 import { notFound } from 'next/navigation';
 import * as fs from 'fs';
 import * as path from 'path';
@@ -159,8 +160,36 @@ export default async function GamePage({ params }: { params: Promise<{ id: strin
       console.error('Failed to fetch initial stats', err);
     }
 
+    const videoGameSchema = {
+      "@context": "https://schema.org",
+      "@type": "VideoGame",
+      "name": gameData.title,
+      "description": gameData.description,
+      "genre": gameData.category,
+      "image": `https://www.pixelgamez.com${gameData.thumbnail}`,
+      "playMode": "SinglePlayer", // Default, can be adjusted
+      "applicationCategory": "Game",
+      "operatingSystem": "WebBrowser",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock"
+      },
+      ...(initialLikes + initialDislikes > 0 && {
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": ((initialLikes / (initialLikes + initialDislikes)) * 5).toFixed(1),
+          "ratingCount": initialLikes + initialDislikes,
+          "bestRating": "5",
+          "worstRating": "1"
+        }
+      })
+    };
+
     return (
       <div className="game-page animate-fade-in">
+        <JsonLd data={videoGameSchema} />
         <div className="game-player-fullwidth" style={{ width: '100%', marginBottom: '24px' }}>
           <GamePlayer
             game={gameData}

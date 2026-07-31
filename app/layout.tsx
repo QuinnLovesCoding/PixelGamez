@@ -9,6 +9,7 @@ import { I18nProvider } from '../components/I18nContext';
 import AuthModal from '../components/AuthModal';
 import NotificationSystem from '../components/NotificationSystem';
 import { GoogleOAuthProvider } from '@react-oauth/google';
+import JsonLd from '../components/JsonLd';
 
 export const metadata: Metadata = {
   title: 'PixelGamez — Free Online Games',
@@ -21,11 +22,39 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   const adSenseClientId = process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID;
+
+  const websiteSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "PixelGamez",
+    "url": "https://www.pixelgamez.com/",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://www.pixelgamez.com/search?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  };
+
+  const organizationSchema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "PixelGamez",
+    "url": "https://www.pixelgamez.com/",
+    "logo": "https://www.pixelgamez.com/images/logo/PixelGamezLogoNoBackround.png",
+    "sameAs": [
+      "https://twitter.com/pixelgamez",
+      "https://www.facebook.com/pixelgamez",
+      "https://www.youtube.com/c/pixelgamez"
+    ]
+  };
+
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
         <link rel="icon" href="/images/logo/PixelGamezLogoNoBackround.png" type="image/png" />
         <link rel="apple-touch-icon" href="/images/logo/PixelGamezLogoNoBackround.png" />
+        <JsonLd data={websiteSchema} />
+        <JsonLd data={organizationSchema} />
         <Script id="gtm-script" strategy="afterInteractive">
           {`
             (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
