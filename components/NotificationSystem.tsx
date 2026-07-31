@@ -160,6 +160,7 @@ export default function NotificationSystem() {
           }
         }
       `}</style>
-    </div>
-  ), document.body);
+    </div>,
+    document.body
+  );
 }
