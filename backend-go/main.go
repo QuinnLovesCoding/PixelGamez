@@ -22,7 +22,7 @@ func main() {
 	defer database.Disconnect()
 
 	app := fiber.New(fiber.Config{
-		BodyLimit: 50 * 1024 * 1024, // 50MB limit for file uploads
+		BodyLimit: 150 * 1024 * 1024, // 150MB limit for file uploads
 	})
 
 	// Middleware

@@ -111,6 +111,9 @@ func SubmitGame(c *fiber.Ctx) error {
 	thumbnail := getFormValue(form, "thumbnail")
 	discordUrl := getFormValue(form, "discordUrl")
 	steamUrl := getFormValue(form, "steamUrl")
+	itchUrl := getFormValue(form, "itchUrl")
+	twitterUrl := getFormValue(form, "twitterUrl")
+	videoUrl := getFormValue(form, "videoUrl")
 	
 	if title == "" || description == "" || category == "" || gameType == "" {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "Missing required fields."})
@@ -159,8 +162,21 @@ func SubmitGame(c *fiber.Ctx) error {
 		}
 	}
 	
-	if finalEmbedUrl == "" {
-		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "Upload a game file or provide an embed URL."})
+	finalDownloadUrl := ""
+	downloadFiles := form.File["downloadFile"]
+	if len(downloadFiles) > 0 {
+		downloadFile := downloadFiles[0]
+		gameId := fmt.Sprintf("dl-%d", time.Now().UnixNano())
+		gameDir := filepath.Join(".", "..", "public", "api", "downloads", gameId)
+		os.MkdirAll(gameDir, os.ModePerm)
+		
+		filePath := filepath.Join(gameDir, downloadFile.Filename)
+		c.SaveFile(downloadFile, filePath)
+		finalDownloadUrl = "/api/downloads/" + gameId + "/" + downloadFile.Filename
+	}
+	
+	if finalEmbedUrl == "" && finalDownloadUrl == "" {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "Upload a game file, a download file, or provide an embed URL."})
 	}
 	
 	sub, err := database.Client.Submission.CreateOne(
@@ -174,6 +190,10 @@ func SubmitGame(c *fiber.Ctx) error {
 		db.Submission.BannerURL.Set(finalBannerUrl),
 		db.Submission.SteamURL.Set(steamUrl),
 		db.Submission.DiscordURL.Set(discordUrl),
+		db.Submission.ItchURL.Set(itchUrl),
+		db.Submission.TwitterURL.Set(twitterUrl),
+		db.Submission.VideoURL.Set(videoUrl),
+		db.Submission.DownloadFileURL.Set(finalDownloadUrl),
 		db.Submission.SubmitterEmail.Set(user.Email),
 		db.Submission.UserID.Set(user.ID),
 	).Exec(ctx)

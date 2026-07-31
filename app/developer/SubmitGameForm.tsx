@@ -7,15 +7,20 @@ export default function SubmitGameForm() {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [category, setCategory] = useState('action');
-  const [gameType, setGameType] = useState<'html' | 'unity'>('html');
+  const [gameType, setGameType] = useState<'html' | 'unity' | 'download'>('html');
   const [embedUrl, setEmbedUrl] = useState('');
   const [discordUrl, setDiscordUrl] = useState('');
   const [steamUrl, setSteamUrl] = useState('');
+  const [itchUrl, setItchUrl] = useState('');
+  const [twitterUrl, setTwitterUrl] = useState('');
+  const [videoUrl, setVideoUrl] = useState('');
   const [gameFile, setGameFile] = useState<File | null>(null);
+  const [downloadFile, setDownloadFile] = useState<File | null>(null);
   const [bannerFile, setBannerFile] = useState<File | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [result, setResult] = useState<{ success: boolean; message: string } | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const downloadInputRef = useRef<HTMLInputElement>(null);
   const bannerInputRef = useRef<HTMLInputElement>(null);
 
   const handleSubmit = async (e: FormEvent) => {
@@ -34,6 +39,9 @@ export default function SubmitGameForm() {
       if (gameType === 'html' && gameFile) {
         formData.append('gameFile', gameFile);
       }
+      if (gameType === 'download' && downloadFile) {
+        formData.append('downloadFile', downloadFile);
+      }
       if (bannerFile) {
         formData.append('bannerFile', bannerFile);
       }
@@ -45,6 +53,15 @@ export default function SubmitGameForm() {
       }
       if (steamUrl) {
         formData.append('steamUrl', steamUrl);
+      }
+      if (itchUrl) {
+        formData.append('itchUrl', itchUrl);
+      }
+      if (twitterUrl) {
+        formData.append('twitterUrl', twitterUrl);
+      }
+      if (videoUrl) {
+        formData.append('videoUrl', videoUrl);
       }
 
       const res = await fetch('/api/developer/submit', {
@@ -66,9 +83,14 @@ export default function SubmitGameForm() {
         setEmbedUrl('');
         setDiscordUrl('');
         setSteamUrl('');
+        setItchUrl('');
+        setTwitterUrl('');
+        setVideoUrl('');
         setGameFile(null);
+        setDownloadFile(null);
         setBannerFile(null);
         if (fileInputRef.current) fileInputRef.current.value = '';
+        if (downloadInputRef.current) downloadInputRef.current.value = '';
         if (bannerInputRef.current) bannerInputRef.current.value = '';
       } else {
         setResult({ success: false, message: data.error || 'Submission failed.' });
@@ -141,6 +163,42 @@ export default function SubmitGameForm() {
         </div>
 
         <div className="dev-form__field">
+          <label className="dev-form__label" htmlFor="dev-itch">Itch.io Page (Optional)</label>
+          <input
+            id="dev-itch"
+            type="url"
+            className="dev-form__input"
+            placeholder="https://yourname.itch.io/..."
+            value={itchUrl || ''}
+            onChange={(e) => setItchUrl(e.target.value)}
+          />
+        </div>
+
+        <div className="dev-form__field">
+          <label className="dev-form__label" htmlFor="dev-twitter">Twitter / X (Optional)</label>
+          <input
+            id="dev-twitter"
+            type="url"
+            className="dev-form__input"
+            placeholder="https://twitter.com/..."
+            value={twitterUrl || ''}
+            onChange={(e) => setTwitterUrl(e.target.value)}
+          />
+        </div>
+
+        <div className="dev-form__field">
+          <label className="dev-form__label" htmlFor="dev-video">Trailer Video URL (Optional)</label>
+          <input
+            id="dev-video"
+            type="url"
+            className="dev-form__input"
+            placeholder="https://youtube.com/watch?v=..."
+            value={videoUrl || ''}
+            onChange={(e) => setVideoUrl(e.target.value)}
+          />
+        </div>
+
+        <div className="dev-form__field">
           <label className="dev-form__label" htmlFor="dev-steam">Steam Page (Optional)</label>
           <input
             id="dev-steam"
@@ -201,6 +259,13 @@ export default function SubmitGameForm() {
           >
             Unity WebGL
           </button>
+          <button
+            type="button"
+            className={`dev-form__type-btn ${gameType === 'download' ? 'active' : ''}`}
+            onClick={() => setGameType('download')}
+          >
+            Downloadable PC/Mac
+          </button>
         </div>
 
         {gameType === 'html' ? (
@@ -217,7 +282,7 @@ export default function SubmitGameForm() {
               ) : (
                 <div className="dev-form__dropzone-text">
                   <strong>Choose file</strong>
-                  <span>.zip, .html, .htm — 50 MB max</span>
+                  <span>.zip, .html, .htm — 150 MB max</span>
                 </div>
               )}
             </div>
@@ -240,7 +305,7 @@ export default function SubmitGameForm() {
               />
             </div>
           </div>
-        ) : (
+        ) : gameType === 'unity' ? (
           <div className="dev-form__field">
             <label className="dev-form__label" htmlFor="dev-unity-url">Hosted URL</label>
             <input
@@ -254,6 +319,32 @@ export default function SubmitGameForm() {
             />
             <p className="dev-form__hint">The URL to your Unity WebGL build&apos;s index.html</p>
           </div>
+        ) : (
+          <div className="dev-form__upload-area">
+            <div
+              className="dev-form__dropzone"
+              onClick={() => downloadInputRef.current?.click()}
+            >
+              {downloadFile ? (
+                <div className="dev-form__dropzone-text">
+                  <strong>{downloadFile.name}</strong>
+                  <span>{(downloadFile.size / 1024 / 1024).toFixed(2)} MB</span>
+                </div>
+              ) : (
+                <div className="dev-form__dropzone-text">
+                  <strong>Choose file</strong>
+                  <span>.exe, .zip, .rar, .app — 150 MB max</span>
+                </div>
+              )}
+            </div>
+            <input
+              ref={downloadInputRef}
+              type="file"
+              accept=".zip,.rar,.exe,.app,.7z"
+              style={{ display: 'none' }}
+              onChange={(e) => setDownloadFile(e.target.files?.[0] || null)}
+            />
+          </div>
         )}
       </div>
 
@@ -266,7 +357,7 @@ export default function SubmitGameForm() {
       <button
         type="submit"
         className="dev-form__submit"
-        disabled={isSubmitting || (!gameFile && !embedUrl) || !bannerFile}
+        disabled={isSubmitting || (!gameFile && !embedUrl && !downloadFile) || !bannerFile}
       >
         {isSubmitting ? 'Submitting...' : 'Submit for review'}
       </button>

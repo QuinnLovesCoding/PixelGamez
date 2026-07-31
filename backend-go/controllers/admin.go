@@ -13,11 +13,20 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
+func hasRole(roles []string, target string) bool {
+	for _, r := range roles {
+		if r == target {
+			return true
+		}
+	}
+	return false
+}
+
 func requireAdmin(c *fiber.Ctx) (*db.UserModel, error) {
 	userId := c.Locals("userId").(string)
 	ctx := context.Background()
 	user, _ := database.Client.User.FindUnique(db.User.ID.Equals(userId)).Exec(ctx)
-	if user == nil || (user.Role != "owner" && user.Role != "moderator") {
+	if user == nil || (!hasRole(user.Roles, "owner") && !hasRole(user.Roles, "moderator")) {
 		return nil, fmt.Errorf("forbidden")
 	}
 	return user, nil
@@ -27,7 +36,7 @@ func requireOwner(c *fiber.Ctx) (*db.UserModel, error) {
 	userId := c.Locals("userId").(string)
 	ctx := context.Background()
 	user, _ := database.Client.User.FindUnique(db.User.ID.Equals(userId)).Exec(ctx)
-	if user == nil || user.Role != "owner" {
+	if user == nil || !hasRole(user.Roles, "owner") {
 		return nil, fmt.Errorf("forbidden")
 	}
 	return user, nil
@@ -291,6 +300,7 @@ func GetInquiries(c *fiber.Ctx) error {
 			"name":      inq.Name,
 			"email":     inq.Email,
 			"company":   inq.Company,
+			"website":   inq.Website,
 			"message":   inq.Message,
 			"status":    inq.Status,
 			"createdAt": inq.CreatedAt,
@@ -316,6 +326,22 @@ func ReadInquiry(c *fiber.Ctx) error {
 
 	if err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Failed to update inquiry"})
+	}
+
+	return c.JSON(fiber.Map{"success": true})
+}
+
+func DeleteInquiry(c *fiber.Ctx) error {
+	if _, err := requireOwner(c); err != nil {
+		return c.Status(fiber.StatusForbidden).JSON(fiber.Map{"error": "Forbidden"})
+	}
+
+	inqId := c.Params("id")
+	ctx := context.Background()
+
+	_, err := database.Client.BrandInquiry.FindUnique(db.BrandInquiry.ID.Equals(inqId)).Delete().Exec(ctx)
+	if err != nil {
+		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{"error": "Inquiry not found"})
 	}
 
 	return c.JSON(fiber.Map{"success": true})

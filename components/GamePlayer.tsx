@@ -5,19 +5,20 @@ import { Game } from '../lib/data';
 import { useAuth } from './AuthContext';
 import { useI18n } from './I18nContext';
 import { usePlays } from './usePlays';
-import AdSlot from './AdSlot';
 
 interface GamePlayerProps {
   game: Game;
-  detailedDescriptionHtml?: string;
+  initialPlays?: number;
+  initialLikes?: number;
+  initialDislikes?: number;
 }
 
-export default function GamePlayer({ game, detailedDescriptionHtml }: GamePlayerProps) {
+export default function GamePlayer({ game, initialPlays, initialLikes, initialDislikes }: GamePlayerProps) {
   const { user, isLoggedIn, openAuthModal, toggleFavorite, addRecentGame } = useAuth();
   const { t } = useI18n();
-  const plays = usePlays(game.id);
-  const [likes, setLikes] = useState(0);
-  const [dislikes, setDislikes] = useState(0);
+  const plays = usePlays(game.id) ?? initialPlays ?? 0;
+  const [likes, setLikes] = useState(initialLikes ?? 0);
+  const [dislikes, setDislikes] = useState(initialDislikes ?? 0);
   const [userVote, setUserVote] = useState<'like' | 'dislike' | null>(null);
   const [isVoting, setIsVoting] = useState(false);
   const [isFaving, setIsFaving] = useState(false);
@@ -52,13 +53,16 @@ export default function GamePlayer({ game, detailedDescriptionHtml }: GamePlayer
   }, [game.id]);
 
   useEffect(() => {
-    fetchVotes();
+    // Only fetch if initial wasn't provided (fallback)
+    if (initialLikes === undefined) {
+      fetchVotes();
+    }
     const storedVote = localStorage.getItem(`vote_${game.id}`);
     if (storedVote) setUserVote(storedVote as 'like' | 'dislike');
     
     
     fetch(`/api/games/${game.id}/play`, { method: 'POST' }).catch(() => {});
-  }, [game.id, fetchVotes]);
+  }, [game.id, fetchVotes, initialLikes]);
 
   const handleVote = async (type: 'like' | 'dislike') => {
     if (!isLoggedIn) {
@@ -204,52 +208,6 @@ export default function GamePlayer({ game, detailedDescriptionHtml }: GamePlayer
           </button>
         </div>
       </div>
-
-      <div className="game-player__description-card">
-        {detailedDescriptionHtml ? (
-          <div 
-            className="game-description-seo"
-            dangerouslySetInnerHTML={{ __html: detailedDescriptionHtml }}
-          />
-        ) : (
-          <>
-            <h3>
-              {t('about') || 'About'} {(() => {
-                const translated = t(`game_${game.id}_title`);
-                return translated === `game_${game.id}_title` ? game.title : translated;
-              })()}
-            </h3>
-            <p>
-              {(() => {
-                const translated = t(`game_${game.id}_desc`);
-                return translated === `game_${game.id}_desc` ? game.description : translated;
-              })()}
-            </p>
-          </>
-        )}
-        
-        {(game.discordUrl || game.steamUrl || game.developerLink) && (
-          <div className="game-player__links" style={{ display: 'flex', gap: '12px', marginTop: '16px' }}>
-            {game.discordUrl && (
-              <a href={game.discordUrl} target="_blank" rel="noopener noreferrer" className="game-player__btn" style={{ textDecoration: 'none' }}>
-                <span className="icon">💬</span> Discord
-              </a>
-            )}
-            {game.steamUrl && (
-              <a href={game.steamUrl} target="_blank" rel="noopener noreferrer" className="game-player__btn" style={{ textDecoration: 'none' }}>
-                <span className="icon">🎮</span> Steam
-              </a>
-            )}
-            {game.developerLink && (
-              <a href={game.developerLink} target="_blank" rel="noopener noreferrer" className="game-player__btn" style={{ textDecoration: 'none', backgroundColor: '#6D28D9', color: '#fff' }}>
-                <span className="icon">💖</span> Support Creator
-              </a>
-            )}
-          </div>
-        )}
-      </div>
-      
-      <AdSlot placement="game-below" />
     </div>
   );
 }

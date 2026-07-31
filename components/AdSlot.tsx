@@ -3,13 +3,14 @@
 import React from 'react';
 
 interface AdSlotProps {
-  placement: 'sidebar' | 'banner-home' | 'game-below' | 'game-side' | 'profile';
+  placement: 'sidebar' | 'banner-home' | 'game-below' | 'game-above' | 'game-side' | 'profile';
 }
 
 const adConfigs: Record<string, { key: string, width: number, height: number }> = {
   'sidebar': { key: 'f7f8fe548a743e896041ef92b92e6deb', width: 160, height: 600 },
   'banner-home': { key: '43c31b5154eee340f6dc013fb088e988', width: 728, height: 90 },
   'game-below': { key: '43c31b5154eee340f6dc013fb088e988', width: 728, height: 90 },
+  'game-above': { key: '43c31b5154eee340f6dc013fb088e988', width: 728, height: 90 },
   'game-side': { key: 'def431e6f8a36ee4eeca81f8d6d841f3', width: 300, height: 250 },
   'profile': { key: 'def431e6f8a36ee4eeca81f8d6d841f3', width: 300, height: 250 }
 };

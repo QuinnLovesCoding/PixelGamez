@@ -19,6 +19,7 @@ model User {
   passwordHash           String?
   googleId               String?        @unique
   role                   String         @default("user")
+  roles                  String[]       @default(["user"])
   avatarUrl              String         @default("")
   bannerUrl              String         @default("")
   createdAt              DateTime       @default(now())
@@ -51,6 +52,10 @@ model Game {
   developerLink  String?
   steamUrl       String?
   discordUrl     String?
+  itchUrl        String?
+  twitterUrl     String?
+  downloadUrl    String?
+  videoUrl       String?
   bannerUrl      String?
   createdAt      DateTime @default(now())
 
@@ -72,6 +77,10 @@ model Submission {
   bannerUrl        String?
   steamUrl         String?
   discordUrl       String?
+  itchUrl          String?
+  twitterUrl       String?
+  videoUrl         String?
+  downloadFileUrl  String?
   developerName    String
   submitterEmail   String?
   userId           String?
@@ -146,6 +155,7 @@ model BrandInquiry {
   name      String
   email     String
   company   String?
+  website   String?
   budget    String?
   message   String
   status    String   @default("unread") // unread, read, archived
@@ -181,4 +191,23 @@ model Message {
   senderId       String
   text           String
   createdAt      DateTime     @default(now())
+}
+
+model PartnerLogo {
+  id          String   @id @default(uuid())
+  name        String
+  imageUrl    String
+  linkUrl     String
+  impressions Int      @default(0)
+  clicks      Int      @default(0)
+  createdAt   DateTime @default(now())
+}
+
+model SiteAnalytics {
+  id          String   @id @default(uuid())
+  date        DateTime @unique @default(now()) // Stored as YYYY-MM-DD
+  dau         Int      @default(0)
+  wau         Int      @default(0)
+  mau         Int      @default(0)
+  updatedAt   DateTime @updatedAt
 }

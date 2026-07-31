@@ -72,6 +72,7 @@ func Register(c *fiber.Ctx) error {
 		db.User.Email.Set(normalizedEmail),
 		db.User.DisplayName.Set(displayName),
 		db.User.Role.Set(role),
+		db.User.Roles.Set([]string{role}),
 		db.User.PasswordHash.Set(passwordHash),
 	).Exec(ctx)
 	if err != nil {
@@ -135,6 +136,7 @@ func Register(c *fiber.Ctx) error {
 			"email":       newUser.Email,
 			"displayName": newUser.DisplayName,
 			"role":        newUser.Role,
+			"roles":       newUser.Roles,
 			"avatarUrl":   newUser.AvatarURL,
 		},
 	})
@@ -199,6 +201,7 @@ func Login(c *fiber.Ctx) error {
 			"email":         user.Email,
 			"displayName":   user.DisplayName,
 			"role":          user.Role,
+			"roles":         user.Roles,
 			"avatarUrl":     user.AvatarURL,
 			"favoriteGames": favGameIds,
 			"bannerUrl":     user.BannerURL,
@@ -241,6 +244,7 @@ func GetMe(c *fiber.Ctx) error {
 		"email":         user.Email,
 		"displayName":   user.DisplayName,
 		"role":          user.Role,
+		"roles":         user.Roles,
 		"avatarUrl":     user.AvatarURL,
 		"favoriteGames": favGameIds,
 		"bannerUrl":     user.BannerURL,

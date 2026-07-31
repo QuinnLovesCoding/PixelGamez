@@ -19,6 +19,9 @@ export interface Game {
   developerLink?: string;
   developerName?: string;
   steamUrl?: string;
+  itchUrl?: string;
+  twitterUrl?: string;
+  videoUrl?: string;
   downloadUrl?: string;
   createdAt?: string;
 }

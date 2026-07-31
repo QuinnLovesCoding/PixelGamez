@@ -19,6 +19,7 @@ model User {
   passwordHash           String?
   googleId               String?        @unique
   role                   String         @default("user")
+  roles                  String[]       @default(["user"])
   avatarUrl              String         @default("")
   bannerUrl              String         @default("")
   createdAt              DateTime       @default(now())
@@ -53,6 +54,10 @@ model Game {
   developerLink  String?
   steamUrl       String?
   discordUrl     String?
+  itchUrl        String?
+  twitterUrl     String?
+  videoUrl       String?
+  downloadUrl    String?
   bannerUrl      String?
   createdAt      DateTime @default(now())
 
@@ -78,6 +83,10 @@ model Submission {
   bannerUrl        String?
   steamUrl         String?
   discordUrl       String?
+  itchUrl          String?
+  twitterUrl       String?
+  videoUrl         String?
+  downloadUrl      String?
   developerName    String
   submitterEmail   String?
   userId           String?
@@ -164,6 +173,7 @@ model BrandInquiry {
   name      String
   email     String
   company   String?
+  website   String?
   budget    String?
   message   String
   status    String   @default("unread") // unread, read, archived

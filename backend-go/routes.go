@@ -78,6 +78,7 @@ func setupAdminRoutes(api fiber.Router) {
 	
 	admin.Get("/inquiries", controllers.GetInquiries)
 	admin.Post("/inquiries/:id/read", controllers.ReadInquiry)
+	admin.Delete("/inquiries/:id", controllers.DeleteInquiry)
 
 	api.Get("/notifications", middleware.RequireAuth, controllers.GetNotifications)
 }
