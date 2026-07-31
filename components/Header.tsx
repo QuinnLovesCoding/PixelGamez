@@ -65,8 +65,7 @@ export default function Header() {
           }
         }
       })
-      .catch(console.error);
-
+      .catch(err => console.error('Failed to load notifications:', err));
   }, []);
 
   useEffect(() => {
@@ -120,7 +119,7 @@ export default function Header() {
     <header className="header">
       <div className="header__left">
         <Link href="/" className="header__logo">
-          <Image src="/images/logo/PixelGamezLogoNoBackround.png" alt="PixelGamez Logo" width={180} height={144} className="header__logo-icon" priority unoptimized />
+          <Image src="/images/logo/PixelGamezLogoNoBackround.png" alt="PixelGamez Logo" width={180} height={144} className="header__logo-icon" priority unoptimized suppressHydrationWarning />
         </Link>
       </div>
 
