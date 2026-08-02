@@ -13,6 +13,11 @@ export default function Sidebar() {
   const pathname = usePathname();
   const { isOwner, isModerator, user } = useAuth();
   const { t } = useI18n();
+  const [isMounted, setIsMounted] = React.useState(false);
+
+  React.useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   return (
     <nav className="sidebar">
@@ -58,7 +63,7 @@ export default function Sidebar() {
         </span>
         <span className="sidebar__label">Brand Integration</span>
       </Link>
-      {isOwner || isModerator ? (
+      {isMounted && (isOwner || isModerator) ? (
         <Link href="/admin" className={`sidebar__link ${pathname === '/admin' ? 'active' : ''}`}>
           <span className="sidebar__icon"><Icon name="star" /></span>
           <span className="sidebar__label">{isOwner ? t('owner_panel') : t('moderator_panel')}</span>

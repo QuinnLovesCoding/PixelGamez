@@ -12,21 +12,28 @@ import { prisma } from '../../../lib/prisma';
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
   const { id } = await params;
-  const game = getGameById(id);
-  if (!game) return { title: 'Game Not Found' };
+  let game = getGameById(id) as any;
+  let seoTitle = 'Game Not Found';
+  let seoDescription = '';
 
-  let seoDescription = game.description;
   try {
-    const dbGame = await prisma.game.findUnique({ where: { id }, select: { description: true } });
-    if (dbGame && dbGame.description) {
+    const dbGame = await prisma.game.findUnique({ where: { id }, select: { title: true, description: true } });
+    if (game) {
+      seoTitle = `${game.title} - Play Free on PixelGamez`;
+      seoDescription = dbGame?.description || game.description;
+    } else if (dbGame) {
+      seoTitle = `${dbGame.title} - Play Free on PixelGamez`;
       seoDescription = dbGame.description;
     }
   } catch (e) {
-    // Ignore error, fallback to static description
+    if (game) {
+      seoTitle = `${game.title} - Play Free on PixelGamez`;
+      seoDescription = game.description;
+    }
   }
 
   return {
-    title: `${game.title} - Play Free on PixelGamez`,
+    title: seoTitle,
     description: seoDescription,
   };
 }
@@ -121,44 +128,66 @@ async function loadDescription(gameId: string, gameTitle: string): Promise<strin
 export default async function GamePage({ params }: { params: Promise<{ id: string }> }) {
   try {
     const { id } = await params;
-    const game = getGameById(id);
+    let gameData: any = getGameById(id);
 
-    if (!game) {
-      notFound();
-    }
-
-    const detailedDescriptionHtml = await loadDescription(game.id, game.title);
-    const relatedGames = getRelatedGames(game.id, 30);
-
-    const gameData = { ...game };
     let initialLikes = 0;
     let initialDislikes = 0;
     let initialPlays = 0;
+
     try {
       const [dbGame, likesCount, dislikesCount] = await Promise.all([
-        prisma.game.findUnique({ where: { id: gameData.id } }),
-        prisma.vote.count({ where: { gameId: gameData.id, type: 'up' } }),
-        prisma.vote.count({ where: { gameId: gameData.id, type: 'down' } })
+        prisma.game.findUnique({ where: { id } }),
+        prisma.vote.count({ where: { gameId: id, type: 'up' } }),
+        prisma.vote.count({ where: { gameId: id, type: 'down' } })
       ]);
 
       initialLikes = likesCount;
       initialDislikes = dislikesCount;
 
-      if (dbGame) {
-        initialPlays = dbGame.plays;
-
-        if (dbGame.discordUrl) gameData.discordUrl = dbGame.discordUrl;
-        if (dbGame.steamUrl) gameData.steamUrl = dbGame.steamUrl;
-        if (dbGame.itchUrl) gameData.itchUrl = dbGame.itchUrl;
-        if (dbGame.twitterUrl) gameData.twitterUrl = dbGame.twitterUrl;
-        if (dbGame.videoUrl) gameData.videoUrl = dbGame.videoUrl;
-        if (dbGame.downloadUrl) gameData.downloadUrl = dbGame.downloadUrl;
-        if (dbGame.developerLink) gameData.developerLink = dbGame.developerLink;
-        if (dbGame.developerName) gameData.developerName = dbGame.developerName;
+      if (!gameData && dbGame) {
+        gameData = {
+          id: dbGame.id,
+          title: dbGame.title,
+          description: dbGame.description,
+          category: dbGame.category,
+          tags: [], 
+          thumbnail: dbGame.thumbnail || '',
+          embedUrl: dbGame.embedUrl,
+          rating: 0, 
+          plays: dbGame.plays,
+          discordUrl: dbGame.discordUrl || undefined,
+          steamUrl: dbGame.steamUrl || undefined,
+          itchUrl: dbGame.itchUrl || undefined,
+          twitterUrl: dbGame.twitterUrl || undefined,
+          videoUrl: dbGame.videoUrl || undefined,
+          downloadUrl: dbGame.downloadUrl || undefined,
+          developerLink: dbGame.developerLink || undefined,
+          developerName: dbGame.developerName || undefined,
+        };
+      } else if (gameData) {
+        gameData = { ...gameData };
+        if (dbGame) {
+          initialPlays = dbGame.plays;
+          if (dbGame.discordUrl) gameData.discordUrl = dbGame.discordUrl;
+          if (dbGame.steamUrl) gameData.steamUrl = dbGame.steamUrl;
+          if (dbGame.itchUrl) gameData.itchUrl = dbGame.itchUrl;
+          if (dbGame.twitterUrl) gameData.twitterUrl = dbGame.twitterUrl;
+          if (dbGame.videoUrl) gameData.videoUrl = dbGame.videoUrl;
+          if (dbGame.downloadUrl) gameData.downloadUrl = dbGame.downloadUrl;
+          if (dbGame.developerLink) gameData.developerLink = dbGame.developerLink;
+          if (dbGame.developerName) gameData.developerName = dbGame.developerName;
+        }
       }
     } catch (err) {
       console.error('Failed to fetch initial stats', err);
     }
+
+    if (!gameData) {
+      notFound();
+    }
+
+    const detailedDescriptionHtml = await loadDescription(gameData.id, gameData.title);
+    const relatedGames = getRelatedGames(gameData.id, 30);
 
     const videoGameSchema = {
       "@context": "https://schema.org",
@@ -277,7 +306,15 @@ export default async function GamePage({ params }: { params: Promise<{ id: strin
       </div>
     );
   } catch (error: any) {
-    if (error.message === 'NEXT_NOT_FOUND') throw error;
+    if (error && typeof error === 'object') {
+      const isNotFound = error.message === 'NEXT_NOT_FOUND' || 
+                         error.digest === 'NEXT_NOT_FOUND' || 
+                         (error.message && error.message.includes('NEXT_HTTP_ERROR_FALLBACK'));
+      if (isNotFound) {
+        throw error;
+      }
+    }
+    
     return (
       <div style={{ padding: '50px', color: 'white', background: 'red', borderRadius: '8px', margin: '20px' }}>
         <h1>Production Error Debug:</h1>

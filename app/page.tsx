@@ -16,6 +16,8 @@ export default function Home() {
   const { t } = useI18n();
   const { user } = useAuth();
   const [playsMap, setPlaysMap] = useState<Record<string, number> | undefined>(undefined);
+  const [isMounted, setIsMounted] = useState(false);
+
 
   useEffect(() => {
     let active = true;
@@ -32,30 +34,10 @@ export default function Home() {
     };
     fetchPlays();
     const interval = setInterval(fetchPlays, 15 * 60 * 1000); // 15 mins
+    
+    setIsMounted(true);
+    
     return () => { active = false; clearInterval(interval); };
-  }, []);
-
-  useEffect(() => {
-    // Demonstration of Notification System
-    const timer1 = setTimeout(() => {
-      triggerNotification({
-        type: 'partnership',
-        title: 'New Spotlight Partner!',
-        message: 'Welcome to EpicQuest Gaming, our newest spotlight partner.',
-        duration: 8000
-      });
-    }, 2000);
-
-    const timer2 = setTimeout(() => {
-      triggerNotification({
-        type: 'winner',
-        title: 'Competition Winner!',
-        message: 'Congratulations to PlayerOne for winning the monthly Brawl!',
-        duration: 8000
-      });
-    }, 6000);
-
-    return () => { clearTimeout(timer1); clearTimeout(timer2); };
   }, []);
 
   const featuredGames = getFeaturedGames();
@@ -111,11 +93,11 @@ export default function Home() {
 
       <TrustedPartners />
 
-      {favoriteGames.length > 0 && (
+      {isMounted && favoriteGames.length > 0 && (
         <GameCarousel title="Your Favorites" games={favoriteGames.slice(0, 12)} viewMoreLink="/liked" />
       )}
 
-      {topPicks.length > 0 && (
+      {isMounted && topPicks.length > 0 && (
         <GameCarousel title={t('top_picks')} games={topPicks.slice(0, 12)} viewMoreLink="/recommended" />
       )}
 

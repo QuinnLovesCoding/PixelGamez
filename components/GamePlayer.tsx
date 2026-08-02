@@ -136,17 +136,25 @@ export default function GamePlayer({ game, initialPlays, initialLikes, initialDi
   return (
     <div className="game-player animate-scale-in">
       <div className="game-player__embed-wrapper" style={{ overflow: 'hidden', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-        <iframe
-            id="game-iframe"
-            className="game-player__iframe"
-            src={game.embedUrl.includes('itch.zone') ? `/api/proxy-game?url=${encodeURIComponent(game.embedUrl)}` : game.embedUrl}
-            frameBorder="0"
-            scrolling="no"
-            allowFullScreen
-            referrerPolicy="no-referrer"
-            sandbox={game.embedUrl.includes('itch.io') || game.embedUrl.includes('itch.zone') ? "allow-scripts allow-same-origin allow-popups allow-forms allow-pointer-lock allow-downloads" : undefined}
-            style={{ width: '100%', height: '100%' }}
-          ></iframe>
+        {(() => {
+          let finalSrc = game.embedUrl;
+          const itchZoneMatch = game.embedUrl.match(/itch\.zone\/html\/(\d+)/);
+          if (itchZoneMatch) {
+            finalSrc = `https://itch.io/embed-upload/${itchZoneMatch[1]}?color=000000`;
+          }
+
+          return (
+            <iframe
+              id="game-iframe"
+              className="game-player__iframe"
+              src={finalSrc}
+              frameBorder="0"
+              scrolling="no"
+              allowFullScreen
+              style={{ width: '100%', height: '100%' }}
+            ></iframe>
+          );
+        })()}
       </div>
 
       <div className="game-player__controls">

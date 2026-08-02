@@ -223,7 +223,7 @@ h3 { font-size: var(--font-size-md); }
   align-items: center;
   justify-content: center;
   width: auto;
-  height: 52px;
+  height: 72px;
   border-radius: var(--radius-md);
   object-fit: contain;
 }

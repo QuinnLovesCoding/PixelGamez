@@ -125,8 +125,8 @@ export default function Header() {
         <Link href="/" className="header__logo" style={{ textDecoration: 'none' }}>
           <Image src="/images/logo/PixelGamezLogoNoBackround.png" alt="PixelGamez Logo" width={180} height={144} className="header__logo-icon" priority unoptimized suppressHydrationWarning />
           <div style={{ display: 'flex', flexDirection: 'column', lineHeight: 1 }}>
-            <span style={{ fontWeight: 900, fontSize: '1.2rem', letterSpacing: '-0.03em', color: 'var(--text-primary)' }}>pixel</span>
-            <span style={{ fontWeight: 900, fontSize: '1.2rem', letterSpacing: '-0.03em', color: 'var(--text-primary)' }}>gamez</span>
+            <span style={{ fontWeight: 900, fontSize: '1.4rem', letterSpacing: '-0.03em', color: 'var(--text-primary)' }}>pixel</span>
+            <span style={{ fontWeight: 900, fontSize: '1.4rem', letterSpacing: '-0.03em', color: 'var(--text-primary)' }}>gamez</span>
           </div>
         </Link>
       </div>
@@ -202,7 +202,9 @@ export default function Header() {
           )}
         </button>
 
-        {isLoggedIn && user ? (
+        {!mounted ? (
+          <div style={{ width: '40px', height: '40px' }} />
+        ) : isLoggedIn && user ? (
           <>
             <div className="header__notif-wrapper" style={{ position: 'relative' }} ref={notifMenuRef}>
               <button className="header__theme-btn" onClick={handleNotifClick} aria-label="Notifications" title="Notifications" style={{ position: 'relative' }}>
