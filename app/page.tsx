@@ -10,7 +10,7 @@ import Link from 'next/link';
 import { useI18n } from '../components/I18nContext';
 import { useAuth } from '../components/AuthContext';
 import TrustedPartners from '../components/TrustedPartners';
-import { triggerNotification } from '../components/NotificationSystem';
+
 
 export default function Home() {
   const { t } = useI18n();
