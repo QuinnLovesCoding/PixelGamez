@@ -66,12 +66,9 @@ export default function GameCarousel({ title, games, viewMoreLink }: GameCarouse
       <div className="carousel-header" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px' }}>
         <h2 className="carousel-title" style={{ 
           margin: 0, 
-          background: 'linear-gradient(90deg, #ec4899, #8b5cf6)', 
-          WebkitBackgroundClip: 'text', 
-          WebkitTextFillColor: 'transparent',
+          color: 'var(--text-primary)',
           fontSize: '1.75rem',
-          fontWeight: 700,
-          textShadow: '0 2px 10px rgba(236, 72, 153, 0.2)'
+          fontWeight: 700
         }}>{title}</h2>
         {viewMoreLink && (
           <Link href={viewMoreLink} style={{ color: '#f43f5e', fontWeight: 'bold', textDecoration: 'none', fontSize: '14px', display: 'block' }}>
