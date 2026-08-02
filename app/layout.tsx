@@ -16,7 +16,12 @@ export const metadata: Metadata = {
   description: 'Play free online games at PixelGamez. Browse hundreds of high-quality browser games across action, puzzle, racing, and more.',
 };
 
-export default function RootLayout({
+export const revalidate = 60; // Revalidate every 60 seconds (ISR)
+
+import { getAllGames } from '../lib/server-data';
+import GamesProvider from './GamesProvider';
+
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
@@ -47,6 +52,8 @@ export default function RootLayout({
       "https://www.youtube.com/c/pixelgamez"
     ]
   };
+
+  const allGames = await getAllGames();
 
   return (
     <html lang="en" suppressHydrationWarning>
@@ -84,27 +91,29 @@ export default function RootLayout({
           />
         </noscript>
         <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || 'dummy_client_id_please_configure_in_env'}>
-          <I18nProvider>
-            <AuthProvider>
-            <ThemeProvider>
-              <div id="app">
-                <div id="app-header">
-                  <Header />
-                </div>
-                <div id="app-sidebar">
-                  <Sidebar />
-                </div>
-                <main id="app-main">
-                  <div id="app-content">
-                    {children}
+          <GamesProvider initialGames={allGames as any}>
+            <I18nProvider>
+              <AuthProvider>
+              <ThemeProvider>
+                <div id="app">
+                  <div id="app-header">
+                    <Header />
                   </div>
-                </main>
-              </div>
-              <AuthModal />
-              <NotificationSystem />
-            </ThemeProvider>
-          </AuthProvider>
-          </I18nProvider>
+                  <div id="app-sidebar">
+                    <Sidebar />
+                  </div>
+                  <main id="app-main">
+                    <div id="app-content">
+                      {children}
+                    </div>
+                  </main>
+                </div>
+                <AuthModal />
+                <NotificationSystem />
+              </ThemeProvider>
+              </AuthProvider>
+            </I18nProvider>
+          </GamesProvider>
         </GoogleOAuthProvider>
       </body>
     </html>

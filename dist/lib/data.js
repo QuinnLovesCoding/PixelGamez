@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.games = exports.categories = void 0;
 exports.getAllGames = getAllGames;
+exports.updateGames = updateGames;
 exports.getGameById = getGameById;
 exports.getGamesByCategory = getGamesByCategory;
 exports.getFeaturedGames = getFeaturedGames;
@@ -194,6 +195,10 @@ exports.games.forEach(g => {
 });
 function getAllGames() {
     return exports.games;
+}
+function updateGames(newGames) {
+    exports.games.length = 0;
+    exports.games.push(...newGames);
 }
 function getGameById(id) {
     return exports.games.find(g => g.id === id);

@@ -17,7 +17,7 @@ const GameCard = React.memo(function GameCard({ game }: GameCardProps) {
 
   return (
     <Link href={`/game/${game.id}`} className="game-card">
-      <Image src={game.thumbnail} alt="" className="game-card__image" fill sizes="(max-width: 768px) 50vw, 25vw" loading="lazy" style={{ objectFit: 'cover' }} />
+      <Image src={game.thumbnail || '/images/logo/PixelGamezLogoNoBackround.png'} alt="" className="game-card__image" fill sizes="(max-width: 768px) 50vw, 25vw" loading="lazy" style={{ objectFit: 'cover' }} />
       <div className="game-card__overlay">
         <span className="game-card__title">
           {(() => {

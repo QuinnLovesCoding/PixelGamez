@@ -416,3 +416,90 @@ func DeleteNotification(c *fiber.Ctx) error {
 
 	return c.JSON(fiber.Map{"success": true})
 }
+
+func UploadGameDirect(c *fiber.Ctx) error {
+	user, err := requireOwner(c)
+	if err != nil {
+		return c.Status(fiber.StatusForbidden).JSON(fiber.Map{"error": "Forbidden"})
+	}
+
+	form, err := c.MultipartForm()
+	if err != nil {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "Failed to parse form"})
+	}
+
+	title := getFormValue(form, "title")
+	description := getFormValue(form, "description")
+	category := getFormValue(form, "category")
+
+	if title == "" || description == "" || category == "" {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "Missing required fields."})
+	}
+
+	// 1. Process Thumbnail
+	thumbnails := form.File["thumbnail"]
+	var thumbnailUrl string
+	if len(thumbnails) > 0 {
+		thumbnail := thumbnails[0]
+		uploadsDir := filepath.Join(".", "..", "public", "api", "uploads")
+		os.MkdirAll(uploadsDir, os.ModePerm)
+
+		ext := filepath.Ext(thumbnail.Filename)
+		if ext == "" {
+			ext = ".png"
+		}
+		filename := fmt.Sprintf("thumb-%d%s", time.Now().UnixNano(), ext)
+		path := filepath.Join(uploadsDir, filename)
+
+		if err := c.SaveFile(thumbnail, path); err != nil {
+			return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Save thumbnail error"})
+		}
+		thumbnailUrl = "/api/uploads/" + filename
+	} else {
+		thumbnailUrl = "/images/placeholder.png"
+	}
+
+	// 2. Process Game Zip
+	gameFiles := form.File["gameFile"]
+	var embedUrl string
+	if len(gameFiles) > 0 {
+		gameFile := gameFiles[0]
+		gameId := fmt.Sprintf("game-%d", time.Now().UnixNano())
+		gameDir := filepath.Join(".", "..", "public", "community-games", gameId)
+		os.MkdirAll(gameDir, os.ModePerm)
+
+		ext := strings.ToLower(filepath.Ext(gameFile.Filename))
+		if ext == ".zip" {
+			zipPath := filepath.Join(gameDir, "game.zip")
+			c.SaveFile(gameFile, zipPath)
+			unzipFile(zipPath, gameDir)
+			embedUrl = "/community-games/" + gameId + "/index.html"
+		} else {
+			htmlPath := filepath.Join(gameDir, "index.html")
+			c.SaveFile(gameFile, htmlPath)
+			embedUrl = "/community-games/" + gameId + "/index.html"
+		}
+	} else {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "Game file (zip/html) is required."})
+	}
+
+	ctx := context.Background()
+	gameIdStr := fmt.Sprintf("%s-%d", strings.ToLower(strings.ReplaceAll(title, " ", "-")), time.Now().Unix())
+	
+	_, err = database.Client.Game.CreateOne(
+		db.Game.ID.Set(gameIdStr),
+		db.Game.Title.Set(title),
+		db.Game.Description.Set(description),
+		db.Game.Category.Set(category),
+		db.Game.Thumbnail.Set(thumbnailUrl),
+		db.Game.EmbedUrl.Set(embedUrl),
+		db.Game.Tags.Set([]string{"admin-upload", "exclusive"}),
+		db.Game.DeveloperName.Set(user.DisplayName),
+	).Exec(ctx)
+
+	if err != nil {
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Failed to create game in database: " + err.Error()})
+	}
+
+	return c.JSON(fiber.Map{"success": true, "gameId": gameIdStr})
+}

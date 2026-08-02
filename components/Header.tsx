@@ -18,6 +18,7 @@ export default function Header() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const [isEditingProfile, setIsEditingProfile] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const router = useRouter();
   const dropdownRef = useRef<HTMLFormElement>(null);
   const userMenuRef = useRef<HTMLDivElement>(null);
@@ -26,6 +27,9 @@ export default function Header() {
   const { user, isLoggedIn, isOwner, isModerator, openAuthModal, logout, uploadAvatar, loading } = useAuth();
   const { theme, toggleTheme } = useTheme();
   const { t } = useI18n();
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     if (search.trim()) {
@@ -118,8 +122,12 @@ export default function Header() {
   return (
     <header className="header">
       <div className="header__left">
-        <Link href="/" className="header__logo">
+        <Link href="/" className="header__logo" style={{ textDecoration: 'none' }}>
           <Image src="/images/logo/PixelGamezLogoNoBackround.png" alt="PixelGamez Logo" width={180} height={144} className="header__logo-icon" priority unoptimized suppressHydrationWarning />
+          <div style={{ display: 'flex', flexDirection: 'column', lineHeight: 1 }}>
+            <span style={{ fontWeight: 900, fontSize: '1.2rem', letterSpacing: '-0.03em', color: 'var(--text-primary)' }}>pixel</span>
+            <span style={{ fontWeight: 900, fontSize: '1.2rem', letterSpacing: '-0.03em', color: 'var(--text-primary)' }}>gamez</span>
+          </div>
         </Link>
       </div>
 

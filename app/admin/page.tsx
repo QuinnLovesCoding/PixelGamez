@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useAuth } from '../../components/AuthContext';
 import { games as validGames } from '../../lib/data';
+import AdminUploadGameForm from './AdminUploadGameForm';
 
 interface Submission {
   id: string;
@@ -30,7 +31,7 @@ interface Ad {
 
 export default function AdminPage() {
   const { isLoggedIn, isOwner, isModerator, loading, openAuthModal } = useAuth();
-  const [activeTab, setActiveTab] = useState<'submissions' | 'ads' | 'notices' | 'analytics' | 'users' | 'inquiries'>('submissions');
+  const [activeTab, setActiveTab] = useState<'submissions' | 'upload' | 'ads' | 'notices' | 'analytics' | 'users' | 'inquiries'>('submissions');
   
   
   const [pending, setPending] = useState<Submission[]>([]);
@@ -314,6 +315,9 @@ export default function AdminPage() {
           </button>
           {isOwner && (
             <>
+              <button className={`admin-tab ${activeTab === 'upload' ? 'active' : ''}`} onClick={() => setActiveTab('upload')}>
+                Upload Game
+              </button>
               <button className={`admin-tab ${activeTab === 'users' ? 'active' : ''}`} onClick={() => setActiveTab('users')}>
                 Users
               </button>
@@ -388,6 +392,12 @@ export default function AdminPage() {
               ))}
             </div>
           )}
+        </div>
+      )}
+
+      {activeTab === 'upload' && isOwner && (
+        <div className="admin-section">
+          <AdminUploadGameForm />
         </div>
       )}
 

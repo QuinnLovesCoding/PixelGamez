@@ -222,13 +222,13 @@ h3 { font-size: var(--font-size-md); }
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 34px;
-  height: 34px;
+  width: auto;
+  height: 52px;
   border-radius: var(--radius-md);
   object-fit: contain;
 }
 .header__logo-text {
-  font-size: var(--font-size-lg);
+  font-size: var(--font-size-xl);
   font-weight: 900;
   background: var(--accent-gradient);
   -webkit-background-clip: text;

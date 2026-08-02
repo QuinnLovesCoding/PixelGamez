@@ -243,6 +243,11 @@ export function getAllGames(): Game[] {
   return games;
 }
 
+export function updateGames(newGames: Game[]) {
+  games.length = 0;
+  games.push(...newGames);
+}
+
 export function getGameById(id: string): Game | undefined {
   return games.find(g => g.id === id);
 }

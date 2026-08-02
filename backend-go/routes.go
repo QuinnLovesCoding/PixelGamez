@@ -64,6 +64,7 @@ func setupAdminRoutes(api fiber.Router) {
 	admin.Get("/pending", controllers.GetPendingSubmissions)
 	admin.Post("/approve/:id", controllers.ApproveSubmission)
 	admin.Post("/reject/:id", controllers.RejectSubmission)
+	admin.Post("/games/upload", controllers.UploadGameDirect)
 	
 	admin.Get("/analytics", controllers.GetAnalytics)
 	// admin.Get("/analytics/:id", controllers.GetAnalyticsSingle) // Not implemented for now
