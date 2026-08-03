@@ -9,15 +9,21 @@ import { usePlays } from './usePlays';
 
 interface GameCardProps {
   game: Game;
+  size?: 'normal' | 'large' | 'wide' | 'tall';
 }
 
-const GameCard = React.memo(function GameCard({ game }: GameCardProps) {
+const GameCard = React.memo(function GameCard({ game, size = 'normal' }: GameCardProps) {
   const { t } = useI18n();
   const plays = usePlays(game.id);
 
+  let sizeClass = '';
+  if (size === 'large') sizeClass = 'game-card--large';
+  if (size === 'wide') sizeClass = 'game-card--wide';
+  if (size === 'tall') sizeClass = 'game-card--tall';
+
   return (
-    <Link href={`/game/${game.id}`} className="game-card">
-      <Image src={game.thumbnail || '/images/logo/PixelGamezLogoNoBackround.png'} alt="" className="game-card__image" fill sizes="(max-width: 768px) 50vw, 25vw" loading="lazy" style={{ objectFit: 'cover' }} />
+    <Link href={`/game/${game.id}`} className={`game-card ${sizeClass}`}>
+      <Image src={game.thumbnail || '/images/logo/PixelGamezLogoNoBackround.png'} alt="" className="game-card__image" fill sizes="(max-width: 768px) 50vw, (max-width: 1200px) 25vw, 15vw" loading="lazy" style={{ objectFit: 'cover' }} />
       <div className="game-card__overlay">
         <span className="game-card__title">
           {(() => {
@@ -35,7 +41,7 @@ const GameCard = React.memo(function GameCard({ game }: GameCardProps) {
       {(() => {
         const computedTags: string[] = [];
         
-        if (game.createdAt && Date.now() - new Date(game.createdAt).getTime() <= 10 * 24 * 60 * 60 * 1000) {
+        if (game.tags.includes('new')) {
           computedTags.push('new');
         }
         
@@ -58,7 +64,7 @@ const GameCard = React.memo(function GameCard({ game }: GameCardProps) {
         const finalTags = computedTags.slice(0, 2);
 
         return finalTags.length > 0 ? (
-          <div className="game-card__badges">
+          <div className="game-card__badges" suppressHydrationWarning>
             {finalTags.map(tag => (
               <span key={tag} className={`game-card__badge game-card__badge--${tag.toLowerCase()}`}>
                 {t(tag) || tag}

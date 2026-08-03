@@ -138,9 +138,13 @@ export default function GamePlayer({ game, initialPlays, initialLikes, initialDi
       <div className="game-player__embed-wrapper" style={{ overflow: 'hidden', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
         {(() => {
           let finalSrc = game.embedUrl;
+          let isItch = false;
           const itchZoneMatch = game.embedUrl.match(/itch\.zone\/html\/(\d+)/);
           if (itchZoneMatch) {
             finalSrc = `https://itch.io/embed-upload/${itchZoneMatch[1]}?color=000000`;
+            isItch = true;
+          } else if (game.embedUrl.includes('itch.io')) {
+            isItch = true;
           }
 
           return (
@@ -151,6 +155,7 @@ export default function GamePlayer({ game, initialPlays, initialLikes, initialDi
               frameBorder="0"
               scrolling="no"
               allowFullScreen
+              referrerPolicy={isItch ? "no-referrer" : undefined}
               style={{ width: '100%', height: '100%' }}
             ></iframe>
           );

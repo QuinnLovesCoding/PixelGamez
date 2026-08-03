@@ -22,9 +22,15 @@ export default function GameGrid({ title, games, viewMoreLink }: GameGridProps) 
         )}
       </div>
       <div className="game-grid">
-        {games.map(game => (
-          <GameCard key={game.id} game={game} />
-        ))}
+        {games.map((game, i) => {
+          let size: 'normal' | 'large' | 'wide' | 'tall' = 'normal';
+          // Deterministic pattern for CrazyGames style layout
+          if (i === 0 || i === 8) size = 'large';
+          else if (i === 3 || i === 11) size = 'wide';
+          else if (i === 6) size = 'tall';
+
+          return <GameCard key={game.id} game={game} size={size} />;
+        })}
       </div>
 
     </section>

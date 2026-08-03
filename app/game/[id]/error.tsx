@@ -21,7 +21,7 @@ export default function Error({
       maxWidth: '800px', 
       backgroundColor: '#fef2f2', 
       border: '4px solid #ef4444', 
-      borderRadius: '8px', 
+      borderRadius: '8px',  
       color: '#7f1d1d',
       fontFamily: 'monospace'
     }}>

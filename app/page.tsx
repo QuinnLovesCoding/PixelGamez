@@ -101,26 +101,26 @@ export default function Home() {
         <GameCarousel title={t('top_picks')} games={topPicks.slice(0, 12)} viewMoreLink="/recommended" />
       )}
 
-      <GameCarousel title={t('trending')} games={trendingGames.slice(0, 18)} viewMoreLink="/trending" />
+      <GameGrid title={t('trending')} games={trendingGames.slice(0, 24)} viewMoreLink="/trending" />
       
       <div style={{ margin: '32px 0' }}>
         <AdSlot placement="banner-home" />
       </div>
 
-      <GameCarousel title={t('new')} games={newGames.slice(0, 18)} viewMoreLink="/new" />
+      <GameGrid title={t('new')} games={newGames.slice(0, 24)} viewMoreLink="/new" />
       
       <div style={{ margin: '32px 0' }}>
         <AdSlot placement="banner-home" />
       </div>
 
-      <GameCarousel title={t('most_visited')} games={mostVisitedGames.slice(0, 14)} viewMoreLink="/most-visited" />
-      <GameCarousel title={t('up_and_coming')} games={upAndComingGames.slice(0, 14)} viewMoreLink="/up-and-coming" />
+      <GameCarousel title={t('most_visited')} games={mostVisitedGames.slice(0, 20)} viewMoreLink="/most-visited" />
+      <GameCarousel title={t('up_and_coming')} games={upAndComingGames.slice(0, 20)} viewMoreLink="/up-and-coming" />
       
       <div style={{ margin: '32px 0' }}>
         <AdSlot placement="banner-home" />
       </div>
       
-      <GameCarousel title={t('popular')} games={popularGames.slice(0, 18)} viewMoreLink="/popular" />
+      <GameGrid title={t('popular')} games={popularGames.slice(0, 24)} viewMoreLink="/popular" />
 
       {categories.map(category => {
         const games = getGamesByCategory(category.id);
@@ -129,7 +129,7 @@ export default function Home() {
           <React.Fragment key={category.id}>
             <GameCarousel
               title={t(category.id) || category.name}
-              games={games.slice(0, 14)}
+              games={games.slice(0, 20)}
               viewMoreLink={`/category/${category.id}`}
             />
             {['action', 'simulation'].includes(category.id) && (
