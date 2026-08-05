@@ -1,0 +1,1434 @@
+[
+  {
+    "id": "fortz",
+    "title": "Fortz",
+    "embedUrl": "https://www.twoplayergames.org/embed/fortz",
+    "tags": [
+      "new"
+    ],
+    "thumbnail": "/images/games/shooting/fortz.png",
+    "category": "shooting",
+    "description": "Play Fortz on PixelGamez."
+  },
+  {
+    "id": "bubble-shooter-2",
+    "title": "Bubble Shooter 2",
+    "embedUrl": "https://www.twoplayergames.org/embed/bubble-shooter-2",
+    "tags": [
+      "new"
+    ],
+    "thumbnail": "/images/games/puzzle/bubble-shooter-2.png",
+    "category": "puzzle",
+    "description": "Play Bubble Shooter 2 on PixelGamez."
+  },
+  {
+    "id": "build-your-furniture-store",
+    "title": "Build Your Furniture Store",
+    "embedUrl": "https://www.twoplayergames.org/embed/build-your-furniture-store",
+    "tags": [
+      "new"
+    ],
+    "thumbnail": "/images/games/simulation/build-your-furniture-store.png",
+    "category": "simulation",
+    "description": "Play Build Your Furniture Store on PixelGamez."
+  },
+  {
+    "id": "scritchy-scratchy",
+    "title": "Scritchy Scratchy",
+    "embedUrl": "https://www.twoplayergames.org/embed/scritchy-scratchy",
+    "tags": [],
+    "thumbnail": "/images/games/clicker/scritchy-scratchy.png",
+    "category": "clicker",
+    "description": "Play Scritchy Scratchy on PixelGamez."
+  },
+  {
+    "id": "click-click-clicker",
+    "title": "Click Click Clicker",
+    "embedUrl": "https://www.twoplayergames.org/embed/click-click-clicker",
+    "tags": [
+      "new"
+    ],
+    "thumbnail": "/images/games/clicker/click-click-clicker.png",
+    "category": "clicker",
+    "description": "Play Click Click Clicker on PixelGamez."
+  },
+  {
+    "id": "park-me",
+    "title": "Park Me",
+    "embedUrl": "https://www.twoplayergames.org/embed/park-me",
+    "tags": [
+      "new"
+    ],
+    "thumbnail": "/images/games/puzzle/park-me.png",
+    "category": "puzzle",
+    "description": "Play Park Me on PixelGamez."
+  },
+  {
+    "id": "territory-war",
+    "title": "Territory War",
+    "embedUrl": "https://www.twoplayergames.org/embed/territory-war",
+    "tags": [
+      "new"
+    ],
+    "thumbnail": "/images/games/shooting/territory-war.png",
+    "category": "shooting",
+    "description": "Play Territory War on PixelGamez."
+  },
+  {
+    "id": "territory-war-2",
+    "title": "Territory War 2",
+    "embedUrl": "https://www.twoplayergames.org/embed/territory-war-2",
+    "tags": [
+      "new"
+    ],
+    "thumbnail": "/images/games/shooting/territory-war-2.png",
+    "category": "shooting",
+    "description": "Play Territory War 2 on PixelGamez."
+  },
+  {
+    "id": "territory-war-3",
+    "title": "Territory War 3",
+    "embedUrl": "https://www.twoplayergames.org/embed/territory-war-3",
+    "tags": [
+      "new"
+    ],
+    "thumbnail": "/images/games/shooting/territory-war-3.png",
+    "category": "shooting",
+    "description": "Play Territory War 3 on PixelGamez."
+  },
+  {
+    "id": "hangman-with-buddies",
+    "title": "Hangman With Buddies",
+    "embedUrl": "https://www.twoplayergames.org/embed/hangman-with-buddies",
+    "tags": [
+      "new"
+    ],
+    "thumbnail": "/images/games/puzzle/hangman-with-buddies.png",
+    "category": "puzzle",
+    "description": "Play Hangman With Buddies on PixelGamez."
+  },
+  {
+    "id": "hexa-puzzle",
+    "title": "Hexa Puzzle",
+    "embedUrl": "https://www.twoplayergames.org/embed/hexa-puzzle",
+    "tags": [
+      "new"
+    ],
+    "thumbnail": "/images/games/puzzle/hexa-puzzle.png",
+    "category": "puzzle",
+    "description": "Play Hexa Puzzle on PixelGamez."
+  },
+  {
+    "id": "bubble-shooter",
+    "title": "Bubble Shooter",
+    "embedUrl": "https://www.twoplayergames.org/embed/bubble-shooter",
+    "tags": [
+      "new"
+    ],
+    "thumbnail": "/images/games/puzzle/bubble-shooter.png",
+    "category": "puzzle",
+    "description": "Play Bubble Shooter on PixelGamez."
+  },
+  {
+    "id": "night-city-racing",
+    "title": "Night City Racing",
+    "embedUrl": "https://www.twoplayergames.org/embed/night-city-racing",
+    "tags": [
+      "new"
+    ],
+    "thumbnail": "/images/games/driving/night-city-racing.png",
+    "category": "driving",
+    "description": "Play Night City Racing on PixelGamez."
+  },
+  {
+    "id": "gun-mayhem-redux",
+    "title": "Gun Mayhem Redux",
+    "embedUrl": "https://www.twoplayergames.org/embed/gun-mayhem-redux",
+    "tags": [
+      "new"
+    ],
+    "thumbnail": "/images/games/shooting/gun-mayhem-redux.png",
+    "category": "shooting",
+    "description": "Play Gun Mayhem Redux on PixelGamez."
+  },
+  {
+    "id": "ping-pong-chaos",
+    "title": "Ping Pong Chaos",
+    "embedUrl": "https://www.twoplayergames.org/embed/ping-pong-chaos",
+    "tags": [],
+    "thumbnail": "/images/games/sports/ping-pong-chaos.png",
+    "category": "sports",
+    "description": "A chaotic and fun 2-player ping pong game with crazy physics and power-ups."
+  },
+  {
+    "id": "unroll-ball-slide",
+    "title": "Unroll Ball Slide",
+    "embedUrl": "https://www.twoplayergames.org/embed/unroll-ball-slide",
+    "tags": [
+      "new"
+    ],
+    "thumbnail": "/images/games/puzzle/unroll-ball-slide.png",
+    "category": "puzzle",
+    "description": "Play Unroll Ball Slide on PixelGamez."
+  },
+  {
+    "id": "arrow-slide-puzzle",
+    "title": "Arrow Slide Puzzle",
+    "embedUrl": "https://www.twoplayergames.org/embed/arrow-slide-puzzle",
+    "tags": [
+      "new"
+    ],
+    "thumbnail": "/images/games/puzzle/arrow-slide-puzzle.png",
+    "category": "puzzle",
+    "description": "Play Arrow Slide Puzzle on PixelGamez."
+  },
+  {
+    "id": "color-sand-puzzle",
+    "title": "Color Sand Puzzle",
+    "embedUrl": "https://www.twoplayergames.org/embed/color-sand-puzzle",
+    "tags": [
+      "new"
+    ],
+    "thumbnail": "/images/games/puzzle/color-sand-puzzle.png",
+    "category": "puzzle",
+    "description": "Play Color Sand Puzzle on PixelGamez."
+  },
+  {
+    "id": "dungeon-sweeper",
+    "title": "Dungeon Sweeper",
+    "embedUrl": "https://www.twoplayergames.org/embed/dungeon-sweeper",
+    "tags": [
+      "new"
+    ],
+    "thumbnail": "/images/dungeon-sweeper.png",
+    "category": "puzzle",
+    "description": "Play Dungeon Sweeper on PixelGamez."
+  },
+  {
+    "id": "blobbridgerun",
+    "title": "Blob Bridge Run",
+    "embedUrl": "https://www.twoplayergames.org/embed/blobbridgerun",
+    "tags": [
+      "new"
+    ],
+    "thumbnail": "/images/BlobBridgeRun.webp",
+    "category": "sports",
+    "description": "Play Blob Bridge Run on PixelGamez."
+  },
+  {
+    "id": "dungeons-and-degenerate-gamblers",
+    "title": "Dungeons And Degenerate Gamblers",
+    "embedUrl": "https://www.twoplayergames.org/embed/dungeons-and-degenerate-gamblers",
+    "tags": [
+      "new"
+    ],
+    "thumbnail": "/images/dungeons-and-degenerate-gamblers.png",
+    "category": "puzzle",
+    "description": "Play Dungeons And Degenerate Gamblers on PixelGamez."
+  },
+  {
+    "id": "blobtankwars",
+    "title": "Blob Tank Wars",
+    "embedUrl": "https://www.twoplayergames.org/embed/blobtankwars",
+    "tags": [
+      "new"
+    ],
+    "thumbnail": "/images/BlobTankWars.jfif",
+    "category": "shooting",
+    "description": "Play Blob Tank Wars on PixelGamez."
+  },
+  {
+    "id": "knifehit",
+    "title": "Knife Hit",
+    "embedUrl": "https://www.twoplayergames.org/embed/knifehit",
+    "tags": [
+      "new"
+    ],
+    "thumbnail": "/images/KnifeHit.png",
+    "category": "shooting",
+    "description": "Play Knife Hit on PixelGamez."
+  },
+  {
+    "id": "ultimate-flying-car",
+    "title": "Ultimate Flying Car",
+    "embedUrl": "https://www.twoplayergames.org/embed/ultimate-flying-car",
+    "tags": [],
+    "thumbnail": "/images/games/driving/ultimate-flying-car.png",
+    "category": "driving",
+    "description": "Play Ultimate Flying Car on PixelGamez."
+  },
+  {
+    "id": "cats",
+    "title": "Cats",
+    "embedUrl": "https://www.twoplayergames.org/embed/cats",
+    "tags": [
+      "new"
+    ],
+    "thumbnail": "/images/cats.png",
+    "category": "arcade",
+    "description": "Play Cats on PixelGamez."
+  },
+  {
+    "id": "dice",
+    "title": "Dice",
+    "embedUrl": "https://www.twoplayergames.org/embed/dice",
+    "tags": [
+      "new"
+    ],
+    "thumbnail": "/images/dice.png",
+    "category": "arcade",
+    "description": "Play Dice on PixelGamez."
+  },
+  {
+    "id": "fireandwater",
+    "title": "Fire And Water",
+    "embedUrl": "https://www.twoplayergames.org/embed/fireandwater",
+    "tags": [
+      "new"
+    ],
+    "thumbnail": "/images/FireAndWater.jfif",
+    "category": "puzzle",
+    "description": "Play Fire And Water on PixelGamez."
+  },
+  {
+    "id": "mechastick-fighter",
+    "title": "Mechastick Fighter",
+    "embedUrl": "https://www.twoplayergames.org/embed/mechastick-fighter",
+    "tags": [
+      "new"
+    ],
+    "thumbnail": "/images/games/action/mechastick-fighter.png",
+    "category": "action",
+    "description": "Play Mechastick Fighter on PixelGamez."
+  },
+  {
+    "id": "fun-clicker",
+    "title": "Fun Clicker",
+    "embedUrl": "https://www.twoplayergames.org/embed/fun-clicker",
+    "tags": [
+      "new"
+    ],
+    "thumbnail": "/images/games/clicker/fun-clicker.png",
+    "category": "clicker",
+    "description": "Play Fun Clicker on PixelGamez."
+  },
+  {
+    "id": "gangsters",
+    "title": "Gangsters",
+    "embedUrl": "https://www.twoplayergames.org/embed/gangsters",
+    "tags": [],
+    "thumbnail": "/images/games/shooting/gangsters.png",
+    "category": "shooting",
+    "description": "Play Gangsters on PixelGamez."
+  },
+  {
+    "id": "minibattles-2-6-players",
+    "title": "Minibattles 2 6 Players",
+    "embedUrl": "https://www.twoplayergames.org/embed/minibattles-2-6-players",
+    "tags": [
+      "new"
+    ],
+    "thumbnail": "/images/games/action/minibattles-2-6-players.png",
+    "category": "action",
+    "description": "Play Minibattles 2 6 Players on PixelGamez."
+  },
+  {
+    "id": "operation-desert-road",
+    "title": "Operation Desert Road",
+    "embedUrl": "https://www.twoplayergames.org/embed/operation-desert-road",
+    "tags": [
+      "new"
+    ],
+    "thumbnail": "/images/games/action/operation-desert-road.png",
+    "category": "action",
+    "description": "Play Operation Desert Road on PixelGamez."
+  },
+  {
+    "id": "grandextremeracing",
+    "title": "Grand Extreme Racing",
+    "embedUrl": "https://www.twoplayergames.org/embed/grandextremeracing",
+    "tags": [
+      "new"
+    ],
+    "thumbnail": "/images/GrandExtremeRacing.webp",
+    "category": "arcade",
+    "description": "Play Grand Extreme Racing on PixelGamez."
+  },
+  {
+    "id": "lumberer-island",
+    "title": "Lumberer Island",
+    "embedUrl": "https://www.twoplayergames.org/embed/lumberer-island",
+    "tags": [
+      "new"
+    ],
+    "thumbnail": "/images/lumberer-island.png",
+    "category": "arcade",
+    "description": "Play Lumberer Island on PixelGamez."
+  },
+  {
+    "id": "candy-clicker-2",
+    "title": "Candy Clicker 2",
+    "embedUrl": "https://www.twoplayergames.org/embed/candy-clicker-2",
+    "tags": [],
+    "thumbnail": "/images/games/clicker/candy-clicker-2.png",
+    "category": "clicker",
+    "description": "Play Candy Clicker 2 on PixelGamez."
+  },
+  {
+    "id": "tank-stars",
+    "title": "Tank Stars",
+    "embedUrl": "https://www.twoplayergames.org/embed/tank-stars",
+    "tags": [
+      "new"
+    ],
+    "thumbnail": "/images/games/action/tank-stars.png",
+    "category": "action",
+    "description": "Play Tank Stars on PixelGamez."
+  },
+  {
+    "id": "grand-extreme-racing",
+    "title": "Grand Extreme Racing",
+    "embedUrl": "https://www.twoplayergames.org/embed/grand-extreme-racing",
+    "tags": [
+      "new"
+    ],
+    "thumbnail": "/images/games/driving/grand-extreme-racing.png",
+    "category": "driving",
+    "description": "Play Grand Extreme Racing on PixelGamez."
+  },
+  {
+    "id": "digit-shooter",
+    "title": "Digit Shooter",
+    "embedUrl": "https://www.twoplayergames.org/embed/digit-shooter",
+    "tags": [],
+    "thumbnail": "/images/games/arcade/digit-shooter.png",
+    "category": "arcade",
+    "description": "Play Digit Shooter on PixelGamez."
+  },
+  {
+    "id": "wdwwb",
+    "title": "Wdwwb",
+    "embedUrl": "https://www.twoplayergames.org/embed/wdwwb",
+    "tags": [
+      "new"
+    ],
+    "thumbnail": "/images/wdwwb.png",
+    "category": "arcade",
+    "description": "Play Wdwwb on PixelGamez."
+  },
+  {
+    "id": "ultimateflyingcar",
+    "title": "Ultimate Flying Car",
+    "embedUrl": "https://www.twoplayergames.org/embed/ultimateflyingcar",
+    "tags": [
+      "new"
+    ],
+    "thumbnail": "/images/UltimateFlyingCar.jfif",
+    "category": "driving",
+    "description": "Play Ultimate Flying Car on PixelGamez."
+  },
+  {
+    "id": "minato",
+    "title": "Minato",
+    "embedUrl": "https://www.twoplayergames.org/embed/minato",
+    "tags": [],
+    "thumbnail": "/images/minato.png",
+    "category": "arcade",
+    "description": "Play Minato on PixelGamez."
+  },
+  {
+    "id": "nightcityracing",
+    "title": "Night City Racing",
+    "embedUrl": "https://www.twoplayergames.org/embed/nightcityracing",
+    "tags": [
+      "new"
+    ],
+    "thumbnail": "/images/NightCityRacing.webp",
+    "category": "arcade",
+    "description": "Play Night City Racing on PixelGamez."
+  },
+  {
+    "id": "pingpongchaos",
+    "title": "Ping Pong Chaos",
+    "embedUrl": "https://www.twoplayergames.org/embed/pingpongchaos",
+    "tags": [
+      "new"
+    ],
+    "thumbnail": "/images/PingPongChaos.avif",
+    "category": "arcade",
+    "description": "Play Ping Pong Chaos on PixelGamez."
+  },
+  {
+    "id": "mxoffroadmaster",
+    "title": "M Xoffroadmaster",
+    "embedUrl": "https://www.twoplayergames.org/embed/mxoffroadmaster",
+    "tags": [
+      "new"
+    ],
+    "thumbnail": "/images/MXoffroadmaster.webp",
+    "category": "driving",
+    "description": "Play M Xoffroadmaster on PixelGamez."
+  },
+  {
+    "id": "spirits-of-steel",
+    "title": "Spirits Of Steel",
+    "embedUrl": "https://www.twoplayergames.org/embed/spirits-of-steel",
+    "tags": [
+      "new"
+    ],
+    "thumbnail": "/images/spirits-of-steel.png",
+    "category": "arcade",
+    "description": "Play Spirits Of Steel on PixelGamez."
+  },
+  {
+    "id": "world-conquest",
+    "title": "World Conquest",
+    "embedUrl": "https://www.twoplayergames.org/embed/world-conquest",
+    "tags": [
+      "new"
+    ],
+    "thumbnail": "/images/world-conquest.png",
+    "category": "arcade",
+    "description": "Play World Conquest on PixelGamez."
+  },
+  {
+    "id": "plink-idle",
+    "title": "Plink Idle",
+    "embedUrl": "https://www.twoplayergames.org/embed/plink-idle",
+    "tags": [
+      "new"
+    ],
+    "thumbnail": "/images/plink-idle.png",
+    "category": "clicker",
+    "description": "Play Plink Idle on PixelGamez."
+  },
+  {
+    "id": "baldis-basics",
+    "title": "Baldi's Basics",
+    "embedUrl": "https://unblockedgames66.gitlab.io/baldis-basics/",
+    "tags": [
+      "popular",
+      "action"
+    ],
+    "thumbnail": "/images/games/adventure/baldis-basics.png",
+    "category": "arcade",
+    "description": "A surreal horror educational game. Collect 7 notebooks and escape!"
+  },
+  {
+    "id": "poly-track",
+    "title": "Poly Track",
+    "embedUrl": "https://www.twoplayergames.org/embed/poly-track",
+    "tags": [
+      "new"
+    ],
+    "thumbnail": "/images/poly-track.png",
+    "category": "arcade",
+    "description": "Play Poly Track on PixelGamez."
+  },
+  {
+    "id": "blob-bridge-run",
+    "title": "Blob Bridge Run",
+    "embedUrl": "https://www.twoplayergames.org/embed/blob-bridge-run",
+    "tags": [
+      "new"
+    ],
+    "thumbnail": "/images/games/action/blob-bridge-run.png",
+    "category": "action",
+    "description": "Play Blob Bridge Run on PixelGamez."
+  },
+  {
+    "id": "blob-opera",
+    "title": "Blob Opera",
+    "embedUrl": "https://www.twoplayergames.org/embed/blob-opera",
+    "tags": [
+      "new"
+    ],
+    "thumbnail": "/images/games/simulation/blob-opera.png",
+    "category": "simulation",
+    "description": "Play Blob Opera on PixelGamez."
+  },
+  {
+    "id": "elastic-man",
+    "title": "Elastic Man",
+    "embedUrl": "https://www.twoplayergames.org/embed/elastic-man",
+    "tags": [
+      "new"
+    ],
+    "thumbnail": "/images/games/simulation/elastic-man.png",
+    "category": "simulation",
+    "description": "Play Elastic Man on PixelGamez."
+  },
+  {
+    "id": "knife-hit",
+    "title": "Knife Hit",
+    "embedUrl": "https://www.twoplayergames.org/embed/knife-hit",
+    "tags": [
+      "new"
+    ],
+    "thumbnail": "/images/games/action/knife-hit.png",
+    "category": "action",
+    "description": "Play Knife Hit on PixelGamez."
+  },
+  {
+    "id": "blob-tank-wars",
+    "title": "Blob Tank Wars",
+    "embedUrl": "https://www.twoplayergames.org/embed/blob-tank-wars",
+    "tags": [
+      "new"
+    ],
+    "thumbnail": "/images/games/action/blob-tank-wars.png",
+    "category": "action",
+    "description": "Play Blob Tank Wars on PixelGamez."
+  },
+  {
+    "id": "help-no-brake",
+    "title": "Help No Brake",
+    "embedUrl": "https://www.twoplayergames.org/embed/help-no-brake",
+    "tags": [],
+    "thumbnail": "/images/help-no-brake.png",
+    "category": "arcade",
+    "description": "Play Help No Brake on PixelGamez."
+  },
+  {
+    "id": "townscaper",
+    "title": "Townscaper",
+    "embedUrl": "https://www.twoplayergames.org/embed/townscaper",
+    "tags": [
+      "new"
+    ],
+    "thumbnail": "/images/games/simulation/townscaper.png",
+    "category": "simulation",
+    "description": "Play Townscaper on PixelGamez."
+  },
+  {
+    "id": "my-rusty-submarine",
+    "title": "My Rusty Submarine",
+    "embedUrl": "https://www.twoplayergames.org/embed/my-rusty-submarine",
+    "tags": [],
+    "thumbnail": "/images/my-rusty-submarine.png",
+    "category": "arcade",
+    "description": "Play My Rusty Submarine on PixelGamez."
+  },
+  {
+    "id": "jelly-run-2048",
+    "title": "Jelly Run 2048",
+    "embedUrl": "https://www.twoplayergames.org/embed/jelly-run-2048",
+    "tags": [
+      "new"
+    ],
+    "thumbnail": "/images/games/arcade/jelly-run-2048.png",
+    "category": "arcade",
+    "description": "Play Jelly Run 2048 on PixelGamez."
+  },
+  {
+    "id": "pogo-masters",
+    "title": "Pogo Masters",
+    "embedUrl": "https://www.twoplayergames.org/embed/pogo-masters",
+    "tags": [
+      "new"
+    ],
+    "thumbnail": "/images/games/sports/pogo-masters.png",
+    "category": "sports",
+    "description": "Play Pogo Masters on PixelGamez."
+  },
+  {
+    "id": "slice-it-all",
+    "title": "Slice It All",
+    "embedUrl": "https://www.twoplayergames.org/embed/slice-it-all",
+    "tags": [
+      "new"
+    ],
+    "thumbnail": "/images/games/action/slice-it-all.png",
+    "category": "action",
+    "description": "Play Slice It All on PixelGamez."
+  },
+  {
+    "id": "bouncing-balls-2",
+    "title": "Bouncing Balls 2",
+    "embedUrl": "https://www.twoplayergames.org/embed/bouncing-balls-2",
+    "tags": [
+      "new"
+    ],
+    "thumbnail": "/images/games/arcade/bouncing-balls-2.png",
+    "category": "arcade",
+    "description": "Play Bouncing Balls 2 on PixelGamez."
+  },
+  {
+    "id": "duck-duck-clicker",
+    "title": "Duck Duck Clicker",
+    "embedUrl": "https://www.twoplayergames.org/embed/duck-duck-clicker",
+    "tags": [
+      "new"
+    ],
+    "thumbnail": "/images/games/clicker/duck-duck-clicker.png",
+    "category": "clicker",
+    "description": "Play Duck Duck Clicker on PixelGamez."
+  },
+  {
+    "id": "dino-game",
+    "title": "Dino Game",
+    "embedUrl": "https://www.twoplayergames.org/embed/dino-game",
+    "tags": [
+      "popular"
+    ],
+    "thumbnail": "/images/DinoGame.webp",
+    "category": "arcade",
+    "description": "The classic endless runner featuring the T-Rex."
+  },
+  {
+    "id": "summer-rider-3d",
+    "title": "Summer Rider 3D",
+    "embedUrl": "https://www.twoplayergames.org/embed/summer-rider-3d",
+    "tags": [
+      "new"
+    ],
+    "thumbnail": "/images/games/sports/summer-rider-3d.png",
+    "category": "sports",
+    "description": "Play Summer Rider 3D on PixelGamez."
+  },
+  {
+    "id": "flip-master",
+    "title": "Flip Master",
+    "embedUrl": "https://www.twoplayergames.org/embed/flip-master",
+    "tags": [
+      "new"
+    ],
+    "thumbnail": "/images/games/sports/flip-master.png",
+    "category": "sports",
+    "description": "Play Flip Master on PixelGamez."
+  },
+  {
+    "id": "flipper-master-3d",
+    "title": "Flipper Master 3D",
+    "embedUrl": "https://www.twoplayergames.org/embed/flipper-master-3d",
+    "tags": [
+      "new"
+    ],
+    "thumbnail": "/images/games/sports/flipper-master-3d.png",
+    "category": "sports",
+    "description": "Play Flipper Master 3D on PixelGamez."
+  },
+  {
+    "id": "going-balls",
+    "title": "Going Balls",
+    "embedUrl": "https://www.twoplayergames.org/embed/going-balls",
+    "tags": [
+      "new"
+    ],
+    "thumbnail": "/images/games/arcade/going-balls.png",
+    "category": "arcade",
+    "description": "Play Going Balls on PixelGamez."
+  },
+  {
+    "id": "going-balls-2",
+    "title": "Going Balls 2",
+    "embedUrl": "https://www.twoplayergames.org/embed/going-balls-2",
+    "tags": [
+      "new"
+    ],
+    "thumbnail": "/images/games/arcade/going-balls-2.png",
+    "category": "arcade",
+    "description": "Play Going Balls 2 on PixelGamez."
+  },
+  {
+    "id": "formula-prototype",
+    "title": "Formula Prototype",
+    "embedUrl": "https://www.twoplayergames.org/embed/formula-prototype",
+    "tags": [],
+    "thumbnail": "/images/formula-prototype.png",
+    "category": "arcade",
+    "description": "Play Formula Prototype on PixelGamez."
+  },
+  {
+    "id": "knife-storm",
+    "title": "Knife Storm",
+    "embedUrl": "https://www.twoplayergames.org/embed/knife-storm",
+    "tags": [
+      "new"
+    ],
+    "thumbnail": "/images/games/action/knife-storm.png",
+    "category": "action",
+    "description": "Play Knife Storm on PixelGamez."
+  },
+  {
+    "id": "villager-kings",
+    "title": "Villager Kings",
+    "embedUrl": "https://www.twoplayergames.org/embed/villager-kings",
+    "tags": [],
+    "thumbnail": "/images/villager-kings.png",
+    "category": "arcade",
+    "description": "Play Villager Kings on PixelGamez."
+  },
+  {
+    "id": "wood-carving",
+    "title": "Wood Carving",
+    "embedUrl": "https://www.twoplayergames.org/embed/wood-carving",
+    "tags": [
+      "new"
+    ],
+    "thumbnail": "/images/games/simulation/wood-carving.png",
+    "category": "simulation",
+    "description": "Play Wood Carving on PixelGamez."
+  },
+  {
+    "id": "pixel-kart",
+    "title": "Pixel Kart",
+    "embedUrl": "https://www.twoplayergames.org/embed/pixel-kart",
+    "tags": [
+      "arcade"
+    ],
+    "thumbnail": "/images/PixelKart.webp",
+    "category": "driving",
+    "description": "Retro 2D go-kart racing. Drift, boost, and win!"
+  },
+  {
+    "id": "bouncing-balls",
+    "title": "Bouncing Balls",
+    "embedUrl": "https://www.twoplayergames.org/embed/bouncing-balls",
+    "tags": [
+      "new"
+    ],
+    "thumbnail": "/images/games/arcade/bouncing-balls.png",
+    "category": "arcade",
+    "description": "Play Bouncing Balls on PixelGamez."
+  },
+  {
+    "id": "helifight",
+    "title": "HeliFight",
+    "embedUrl": "https://www.twoplayergames.org/embed/helifight",
+    "tags": [
+      "arcade"
+    ],
+    "thumbnail": "/images/HeliFight.jfif",
+    "category": "action",
+    "description": "Control a helicopter and try to take down your opponent in this 2-player aerial battle."
+  },
+  {
+    "id": "candy-clicker",
+    "title": "Candy Clicker",
+    "embedUrl": "https://www.twoplayergames.org/embed/candy-clicker",
+    "tags": [
+      "new"
+    ],
+    "thumbnail": "/images/games/clicker/candy-clicker.png",
+    "category": "clicker",
+    "description": "Play Candy Clicker on PixelGamez."
+  },
+  {
+    "id": "idle-money-factory",
+    "title": "Idle Money Factory",
+    "embedUrl": "https://www.twoplayergames.org/embed/idle-money-factory",
+    "tags": [
+      "new"
+    ],
+    "thumbnail": "/images/games/simulation/idle-money-factory.png",
+    "category": "simulation",
+    "description": "Play Idle Money Factory on PixelGamez."
+  },
+  {
+    "id": "bitlife-life-simulator",
+    "title": "BitLife Life Simulator",
+    "embedUrl": "https://www.twoplayergames.org/embed/bitlife-life-simulator",
+    "tags": [
+      "new"
+    ],
+    "thumbnail": "/images/games/simulation/bitlife-life-simulator.png",
+    "category": "simulation",
+    "description": "Play BitLife Life Simulator on PixelGamez."
+  },
+  {
+    "id": "fire-and-water",
+    "title": "Fire And Water",
+    "embedUrl": "https://www.twoplayergames.org/embed/fire-and-water",
+    "tags": [
+      "adventure",
+      "new"
+    ],
+    "thumbnail": "/images/games/puzzle/fire-and-water.png",
+    "category": "puzzle",
+    "description": "Play Fire And Water on PixelGamez."
+  },
+  {
+    "id": "planet-clicker",
+    "title": "Planet Clicker",
+    "embedUrl": "https://www.twoplayergames.org/embed/planet-clicker",
+    "tags": [
+      "new"
+    ],
+    "thumbnail": "/images/games/clicker/planet-clicker.png",
+    "category": "clicker",
+    "description": "Play Planet Clicker on PixelGamez."
+  },
+  {
+    "id": "soccer-physics-2",
+    "title": "Soccer Physics 2",
+    "embedUrl": "https://www.twoplayergames.org/embed/soccer-physics-2",
+    "tags": [],
+    "thumbnail": "/images/games/sports/soccer-physics-2.png",
+    "category": "sports",
+    "description": "The sequel to the crazy 1-button soccer game with more wacky physics."
+  },
+  {
+    "id": "mx-offroad-mountain-bike",
+    "title": "MX Offroad Mountain Bike",
+    "embedUrl": "https://www.twoplayergames.org/embed/mx-offroad-mountain-bike",
+    "tags": [
+      "new"
+    ],
+    "thumbnail": "/images/games/driving/mx-offroad-mountain-bike.png",
+    "category": "driving",
+    "description": "Play MX Offroad Mountain Bike on PixelGamez."
+  },
+  {
+    "id": "melon-sandbox",
+    "title": "Melon Sandbox",
+    "embedUrl": "https://www.twoplayergames.org/embed/melon-sandbox",
+    "tags": [
+      "new"
+    ],
+    "thumbnail": "/images/games/simulation/melon-sandbox.png",
+    "category": "simulation",
+    "description": "Play Melon Sandbox on PixelGamez."
+  },
+  {
+    "id": "drive-in-cinema-idle-game",
+    "title": "Drive In Cinema Idle Game",
+    "embedUrl": "https://www.twoplayergames.org/embed/drive-in-cinema-idle-game",
+    "tags": [
+      "new"
+    ],
+    "thumbnail": "/images/games/simulation/drive-in-cinema-idle-game.png",
+    "category": "simulation",
+    "description": "Play Drive In Cinema Idle Game on PixelGamez."
+  },
+  {
+    "id": "among-us-online",
+    "title": "Among Us Online",
+    "embedUrl": "https://www.twoplayergames.org/embed/among-us-online",
+    "tags": [
+      "new"
+    ],
+    "thumbnail": "/images/games/action/among-us-online.png",
+    "category": "action",
+    "description": "Play Among Us Online on PixelGamez."
+  },
+  {
+    "id": "cinema-business-idle",
+    "title": "Cinema Business Idle",
+    "embedUrl": "https://www.twoplayergames.org/embed/cinema-business-idle",
+    "tags": [
+      "new"
+    ],
+    "thumbnail": "/images/games/simulation/cinema-business-idle.png",
+    "category": "simulation",
+    "description": "Play Cinema Business Idle on PixelGamez."
+  },
+  {
+    "id": "slicer-duo",
+    "title": "Slicer Duo",
+    "embedUrl": "https://www.twoplayergames.org/embed/slicer-duo",
+    "tags": [
+      "new"
+    ],
+    "thumbnail": "/images/games/action/slicer-duo.png",
+    "category": "action",
+    "description": "Play Slicer Duo on PixelGamez."
+  },
+  {
+    "id": "stickman-dismounting",
+    "title": "Stickman Dismounting",
+    "embedUrl": "https://www.twoplayergames.org/embed/stickman-dismounting",
+    "tags": [
+      "new"
+    ],
+    "thumbnail": "/images/games/simulation/stickman-dismounting.png",
+    "category": "simulation",
+    "description": "Play Stickman Dismounting on PixelGamez."
+  },
+  {
+    "id": "youtuber-idle",
+    "title": "Youtuber Idle",
+    "embedUrl": "https://www.twoplayergames.org/embed/youtuber-idle",
+    "tags": [
+      "new"
+    ],
+    "thumbnail": "/images/games/simulation/youtuber-idle.png",
+    "category": "simulation",
+    "description": "Play Youtuber Idle on PixelGamez."
+  },
+  {
+    "id": "fireboy-and-watergirl-in-the-forest-temple",
+    "title": "Fireboy And Watergirl In The Forest Temple",
+    "embedUrl": "https://www.twoplayergames.org/embed/fireboy-and-watergirl-in-the-forest-temple",
+    "tags": [
+      "adventure",
+      "new"
+    ],
+    "thumbnail": "/images/games/puzzle/fireboy-and-watergirl-in-the-forest-temple.png",
+    "category": "puzzle",
+    "description": "Play Fireboy And Watergirl In The Forest Temple on PixelGamez."
+  },
+  {
+    "id": "get-on-top",
+    "title": "Get On Top",
+    "embedUrl": "https://www.twoplayergames.org/embed/get-on-top",
+    "tags": [
+      "new"
+    ],
+    "thumbnail": "/images/games/action/get-on-top.png",
+    "category": "action",
+    "description": "Play Get On Top on PixelGamez."
+  },
+  {
+    "id": "food-empire-inc",
+    "title": "Food Empire Inc",
+    "embedUrl": "https://www.twoplayergames.org/embed/food-empire-inc",
+    "tags": [
+      "new"
+    ],
+    "thumbnail": "/images/games/simulation/food-empire-inc.png",
+    "category": "simulation",
+    "description": "Play Food Empire Inc on PixelGamez."
+  },
+  {
+    "id": "cookie-clicker",
+    "title": "Cookie Clicker",
+    "embedUrl": "https://www.twoplayergames.org/embed/cookie-clicker",
+    "tags": [
+      "new"
+    ],
+    "thumbnail": "/images/games/clicker/cookie-clicker.png",
+    "category": "clicker",
+    "description": "Play Cookie Clicker on PixelGamez."
+  },
+  {
+    "id": "fireboy-and-watergirl-2-in-the-light-temple",
+    "title": "Fireboy And Watergirl 2 In The Light Temple",
+    "embedUrl": "https://www.twoplayergames.org/embed/fireboy-and-watergirl-2-in-the-light-temple",
+    "tags": [
+      "adventure",
+      "new"
+    ],
+    "thumbnail": "/images/games/puzzle/fireboy-and-watergirl-2-in-the-light-temple.png",
+    "category": "puzzle",
+    "description": "Play Fireboy And Watergirl 2 In The Light Temple on PixelGamez."
+  },
+  {
+    "id": "prison-pump",
+    "title": "Prison Pump",
+    "embedUrl": "https://www.twoplayergames.org/embed/prison-pump",
+    "tags": [
+      "new"
+    ],
+    "thumbnail": "/images/games/action/prison-pump.png",
+    "category": "action",
+    "description": "Play Prison Pump on PixelGamez."
+  },
+  {
+    "id": "pixel-gun-3d",
+    "title": "Pixel Gun 3d",
+    "embedUrl": "https://www.twoplayergames.org/embed/pixel-gun-3d",
+    "tags": [
+      "popular",
+      "action"
+    ],
+    "thumbnail": "/images/pixel-gun-3d.png",
+    "category": "shooting",
+    "description": "Play Pixel Gun 3d on PixelGamez."
+  },
+  {
+    "id": "tennis-physics",
+    "title": "Tennis Physics",
+    "embedUrl": "https://www.twoplayergames.org/embed/tennis-physics",
+    "tags": [],
+    "thumbnail": "/images/games/sports/tennis-physics.png",
+    "category": "sports",
+    "description": "A fun and chaotic 2-player tennis game with wacky physics."
+  },
+  {
+    "id": "granny",
+    "title": "Granny",
+    "embedUrl": "https://www.twoplayergames.org/embed/granny",
+    "tags": [
+      "popular",
+      "action"
+    ],
+    "thumbnail": "/images/granny.png",
+    "category": "arcade",
+    "description": "Play Granny on PixelGamez."
+  },
+  {
+    "id": "drift-boss",
+    "title": "Drift Boss",
+    "embedUrl": "https://www.twoplayergames.org/embed/drift-boss",
+    "tags": [
+      "popular"
+    ],
+    "thumbnail": "/images/drift-boss.png",
+    "category": "arcade",
+    "description": "Play Drift Boss on PixelGamez."
+  },
+  {
+    "id": "fireboy-and-watergirl-3-in-the-ice-temple",
+    "title": "Fireboy And Watergirl 3 In The Ice Temple",
+    "embedUrl": "https://www.twoplayergames.org/embed/fireboy-and-watergirl-3-in-the-ice-temple",
+    "tags": [
+      "adventure",
+      "new"
+    ],
+    "thumbnail": "/images/games/puzzle/fireboy-and-watergirl-3-in-the-ice-temple.png",
+    "category": "puzzle",
+    "description": "Play Fireboy And Watergirl 3 In The Ice Temple on PixelGamez."
+  },
+  {
+    "id": "hardware-tycoon",
+    "title": "Hardware Tycoon",
+    "embedUrl": "https://www.twoplayergames.org/embed/hardware-tycoon",
+    "tags": [
+      "new"
+    ],
+    "thumbnail": "/images/hardware-tycoon.png",
+    "category": "shooting",
+    "description": "Play Hardware Tycoon on PixelGamez."
+  },
+  {
+    "id": "outhold",
+    "title": "Outhold",
+    "embedUrl": "https://www.twoplayergames.org/embed/outhold",
+    "tags": [
+      "new"
+    ],
+    "thumbnail": "/images/outhold.png",
+    "category": "arcade",
+    "description": "Play Outhold on PixelGamez."
+  },
+  {
+    "id": "sort-the-court",
+    "title": "Sort The Court",
+    "embedUrl": "https://www.twoplayergames.org/embed/sort-the-court",
+    "tags": [
+      "popular"
+    ],
+    "thumbnail": "/images/sort-the-court.png",
+    "category": "arcade",
+    "description": "Play Sort The Court on PixelGamez."
+  },
+  {
+    "id": "rat-king",
+    "title": "Rat King",
+    "embedUrl": "https://www.twoplayergames.org/embed/rat-king",
+    "tags": [
+      "new"
+    ],
+    "thumbnail": "/images/rat-king.png",
+    "category": "arcade",
+    "description": "Play Rat King on PixelGamez."
+  },
+  {
+    "id": "big-donut",
+    "title": "Big Donut",
+    "embedUrl": "https://www.twoplayergames.org/embed/big-donut",
+    "tags": [],
+    "thumbnail": "/images/big-donut.png",
+    "category": "arcade",
+    "description": "Play Big Donut on PixelGamez."
+  },
+  {
+    "id": "kenney-solitaire",
+    "title": "Kenney Solitaire",
+    "embedUrl": "https://www.twoplayergames.org/embed/kenney-solitaire",
+    "tags": [],
+    "thumbnail": "/images/kenney-solitaire.png",
+    "category": "puzzle",
+    "description": "Play Kenney Solitaire on PixelGamez."
+  },
+  {
+    "id": "stickman-warrior",
+    "title": "Stickman Warrior",
+    "embedUrl": "https://www.twoplayergames.org/embed/stickman-warrior",
+    "tags": [],
+    "thumbnail": "/images/stickman-warrior.png",
+    "category": "shooting",
+    "description": "Play Stickman Warrior on PixelGamez."
+  },
+  {
+    "id": "burger-stack",
+    "title": "Burger Stack",
+    "embedUrl": "https://www.twoplayergames.org/embed/burger-stack",
+    "tags": [],
+    "thumbnail": "/images/burger-stack.png",
+    "category": "arcade",
+    "description": "Play Burger Stack on PixelGamez."
+  },
+  {
+    "id": "smashing-bottles",
+    "title": "Smashing Bottles",
+    "embedUrl": "https://www.twoplayergames.org/embed/smashing-bottles",
+    "tags": [],
+    "thumbnail": "/images/smashing-bottles.png",
+    "category": "action",
+    "description": "Play Smashing Bottles on PixelGamez."
+  },
+  {
+    "id": "snow-rider-3d",
+    "title": "Snow Rider 3d",
+    "embedUrl": "https://www.twoplayergames.org/embed/snow-rider-3d",
+    "tags": [
+      "new"
+    ],
+    "thumbnail": "/images/snow-rider-3d.png",
+    "category": "arcade",
+    "description": "Play Snow Rider 3d on PixelGamez."
+  },
+  {
+    "id": "chesses",
+    "title": "Chesses",
+    "embedUrl": "https://www.twoplayergames.org/embed/chesses",
+    "tags": [],
+    "thumbnail": "/images/chesses.png",
+    "category": "puzzle",
+    "description": "Play Chesses on PixelGamez."
+  },
+  {
+    "id": "gu-fighters-open-playtest",
+    "title": "Gu Fighters Open Playtest",
+    "embedUrl": "https://www.twoplayergames.org/embed/gu-fighters-open-playtest",
+    "tags": [],
+    "thumbnail": "/images/gu-fighters-open-playtest.png",
+    "category": "action",
+    "description": "Play Gu Fighters Open Playtest on PixelGamez."
+  },
+  {
+    "id": "chemistower",
+    "title": "Chemistower",
+    "embedUrl": "https://www.twoplayergames.org/embed/chemistower",
+    "tags": [],
+    "thumbnail": "/images/chemistower.png",
+    "category": "arcade",
+    "description": "Play Chemistower on PixelGamez."
+  },
+  {
+    "id": "fireboy-and-watergirl-4-the-crystal-temple",
+    "title": "Fireboy And Watergirl 4 The Crystal Temple",
+    "embedUrl": "https://www.twoplayergames.org/embed/fireboy-and-watergirl-4-the-crystal-temple",
+    "tags": [
+      "adventure",
+      "new"
+    ],
+    "thumbnail": "/images/games/puzzle/fireboy-and-watergirl-4-the-crystal-temple.png",
+    "category": "puzzle",
+    "description": "Play Fireboy And Watergirl 4 The Crystal Temple on PixelGamez."
+  },
+  {
+    "id": "crown-siege",
+    "title": "Crown Siege",
+    "embedUrl": "https://www.twoplayergames.org/embed/crown-siege",
+    "tags": [],
+    "thumbnail": "/images/crown-siege.png",
+    "category": "arcade",
+    "description": "Play Crown Siege on PixelGamez."
+  },
+  {
+    "id": "pokeplunder",
+    "title": "Pokeplunder",
+    "embedUrl": "https://www.twoplayergames.org/embed/pokeplunder",
+    "tags": [],
+    "thumbnail": "/images/pokeplunder.png",
+    "category": "arcade",
+    "description": "Play Pokeplunder on PixelGamez."
+  },
+  {
+    "id": "die-in-the-dungeon",
+    "title": "Die In The Dungeon",
+    "embedUrl": "https://www.twoplayergames.org/embed/die-in-the-dungeon",
+    "tags": [],
+    "thumbnail": "/images/die-in-the-dungeon.png",
+    "category": "puzzle",
+    "description": "Play Die In The Dungeon on PixelGamez."
+  },
+  {
+    "id": "pokerxslots",
+    "title": "Pokerxslots",
+    "embedUrl": "https://www.twoplayergames.org/embed/pokerxslots",
+    "tags": [],
+    "thumbnail": "/images/pokerxslots.png",
+    "category": "arcade",
+    "description": "Play Pokerxslots on PixelGamez."
+  },
+  {
+    "id": "endless-road-drifter-minibus-edition",
+    "title": "Endless Road Drifter Minibus Edition",
+    "embedUrl": "https://www.twoplayergames.org/embed/endless-road-drifter-minibus-edition",
+    "tags": [],
+    "thumbnail": "/images/endless-road-drifter-minibus-edition.png",
+    "category": "driving",
+    "description": "Play Endless Road Drifter Minibus Edition on PixelGamez."
+  },
+  {
+    "id": "screw-it",
+    "title": "Screw It",
+    "embedUrl": "https://www.twoplayergames.org/embed/screw-it",
+    "tags": [],
+    "thumbnail": "/images/screw-it.png",
+    "category": "arcade",
+    "description": "Play Screw It on PixelGamez."
+  },
+  {
+    "id": "silhouette-showdown",
+    "title": "Silhouette Showdown",
+    "embedUrl": "https://www.twoplayergames.org/embed/silhouette-showdown",
+    "tags": [],
+    "thumbnail": "/images/silhouette-showdown.png",
+    "category": "arcade",
+    "description": "Play Silhouette Showdown on PixelGamez."
+  },
+  {
+    "id": "soul-roulette",
+    "title": "Soul Roulette",
+    "embedUrl": "https://www.twoplayergames.org/embed/soul-roulette",
+    "tags": [],
+    "thumbnail": "/images/soul-roulette.png",
+    "category": "arcade",
+    "description": "Play Soul Roulette on PixelGamez."
+  },
+  {
+    "id": "tech-giants",
+    "title": "Tech Giants",
+    "embedUrl": "https://www.twoplayergames.org/embed/tech-giants",
+    "tags": [],
+    "thumbnail": "/images/tech-giants.png",
+    "category": "arcade",
+    "description": "Play Tech Giants on PixelGamez."
+  },
+  {
+    "id": "the-mist",
+    "title": "The Mist",
+    "embedUrl": "https://www.twoplayergames.org/embed/the-mist",
+    "tags": [],
+    "thumbnail": "/images/the-mist.png",
+    "category": "arcade",
+    "description": "Play The Mist on PixelGamez."
+  },
+  {
+    "id": "blade-bedlam",
+    "title": "Blade Bedlam",
+    "embedUrl": "https://www.twoplayergames.org/embed/blade-bedlam",
+    "tags": [],
+    "thumbnail": "/images/blade-bedlam.png",
+    "category": "shooting",
+    "description": "Play Blade Bedlam on PixelGamez."
+  },
+  {
+    "id": "lucky-dig",
+    "title": "Lucky Dig",
+    "embedUrl": "https://www.twoplayergames.org/embed/lucky-dig",
+    "tags": [
+      "new"
+    ],
+    "thumbnail": "/images/lucky-dig.png",
+    "category": "arcade",
+    "description": "Play Lucky Dig on PixelGamez."
+  },
+  {
+    "id": "ahoy",
+    "title": "Ahoy",
+    "embedUrl": "https://www.twoplayergames.org/embed/ahoy",
+    "tags": [],
+    "thumbnail": "/images/ahoy.png",
+    "category": "arcade",
+    "description": "Play Ahoy on PixelGamez."
+  },
+  {
+    "id": "fireboy-and-watergirl-5-elements",
+    "title": "Fireboy And Watergirl 5 Elements",
+    "embedUrl": "https://www.twoplayergames.org/embed/fireboy-and-watergirl-5-elements",
+    "tags": [
+      "adventure",
+      "new"
+    ],
+    "thumbnail": "/images/games/puzzle/fireboy-and-watergirl-5-elements.png",
+    "category": "puzzle",
+    "description": "Play Fireboy And Watergirl 5 Elements on PixelGamez."
+  },
+  {
+    "id": "idland",
+    "title": "Idland",
+    "embedUrl": "https://www.twoplayergames.org/embed/idland",
+    "tags": [],
+    "thumbnail": "/images/idland.png",
+    "category": "arcade",
+    "description": "Play Idland on PixelGamez."
+  },
+  {
+    "id": "island-of-mine",
+    "title": "Island Of Mine",
+    "embedUrl": "https://www.twoplayergames.org/embed/island-of-mine",
+    "tags": [],
+    "thumbnail": "/images/island-of-mine.png",
+    "category": "arcade",
+    "description": "Play Island Of Mine on PixelGamez."
+  },
+  {
+    "id": "just-one-more-roll",
+    "title": "Just One More Roll",
+    "embedUrl": "https://www.twoplayergames.org/embed/just-one-more-roll",
+    "tags": [],
+    "thumbnail": "/images/just-one-more-roll.png",
+    "category": "arcade",
+    "description": "Play Just One More Roll on PixelGamez."
+  },
+  {
+    "id": "masterhealerkale",
+    "title": "Masterhealerkale",
+    "embedUrl": "https://www.twoplayergames.org/embed/masterhealerkale",
+    "tags": [],
+    "thumbnail": "/images/masterhealerkale.png",
+    "category": "arcade",
+    "description": "Play Masterhealerkale on PixelGamez."
+  },
+  {
+    "id": "trash-hero",
+    "title": "Trash Hero",
+    "embedUrl": "https://www.twoplayergames.org/embed/trash-hero",
+    "tags": [],
+    "thumbnail": "/images/trash-hero.png",
+    "category": "arcade",
+    "description": "Play Trash Hero on PixelGamez."
+  },
+  {
+    "id": "trump-clicker-ld39",
+    "title": "Trump Clicker Ld39",
+    "embedUrl": "https://www.twoplayergames.org/embed/trump-clicker-ld39",
+    "tags": [],
+    "thumbnail": "/images/trump-clicker-ld39.png",
+    "category": "clicker",
+    "description": "Play Trump Clicker Ld39 on PixelGamez."
+  },
+  {
+    "id": "wildfire",
+    "title": "Wildfire",
+    "embedUrl": "https://www.twoplayergames.org/embed/wildfire",
+    "tags": [],
+    "thumbnail": "/images/wildfire.png",
+    "category": "arcade",
+    "description": "Play Wildfire on PixelGamez."
+  },
+  {
+    "id": "chop-chains",
+    "title": "Chop Chains",
+    "embedUrl": "https://www.twoplayergames.org/embed/chop-chains",
+    "tags": [],
+    "thumbnail": "/images/chop-chains.png",
+    "category": "arcade",
+    "description": "Play Chop Chains on PixelGamez."
+  },
+  {
+    "id": "balls-gamble",
+    "title": "Balls Gamble",
+    "embedUrl": "https://www.twoplayergames.org/embed/balls-gamble",
+    "tags": [],
+    "thumbnail": "/images/balls-gamble.png",
+    "category": "srts",
+    "description": "Play Balls Gamble on PixelGamez."
+  }
+]

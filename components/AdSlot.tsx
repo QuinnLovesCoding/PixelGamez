@@ -20,7 +20,7 @@ const AdSlot = React.memo(function AdSlot({ placement }: AdSlotProps) {
   if (!config) return null;
 
   return (
-    <div className={`promo-box promo-box--${placement}`} style={{ display: 'flex', justifyContent: 'center', margin: '16px 0', overflow: 'hidden' }}>
+    <div className={`promo-box promo-box--${placement}`} style={{ display: 'flex', justifyContent: 'center', margin: '16px 0', overflow: 'hidden' }} suppressHydrationWarning>
       <iframe
         src={`/ad.html?key=${config.key}&w=${config.width}&h=${config.height}`}
         width={config.width}
@@ -29,6 +29,7 @@ const AdSlot = React.memo(function AdSlot({ placement }: AdSlotProps) {
         scrolling="no"
         style={{ border: 'none', background: 'transparent' }}
         title="Advertisement"
+        suppressHydrationWarning
       />
     </div>
   );
