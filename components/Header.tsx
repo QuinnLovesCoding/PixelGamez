@@ -132,7 +132,7 @@ export default function Header() {
       </div>
 
       <form ref={dropdownRef} className="header__search" onSubmit={handleSearch}>
-        <svg className="header__search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <svg suppressHydrationWarning className="header__search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
           <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
         </svg>
         <input
@@ -145,7 +145,7 @@ export default function Header() {
         />
         {search && (
           <button type="button" className="header__search-clear" onClick={() => { setSearch(''); setIsDropdownOpen(false); }}>
-            <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" strokeWidth="2" fill="none">
+            <svg suppressHydrationWarning viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" strokeWidth="2" fill="none">
               <line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line>
             </svg>
           </button>

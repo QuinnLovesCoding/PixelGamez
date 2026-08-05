@@ -139,12 +139,30 @@ export default function GamePlayer({ game, initialPlays, initialLikes, initialDi
         {(() => {
           let finalSrc = game.embedUrl;
           let isItch = false;
-          const itchZoneMatch = game.embedUrl.match(/itch\.zone\/html\/(\d+)/);
-          if (itchZoneMatch) {
-            finalSrc = `https://itch.io/embed-upload/${itchZoneMatch[1]}?color=000000`;
-            isItch = true;
-          } else if (game.embedUrl.includes('itch.io')) {
-            isItch = true;
+          const isHtml = finalSrc.trim().startsWith('<');
+
+          if (!isHtml) {
+            const itchZoneMatch = game.embedUrl.match(/itch\.zone\/html\/(\d+)/);
+            if (itchZoneMatch) {
+              finalSrc = `https://itch.io/embed-upload/${itchZoneMatch[1]}?color=000000`;
+              isItch = true;
+            } else if (game.embedUrl.includes('itch.io')) {
+              isItch = true;
+            }
+          }
+
+          if (isHtml) {
+            return (
+              <iframe
+                id="game-iframe"
+                className="game-player__iframe"
+                srcDoc={finalSrc}
+                frameBorder="0"
+                scrolling="no"
+                allowFullScreen
+                style={{ width: '100%', height: '100%', border: 'none' }}
+              ></iframe>
+            );
           }
 
           return (
