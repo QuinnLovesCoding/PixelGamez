@@ -1,4 +1,5 @@
 import { prisma } from './prisma';
+import { invalidateCache } from './cache';
 
 export async function getVotes(gameId: string) {
   const likes = await prisma.vote.count({ where: { gameId, type: 'like' } });
@@ -37,6 +38,7 @@ export async function addVote(gameId: string, userId: string, type: 'like' | 'di
 
     await prisma.vote.create({ data: { gameId, userId, type } });
   }
+  invalidateCache('games:');
   return getVotes(gameId);
 }
 
@@ -47,5 +49,6 @@ export async function removeVote(gameId: string, userId: string) {
   if (existing) {
     await prisma.vote.delete({ where: { id: existing.id } });
   }
+  invalidateCache('games:');
   return getVotes(gameId);
 }

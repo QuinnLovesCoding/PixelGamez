@@ -75,8 +75,11 @@ const bannerUpload = multer({
 async function getAuthUser(req: Request): Promise<PublicUser | null> {
   const token = req.cookies?.[SESSION_COOKIE_NAME];
   if (!token) return null;
-  const session = await prisma.session.findUnique({ where: { token } });
-  if (!session || session.expiresAt < new Date()) return null;
+  
+  const { getSession } = require('./lib/sessions');
+  const session = await getSession(token);
+  if (!session) return null;
+
   const user = await prisma.user.findUnique({ 
     where: { id: session.userId },
     include: { favoriteGames: { select: { id: true } } }
@@ -733,7 +736,7 @@ app.prepare().then(() => {
         return;
       }
       const users = await prisma.user.findMany({
-        select: { id: true, email: true, displayName: true, role: true, createdAt: true },
+        select: { id: true, playerId: true, email: true, displayName: true, role: true, createdAt: true },
         orderBy: { createdAt: 'desc' }
       });
       res.json(users);

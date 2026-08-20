@@ -59,6 +59,7 @@ export default function LanguageSelector() {
           height={15}
           className="language-flag-icon"
           unoptimized
+          suppressHydrationWarning
         />
         <span className="language-label-text">{currentLang?.code.toUpperCase()}</span>
       </button>
@@ -92,6 +93,7 @@ export default function LanguageSelector() {
                     height={15}
                     className="language-flag-icon"
                     unoptimized
+                    suppressHydrationWarning
                   />
                   <span className="lang-name">{lang.name}</span>
                   <span className="lang-code">{lang.code.toUpperCase()}</span>

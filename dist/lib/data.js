@@ -19,7 +19,6 @@ exports.getGameCountByCategory = getGameCountByCategory;
 exports.formatPlays = formatPlays;
 exports.categories = [
     { id: 'action', name: 'Action', icon: 'action' },
-    { id: 'adventure', name: 'Adventure', icon: 'adventure' },
     { id: 'arcade', name: 'Arcade', icon: 'arcade' },
     { id: 'clicker', name: 'Clicker', icon: 'clicker' },
     { id: 'driving', name: 'Driving', icon: 'driving' },

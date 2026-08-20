@@ -81,8 +81,9 @@ async function getAuthUser(req) {
     const token = (_a = req.cookies) === null || _a === void 0 ? void 0 : _a[sessions_1.SESSION_COOKIE_NAME];
     if (!token)
         return null;
-    const session = await prisma_1.prisma.session.findUnique({ where: { token } });
-    if (!session || session.expiresAt < new Date())
+    const { getSession } = require('./lib/sessions');
+    const session = await getSession(token);
+    if (!session)
         return null;
     const user = await prisma_1.prisma.user.findUnique({
         where: { id: session.userId },
@@ -698,7 +699,7 @@ app.prepare().then(() => {
                 return;
             }
             const users = await prisma_1.prisma.user.findMany({
-                select: { id: true, email: true, displayName: true, role: true, createdAt: true },
+                select: { id: true, playerId: true, email: true, displayName: true, role: true, createdAt: true },
                 orderBy: { createdAt: 'desc' }
             });
             res.json(users);

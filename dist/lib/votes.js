@@ -4,6 +4,7 @@ exports.getVotes = getVotes;
 exports.addVote = addVote;
 exports.removeVote = removeVote;
 const prisma_1 = require("./prisma");
+const cache_1 = require("./cache");
 async function getVotes(gameId) {
     const likes = await prisma_1.prisma.vote.count({ where: { gameId, type: 'like' } });
     const dislikes = await prisma_1.prisma.vote.count({ where: { gameId, type: 'dislike' } });
@@ -33,6 +34,7 @@ async function addVote(gameId, userId, type) {
         });
         await prisma_1.prisma.vote.create({ data: { gameId, userId, type } });
     }
+    (0, cache_1.invalidateCache)('games:');
     return getVotes(gameId);
 }
 async function removeVote(gameId, userId) {
@@ -42,5 +44,6 @@ async function removeVote(gameId, userId) {
     if (existing) {
         await prisma_1.prisma.vote.delete({ where: { id: existing.id } });
     }
+    (0, cache_1.invalidateCache)('games:');
     return getVotes(gameId);
 }

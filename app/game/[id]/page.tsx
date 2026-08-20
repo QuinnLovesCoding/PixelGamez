@@ -17,7 +17,10 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   let seoDescription = '';
 
   try {
-    const dbGame = await prisma.game.findUnique({ where: { id }, select: { title: true, description: true } });
+    const { fetchWithCache } = require('../../../lib/cache');
+    const dbGame = await fetchWithCache(`game_meta_${id}`, async () => {
+      return prisma.game.findUnique({ where: { id }, select: { title: true, description: true } });
+    }, 60);
     if (game) {
       seoTitle = `${game.title} - Play Free on PixelGamez`;
       seoDescription = dbGame?.description || game.description;
@@ -134,15 +137,24 @@ export default async function GamePage({ params }: { params: Promise<{ id: strin
     let initialDislikes = 0;
     let initialPlays = 0;
 
-    try {
-      const [dbGame, likesCount, dislikesCount] = await Promise.all([
-        prisma.game.findUnique({ where: { id } }),
-        prisma.vote.count({ where: { gameId: id, type: 'up' } }),
-        prisma.vote.count({ where: { gameId: id, type: 'down' } })
-      ]);
+    let dbGame = null;
+    let likesCount = 0;
+    let dislikesCount = 0;
 
-      initialLikes = likesCount;
-      initialDislikes = dislikesCount;
+    try {
+      const { fetchWithCache } = require('../../../lib/cache');
+      const stats = await fetchWithCache(`game_stats_${id}`, async () => {
+        const [game, likes, dislikes] = await Promise.all([
+          prisma.game.findUnique({ where: { id } }),
+          prisma.vote.count({ where: { gameId: id, type: 'up' } }),
+          prisma.vote.count({ where: { gameId: id, type: 'down' } })
+        ]);
+        return { game, likes, dislikes };
+      }, 5);
+
+      dbGame = stats.game;
+      initialLikes = stats.likes;
+      initialDislikes = stats.dislikes;
 
       if (!gameData && dbGame) {
         gameData = {
