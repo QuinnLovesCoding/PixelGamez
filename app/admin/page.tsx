@@ -584,8 +584,8 @@ export default function AdminPage() {
                   </thead>
                   <tbody>
                     {analytics.filter(g => g.title.toLowerCase().includes(analyticsSearch.toLowerCase())).map((game: any) => {
-                      const likes = game.votes?.filter((v: any) => v.type === 'like').length || 0;
-                      const dislikes = game.votes?.filter((v: any) => v.type === 'dislike').length || 0;
+                      const likes = game.likes ?? (game.votes?.filter((v: any) => v.type === 'like').length || 0);
+                      const dislikes = game.dislikes ?? (game.votes?.filter((v: any) => v.type === 'dislike').length || 0);
                       const totalVotes = likes + dislikes;
                       const likeRatio = totalVotes > 0 ? (likes / totalVotes) * 100 : 0;
                       

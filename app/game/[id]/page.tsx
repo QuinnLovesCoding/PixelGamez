@@ -8,31 +8,15 @@ import { notFound } from 'next/navigation';
 import * as fs from 'fs';
 import * as path from 'path';
 import { Metadata } from 'next';
-import { prisma } from '../../../lib/prisma';
-
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
   const { id } = await params;
-  let game = getGameById(id) as any;
+  let game = await getGameById(id) as any;
   let seoTitle = 'Game Not Found';
   let seoDescription = '';
 
-  try {
-    const { fetchWithCache } = require('../../../lib/cache');
-    const dbGame = await fetchWithCache(`game_meta_${id}`, async () => {
-      return prisma.game.findUnique({ where: { id }, select: { title: true, description: true } });
-    }, 60);
-    if (game) {
-      seoTitle = `${game.title} - Play Free on PixelGamez`;
-      seoDescription = dbGame?.description || game.description;
-    } else if (dbGame) {
-      seoTitle = `${dbGame.title} - Play Free on PixelGamez`;
-      seoDescription = dbGame.description;
-    }
-  } catch (e) {
-    if (game) {
-      seoTitle = `${game.title} - Play Free on PixelGamez`;
-      seoDescription = game.description;
-    }
+  if (game) {
+    seoTitle = `${game.title} - Play Free on PixelGamez`;
+    seoDescription = game.description;
   }
 
   return {
@@ -131,7 +115,7 @@ async function loadDescription(gameId: string, gameTitle: string): Promise<strin
 export default async function GamePage({ params }: { params: Promise<{ id: string }> }) {
   try {
     const { id } = await params;
-    let gameData: any = getGameById(id);
+    let gameData: any = await getGameById(id);
 
     let initialLikes = 0;
     let initialDislikes = 0;
@@ -141,16 +125,16 @@ export default async function GamePage({ params }: { params: Promise<{ id: strin
     let likesCount = 0;
     let dislikesCount = 0;
 
-    try {
-      const { fetchWithCache } = require('../../../lib/cache');
-      const stats = await fetchWithCache(`game_stats_${id}`, async () => {
-        const [game, likes, dislikes] = await Promise.all([
-          prisma.game.findUnique({ where: { id } }),
-          prisma.vote.count({ where: { gameId: id, type: 'up' } }),
-          prisma.vote.count({ where: { gameId: id, type: 'down' } })
-        ]);
-        return { game, likes, dislikes };
-      }, 5);
+      try {
+        const API_BASE = process.env.API_URL || 'http://localhost:8080';
+        const gameRes = await fetch(`${API_BASE}/api/games/${id}`, { cache: 'no-store' });
+        const game = gameRes.ok ? await gameRes.json() : null;
+        
+        const votesRes = await fetch(`${API_BASE}/api/votes/${id}`, { cache: 'no-store' });
+        const votes = votesRes.ok ? await votesRes.json() : { upvotes: 0, downvotes: 0 };
+        
+        const stats = { game, likes: votes.upvotes || 0, dislikes: votes.downvotes || 0 };
+
 
       dbGame = stats.game;
       initialLikes = stats.likes;

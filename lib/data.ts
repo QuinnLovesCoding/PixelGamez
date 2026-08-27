@@ -245,7 +245,7 @@ export function getAllGames(): Game[] {
 
 export function updateGames(newGames: Game[]) {
   games.length = 0;
-  games.push(...newGames);
+  games.push(...newGames.map(g => ({ ...g, tags: g.tags || [] })));
 }
 
 export function getGameById(id: string): Game | undefined {
@@ -257,7 +257,7 @@ export function getGamesByCategory(categoryId: string): Game[] {
 }
 
 export function getFeaturedGames(): Game[] {
-  return games.filter(g => g.tags.includes('featured'));
+  return games.filter(g => g.tags && g.tags.includes('featured'));
 }
 
 export function getPopularGames(playsMap?: Record<string, number>): Game[] {
@@ -279,7 +279,7 @@ export function getNewGames(): Game[] {
 }
 
 export function getTrendingGames(playsMap?: Record<string, number>): Game[] {
-  const trending = games.filter(g => g.tags.includes('trending'));
+  const trending = games.filter(g => g.tags && g.tags.includes('trending'));
   if (trending.length > 0) {
     return trending.sort((a, b) => {
       const aPlays = playsMap?.[a.id] ?? a.plays;
@@ -334,7 +334,7 @@ export function searchGames(query: string): Game[] {
     g.title.toLowerCase().includes(q) ||
     g.description.toLowerCase().includes(q) ||
     g.category.toLowerCase().includes(q) ||
-    g.tags.some(t => t.toLowerCase().includes(q))
+    (g.tags && g.tags.some(t => t.toLowerCase().includes(q)))
   );
 }
 

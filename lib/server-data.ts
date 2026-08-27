@@ -1,38 +1,19 @@
-import { prisma } from './prisma';
-import { fetchWithCache } from './cache';
+const API_BASE = process.env.API_URL || 'http://localhost:8080';
 
 export async function getAllGames() {
-  return fetchWithCache('games:all', async () => {
-    const games = await prisma.game.findMany({
-      orderBy: { createdAt: 'desc' }
-    });
-    return games.map(g => ({
-      ...g,
-      createdAt: g.createdAt?.toISOString()
-    }));
-  }, 5); // Cache for 5 mins
+  const res = await fetch(`${API_BASE}/api/games`, { cache: 'no-store' });
+  if (!res.ok) return [];
+  return res.json();
 }
 
 export async function getGameById(id: string) {
-  return fetchWithCache(`games:id:${id}`, async () => {
-    const g = await prisma.game.findUnique({ where: { id } });
-    if (!g) return undefined;
-    return {
-      ...g,
-      createdAt: g.createdAt?.toISOString()
-    };
-  }, 5);
+  const res = await fetch(`${API_BASE}/api/games/${id}`, { cache: 'no-store' });
+  if (!res.ok) return undefined;
+  return res.json();
 }
 
 export async function getGamesByCategory(categoryId: string) {
-  return fetchWithCache(`games:cat:${categoryId}`, async () => {
-    const games = await prisma.game.findMany({
-      where: { category: categoryId },
-      orderBy: { createdAt: 'desc' }
-    });
-    return games.map(g => ({
-      ...g,
-      createdAt: g.createdAt?.toISOString()
-    }));
-  }, 5);
+  const res = await fetch(`${API_BASE}/api/games/category/${categoryId}`, { cache: 'no-store' });
+  if (!res.ok) return [];
+  return res.json();
 }

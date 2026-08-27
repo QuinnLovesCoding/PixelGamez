@@ -1,49 +1,39 @@
-import { getSubmissionsByUser } from '../../../lib/submissions';
 import UserProfile from '../../../components/UserProfile';
 import { notFound } from 'next/navigation';
-import { prisma } from '../../../lib/prisma';
-import { games } from '../../../lib/data';
 
 export const dynamic = 'force-dynamic';
 
 export default async function UserPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   
+  const API_BASE = process.env.API_URL || 'http://localhost:8080';
   
-  const playerId = parseInt(id);
-  const dbUser = await prisma.user.findUnique({
-    where: isNaN(playerId) ? { id } : { playerId },
-    include: { favoriteGames: { select: { id: true } } }
-  });
+  let user = null;
+  let res = await fetch(`${API_BASE}/api/users/${id}`, { cache: 'no-store' });
+  if (res.ok) {
+    user = await res.json();
+  } else {
+    // Try lookup by name
+    res = await fetch(`${API_BASE}/api/users/lookup/${id}`, { cache: 'no-store' });
+    if (res.ok) {
+      user = await res.json();
+    }
+  }
 
-  if (!dbUser) {
+  if (!user) {
     notFound();
   }
 
-  const [followersCount, followingCount, allSubmissions] = await Promise.all([
-    prisma.follow.count({ where: { followingId: dbUser.id } }),
-    prisma.follow.count({ where: { followerId: dbUser.id } }),
-    getSubmissionsByUser(dbUser.id)
-  ]);
-
-  const submissions = allSubmissions.filter(s => s.status === 'approved').map(s => ({
-    ...s,
-    thumbnail: s.thumbnail || '',
-    submittedAt: s.submittedAt.toISOString()
-  }));
-  const user = {
-    ...dbUser,
-    createdAt: dbUser.createdAt.toISOString(),
-    favoriteGames: dbUser.favoriteGames.map(g => g.id),
-    recentGames: (dbUser as any).recentGames || [],
-    followersCount,
-    followingCount
+  const profileUser = {
+    ...user,
+    favoriteGames: [],
+    followersCount: 0,
+    followingCount: 0
   };
-  delete (user as any).passwordHash;
 
   return (
     <div className="animate-fade-in">
-      <UserProfile profileUser={user} submissions={submissions} />
+      <UserProfile profileUser={profileUser} submissions={[]} />
     </div>
   );
 }

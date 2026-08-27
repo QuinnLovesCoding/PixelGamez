@@ -1,0 +1,64 @@
+services:
+  - type: web
+    name: pgz-api
+    env: docker
+    dockerfilePath: ./backend/Dockerfile
+    region: ohio
+    plan: starter
+    envVars:
+      - key: SPRING_PROFILES_ACTIVE
+        value: prod
+      - key: DATABASE_URL
+        fromDatabase:
+          name: pgz-db
+          property: connectionString
+      - key: DB_USERNAME
+        fromDatabase:
+          name: pgz-db
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: pgz-db
+          property: password
+      - key: REDIS_HOST
+        fromService:
+          type: redis
+          name: pgz-redis
+          property: host
+      - key: REDIS_PORT
+        fromService:
+          type: redis
+          name: pgz-redis
+          property: port
+      - key: JWT_SECRET
+        sync: false
+      - key: GOOGLE_CLIENT_ID
+        sync: false
+
+  - type: web
+    name: pgz-web
+    env: docker
+    dockerfilePath: ./Dockerfile
+    region: ohio
+    plan: starter
+    envVars:
+      - key: API_URL
+        fromService:
+          type: web
+          name: pgz-api
+          property: url
+      - key: NEXT_PUBLIC_SUPABASE_URL
+        sync: false
+      - key: NEXT_PUBLIC_SUPABASE_ANON_KEY
+        sync: false
+    autoDeploy: false
+
+  - type: redis
+    name: pgz-redis
+    region: ohio
+    plan: free
+
+databases:
+  - name: pgz-db
+    region: ohio
+    plan: free
