@@ -38,10 +38,20 @@ const nextConfig: NextConfig = {
     ];
   },
   async rewrites() {
+    let apiUrl = process.env.API_URL || 'http://localhost:8080';
+    // Ensure API URL has a protocol
+    if (apiUrl && !apiUrl.startsWith('http://') && !apiUrl.startsWith('https://')) {
+      apiUrl = `https://${apiUrl}`;
+    }
+    // Remove trailing slash if present to avoid double slashes
+    if (apiUrl.endsWith('/')) {
+      apiUrl = apiUrl.slice(0, -1);
+    }
+    
     return [
       {
         source: '/api/:path*',
-        destination: process.env.API_URL ? `${process.env.API_URL}/api/:path*` : 'http://localhost:8080/api/:path*',
+        destination: `${apiUrl}/api/:path*`,
       },
     ];
   },
