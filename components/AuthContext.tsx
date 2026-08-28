@@ -91,7 +91,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const res = await fetch('/api/auth/google', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ credential }),
+      body: JSON.stringify({ idToken: credential }),
     });
     const data = await res.json();
     if (!res.ok) return { error: data.error || 'Google login failed.' };

@@ -2,7 +2,7 @@
 
 import { useState, FormEvent } from 'react';
 import { useAuth } from './AuthContext';
-// import { GoogleLogin } from '@react-oauth/google';
+import { GoogleLogin } from '@react-oauth/google';
 
 export default function AuthModal() {
   const { showAuthModal, closeAuthModal, login, loginWithGoogle, register, requestOTP, updateDisplayName } = useAuth();
@@ -72,7 +72,6 @@ export default function AuthModal() {
     }
   };
 
-  /*
   const handleGoogleSuccess = async (credentialResponse: any) => {
     if (credentialResponse.credential) {
       setSubmitting(true);
@@ -97,7 +96,6 @@ export default function AuthModal() {
   const handleGoogleError = () => {
     setError('Google login failed.');
   };
-  */
 
   return (
     <div className="auth-overlay" onClick={closeAuthModal}>
@@ -128,7 +126,6 @@ export default function AuthModal() {
           </button>
         </div>
 
-        {/*
         <div style={{ display: 'flex', justifyContent: 'center', marginTop: '16px', marginBottom: '16px' }}>
           <GoogleLogin
             onSuccess={handleGoogleSuccess}
@@ -140,7 +137,6 @@ export default function AuthModal() {
         <div style={{ textAlign: 'center', fontSize: '12px', color: '#666', marginBottom: '16px' }}>
           — OR —
         </div>
-        */}
 
         <form onSubmit={handleSubmit} className="auth-modal__form">
           {mode === 'otp' && (
