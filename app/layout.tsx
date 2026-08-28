@@ -90,7 +90,7 @@ export default async function RootLayout({
             style={{ display: 'none', visibility: 'hidden' }}
           />
         </noscript>
-        <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || 'dummy_client_id_please_configure_in_env'}>
+        <GoogleOAuthProvider clientId="802247549330-j6l3kkqehqedcl7bsgpduro1hihqpc1o.apps.googleusercontent.com">
           <GamesProvider initialGames={allGames as any}>
             <I18nProvider>
               <AuthProvider>
