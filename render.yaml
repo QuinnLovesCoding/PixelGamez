@@ -33,3 +33,4 @@ services:
     name: pgz-redis
     region: ohio
     plan: free
+    ipAllowList: []
