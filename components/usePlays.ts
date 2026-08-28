@@ -28,12 +28,16 @@ export function usePlays(gameId: string) {
           return data;
         })
         .catch(() => {
-          return {};
+          return null;
         });
     }
 
     fetchPromise.then(data => {
-      setPlays(data[gameId] ?? 0);
+      if (data === null) {
+        setPlays(null);
+      } else {
+        setPlays(data[gameId] ?? 0);
+      }
     });
   }, [gameId]);
 

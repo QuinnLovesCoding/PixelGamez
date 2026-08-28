@@ -35,7 +35,7 @@ const GameCard = React.memo(function GameCard({ game, size = 'normal' }: GameCar
           <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <polygon points="5 3 19 12 5 21 5 3"></polygon>
           </svg>
-          {plays !== null ? new Intl.NumberFormat('en-US', { notation: "compact", compactDisplay: "short", maximumFractionDigits: 1 }).format(plays) : '...'}
+          {new Intl.NumberFormat('en-US', { notation: "compact", compactDisplay: "short", maximumFractionDigits: 1 }).format(plays !== null ? plays : game.plays)}
         </span>
       </div>
       {(() => {
