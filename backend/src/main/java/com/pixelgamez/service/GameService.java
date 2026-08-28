@@ -23,6 +23,12 @@ public class GameService {
         return gameRepository.findAll();
     }
 
+    @Cacheable(value = "games", key = "'playsMap'")
+    public java.util.Map<String, Integer> getGamesPlays() {
+        return gameRepository.findAll().stream()
+                .collect(java.util.stream.Collectors.toMap(Game::getId, Game::getPlays));
+    }
+
     @Cacheable(value = "games", key = "'category:' + #category")
     public List<Game> getGamesByCategory(String category) {
         // limit to 50 for category pages

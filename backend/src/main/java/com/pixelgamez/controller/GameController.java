@@ -27,6 +27,11 @@ public class GameController {
         return ResponseEntity.ok(game);
     }
 
+    @GetMapping("/plays")
+    public ResponseEntity<?> getPlays() {
+        return ResponseEntity.ok(gameService.getGamesPlays());
+    }
+
     @GetMapping("/category/{category}")
     public ResponseEntity<?> getGamesByCategory(@PathVariable String category) {
         return ResponseEntity.ok(gameService.getGamesByCategory(category));
