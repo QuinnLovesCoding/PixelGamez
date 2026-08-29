@@ -399,11 +399,23 @@ h3 { font-size: var(--font-size-md); }
   display: flex;
   flex-direction: column;
   gap: 1px;
-  transition: width var(--transition-base) ease;
+  transition: width var(--transition-base);
   position: absolute;
   z-index: 60;
   top: 0;
   left: 0;
+  animation: sidebarSlideIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes sidebarSlideIn {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
 }
 .sidebar:hover {
   width: var(--sidebar-width);
@@ -456,7 +468,7 @@ h3 { font-size: var(--font-size-md); }
   opacity: 0;
   transform: translateX(-15px);
   white-space: nowrap;
-  transition: opacity var(--transition-base) ease, transform var(--transition-base) cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: opacity var(--transition-base), transform var(--transition-base);
 }
 .sidebar:hover .sidebar__label {
   opacity: 1;
@@ -467,7 +479,7 @@ h3 { font-size: var(--font-size-md); }
   width: 0;
   visibility: hidden;
   white-space: nowrap;
-  transition: opacity var(--transition-base) ease;
+  transition: opacity var(--transition-base);
 }
 .sidebar:hover .sidebar__footer {
   opacity: 1;

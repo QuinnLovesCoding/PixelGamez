@@ -39,6 +39,19 @@ export default function GamePlayer({ game, initialPlays, initialLikes, initialDi
     setIsFaving(false);
   };
 
+  const handleFullscreen = () => {
+    const iframe = document.getElementById('game-iframe');
+    if (iframe) {
+      if (iframe.requestFullscreen) {
+        iframe.requestFullscreen();
+      } else if ((iframe as any).webkitRequestFullscreen) {
+        (iframe as any).webkitRequestFullscreen();
+      } else if ((iframe as any).msRequestFullscreen) {
+        (iframe as any).msRequestFullscreen();
+      }
+    }
+  };
+
   const fetchVotes = useCallback(async () => {
     try {
       const res = await fetch(`/api/votes/${game.id}`, { cache: 'no-store' });
@@ -159,6 +172,7 @@ export default function GamePlayer({ game, initialPlays, initialLikes, initialDi
                 srcDoc={finalSrc}
                 frameBorder="0"
                 scrolling="no"
+                allow="autoplay; fullscreen; gamepad"
                 allowFullScreen
                 style={{ width: '100%', height: '100%', border: 'none' }}
               ></iframe>
@@ -172,6 +186,7 @@ export default function GamePlayer({ game, initialPlays, initialLikes, initialDi
               src={finalSrc}
               frameBorder="0"
               scrolling="no"
+              allow="autoplay; fullscreen; gamepad"
               allowFullScreen
               referrerPolicy={isItch ? "no-referrer" : undefined}
               style={{ width: '100%', height: '100%' }}
@@ -236,6 +251,15 @@ export default function GamePlayer({ game, initialPlays, initialLikes, initialDi
                 <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
               )}
             </span> {isFavorited ? 'Favorited' : 'Favorite'}
+          </button>
+          <button
+            className="game-player__btn"
+            onClick={handleFullscreen}
+            title="Fullscreen (100%)"
+          >
+            <span className="icon">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg>
+            </span> Fullscreen
           </button>
         </div>
       </div>

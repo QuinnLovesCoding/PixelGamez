@@ -21,21 +21,7 @@ const nextConfig: NextConfig = {
     removeConsole: process.env.NODE_ENV === "production",
   },
   async headers() {
-    return [
-      {
-        source: "/game/:id*",
-        headers: [
-          {
-            key: "Cross-Origin-Embedder-Policy",
-            value: "credentialless",
-          },
-          {
-            key: "Cross-Origin-Opener-Policy",
-            value: "same-origin",
-          },
-        ],
-      },
-    ];
+    return [];
   },
   async rewrites() {
     let apiUrl = process.env.API_URL || 'http://localhost:8080';
