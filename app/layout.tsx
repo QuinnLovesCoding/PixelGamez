@@ -10,6 +10,7 @@ import AuthModal from '../components/AuthModal';
 import NotificationSystem from '../components/NotificationSystem';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import JsonLd from '../components/JsonLd';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 export const metadata: Metadata = {
   title: 'PixelGamez — Free Online Games',
@@ -106,6 +107,7 @@ export default async function RootLayout({
             </I18nProvider>
           </GamesProvider>
         </GoogleOAuthProvider>
+        <SpeedInsights />
       </body>
     </html>
   );
