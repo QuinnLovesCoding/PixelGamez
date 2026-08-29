@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useAuth } from '../../components/AuthContext';
 import { games as validGames } from '../../lib/data';
 import AdminUploadGameForm from './AdminUploadGameForm';
+import Link from 'next/link';
 
 interface Submission {
   id: string;
