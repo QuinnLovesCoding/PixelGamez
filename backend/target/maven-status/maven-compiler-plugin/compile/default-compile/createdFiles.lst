@@ -13,6 +13,7 @@ com\pixelgamez\controller\AdminController.class
 com\pixelgamez\entity\BrandInquiry.class
 com\pixelgamez\entity\Notification$NotificationBuilder.class
 com\pixelgamez\service\FriendService.class
+com\pixelgamez\controller\DeveloperController.class
 com\pixelgamez\dto\AuthRequest.class
 com\pixelgamez\repository\SubmissionRepository.class
 com\pixelgamez\service\AdService.class
@@ -33,8 +34,10 @@ com\pixelgamez\controller\ChatController.class
 com\pixelgamez\security\JwtAuthFilter.class
 com\pixelgamez\entity\Submission$SubmissionBuilder.class
 com\pixelgamez\entity\Submission.class
+com\pixelgamez\config\WebMvcConfig.class
 com\pixelgamez\dto\RegisterRequest.class
 com\pixelgamez\repository\FollowRepository.class
+com\pixelgamez\service\FileStorageService.class
 com\pixelgamez\entity\Game$GameBuilder.class
 com\pixelgamez\controller\ChatController$CreateConversationRequest.class
 com\pixelgamez\entity\Game.class
