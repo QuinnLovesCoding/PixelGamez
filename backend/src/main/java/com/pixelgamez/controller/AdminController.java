@@ -53,6 +53,16 @@ public class AdminController {
         return ResponseEntity.ok(submissionService.getPendingSubmissions());
     }
 
+    @GetMapping("/pending-games/{id}")
+    public ResponseEntity<?> getPendingGameById(@PathVariable String id) {
+        // Find the specific submission to preview it
+        return submissionService.getPendingSubmissions().stream()
+                .filter(sub -> sub.getId().equals(id))
+                .findFirst()
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
     @PostMapping("/pending-games/{id}/approve")
     public ResponseEntity<?> approveGame(@PathVariable String id, @AuthenticationPrincipal AppUser user) {
         try {

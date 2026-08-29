@@ -259,13 +259,7 @@ export default function SubmitGameForm() {
           >
             Unity WebGL
           </button>
-          <button
-            type="button"
-            className={`dev-form__type-btn ${gameType === 'download' ? 'active' : ''}`}
-            onClick={() => setGameType('download')}
-          >
-            Downloadable PC/Mac
-          </button>
+
         </div>
 
         {gameType === 'html' ? (
@@ -282,7 +276,7 @@ export default function SubmitGameForm() {
               ) : (
                 <div className="dev-form__dropzone-text">
                   <strong>Choose file</strong>
-                  <span>.zip, .html, .htm — 150 MB max</span>
+                  <span>.html — 150 MB max</span>
                 </div>
               )}
             </div>

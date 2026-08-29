@@ -177,7 +177,7 @@ export default function AdminPage() {
   async function fetchPending() {
     setFetchingSubmissions(true);
     try {
-      const res = await fetch('/api/admin/pending');
+      const res = await fetch('/api/admin/pending-games');
       if (res.ok) {
         setPending(await res.json());
       }
@@ -372,7 +372,14 @@ export default function AdminPage() {
                       </div>
                     )}
                   </div>
-                  <div className="admin-card__actions">
+                  <div className="admin-card__actions" style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+                    <Link 
+                      href={`/admin/test/${sub.id}`}
+                      className="admin-card__btn"
+                      style={{ background: 'var(--bg-tertiary)', color: 'var(--text-primary)', textDecoration: 'none', textAlign: 'center' }}
+                    >
+                      ▶ Playtest Game
+                    </Link>
                     <button
                       className="admin-card__btn admin-card__btn--approve"
                       onClick={() => handleAction(sub.id, 'approve')}

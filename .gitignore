@@ -43,3 +43,6 @@ next-env.d.ts
 # data
 /data/uploads/
 /public/community-games/
+
+backend/target/
+public/*.exe

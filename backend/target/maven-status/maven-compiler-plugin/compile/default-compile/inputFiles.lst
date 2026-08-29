@@ -1,6 +1,7 @@
 C:\Users\dahir\Documents\pixelgamez\backend\src\main\java\com\pixelgamez\config\CorsConfig.java
 C:\Users\dahir\Documents\pixelgamez\backend\src\main\java\com\pixelgamez\config\RedisConfig.java
 C:\Users\dahir\Documents\pixelgamez\backend\src\main\java\com\pixelgamez\config\SecurityConfig.java
+C:\Users\dahir\Documents\pixelgamez\backend\src\main\java\com\pixelgamez\config\WebMvcConfig.java
 C:\Users\dahir\Documents\pixelgamez\backend\src\main\java\com\pixelgamez\controller\AdController.java
 C:\Users\dahir\Documents\pixelgamez\backend\src\main\java\com\pixelgamez\controller\AdminController.java
 C:\Users\dahir\Documents\pixelgamez\backend\src\main\java\com\pixelgamez\controller\AuthController.java
@@ -51,6 +52,7 @@ C:\Users\dahir\Documents\pixelgamez\backend\src\main\java\com\pixelgamez\securit
 C:\Users\dahir\Documents\pixelgamez\backend\src\main\java\com\pixelgamez\service\AdService.java
 C:\Users\dahir\Documents\pixelgamez\backend\src\main\java\com\pixelgamez\service\AuthService.java
 C:\Users\dahir\Documents\pixelgamez\backend\src\main\java\com\pixelgamez\service\ChatService.java
+C:\Users\dahir\Documents\pixelgamez\backend\src\main\java\com\pixelgamez\service\FileStorageService.java
 C:\Users\dahir\Documents\pixelgamez\backend\src\main\java\com\pixelgamez\service\FriendService.java
 C:\Users\dahir\Documents\pixelgamez\backend\src\main\java\com\pixelgamez\service\GameService.java
 C:\Users\dahir\Documents\pixelgamez\backend\src\main\java\com\pixelgamez\service\NotificationService.java

@@ -13,7 +13,6 @@ com\pixelgamez\controller\AdminController.class
 com\pixelgamez\entity\BrandInquiry.class
 com\pixelgamez\entity\Notification$NotificationBuilder.class
 com\pixelgamez\service\FriendService.class
-com\pixelgamez\controller\DeveloperController.class
 com\pixelgamez\dto\AuthRequest.class
 com\pixelgamez\repository\SubmissionRepository.class
 com\pixelgamez\service\AdService.class
