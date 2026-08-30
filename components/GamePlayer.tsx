@@ -57,8 +57,8 @@ export default function GamePlayer({ game, initialPlays, initialLikes, initialDi
       const res = await fetch(`/api/votes/${game.id}`, { cache: 'no-store' });
       if (res.ok) {
         const data = await res.json();
-        setLikes(data.likes);
-        setDislikes(data.dislikes);
+        setLikes(data.upvotes || 0);
+        setDislikes(data.downvotes || 0);
       }
     } catch {
       
@@ -70,12 +70,26 @@ export default function GamePlayer({ game, initialPlays, initialLikes, initialDi
     if (initialLikes === undefined) {
       fetchVotes();
     }
-    const storedVote = localStorage.getItem(`vote_${game.id}`);
-    if (storedVote) setUserVote(storedVote as 'like' | 'dislike');
     
+    // Attempt to fetch actual user vote from backend
+    if (isLoggedIn) {
+      fetch(`/api/votes/${game.id}/user`)
+        .then(res => res.ok ? res.json() : null)
+        .then(data => {
+          if (data && data.type) {
+            const mappedVote = data.type === 'up' ? 'like' : 'dislike';
+            setUserVote(mappedVote);
+            localStorage.setItem(`vote_${game.id}`, mappedVote);
+          }
+        })
+        .catch(() => {});
+    } else {
+      const storedVote = localStorage.getItem(`vote_${game.id}`);
+      if (storedVote) setUserVote(storedVote as 'like' | 'dislike');
+    }
     
     fetch(`/api/games/${game.id}/play`, { method: 'POST' }).catch(() => {});
-  }, [game.id, fetchVotes, initialLikes]);
+  }, [game.id, fetchVotes, initialLikes, isLoggedIn]);
 
   const handleVote = async (type: 'like' | 'dislike') => {
     if (!isLoggedIn) {
@@ -96,16 +110,15 @@ export default function GamePlayer({ game, initialPlays, initialLikes, initialDi
         if (type === 'dislike') setDislikes(d => Math.max(0, d - 1));
 
         const res = await fetch(`/api/votes/${game.id}`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ type, action: 'remove' }),
+          method: 'DELETE',
         });
         if (res.ok) {
           localStorage.removeItem(`vote_${game.id}`);
-          const data = await res.json();
-          setLikes(data.likes);
-          setDislikes(data.dislikes);
         } else {
+          // Revert optimistic update
+          setUserVote(type);
+          if (type === 'like') setLikes(l => l + 1);
+          if (type === 'dislike') setDislikes(d => d + 1);
           throw new Error('Failed to remove vote');
         }
       } else {
@@ -118,24 +131,23 @@ export default function GamePlayer({ game, initialPlays, initialLikes, initialDi
             if (previousUserVote === 'like') setLikes(l => Math.max(0, l - 1));
         }
 
-        if (previousUserVote) {
-          await fetch(`/api/votes/${game.id}`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ type: previousUserVote, action: 'remove' }),
-          });
-        }
         const res = await fetch(`/api/votes/${game.id}`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ type, action: 'add' }),
+          body: JSON.stringify({ type: type === 'like' ? 'up' : 'down' }),
         });
         if (res.ok) {
           localStorage.setItem(`vote_${game.id}`, type);
-          const data = await res.json();
-          setLikes(data.likes);
-          setDislikes(data.dislikes);
         } else {
+          // Revert optimistic update
+          setUserVote(previousUserVote);
+          if (type === 'like') {
+              setLikes(l => Math.max(0, l - 1));
+              if (previousUserVote === 'dislike') setDislikes(d => d + 1);
+          } else {
+              setDislikes(d => Math.max(0, d - 1));
+              if (previousUserVote === 'like') setLikes(l => l + 1);
+          }
           throw new Error('Failed to add vote');
         }
       }

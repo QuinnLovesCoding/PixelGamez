@@ -17,6 +17,7 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final AuthService authService;
+    private final com.pixelgamez.repository.GameRepository gameRepository;
 
     public PublicUserDto getUserProfile(String id) {
         return userRepository.findById(id)
@@ -99,5 +100,24 @@ public class UserService {
             }
             userRepository.save(user);
         });
+    }
+
+    @Transactional
+    public PublicUserDto toggleFavorite(String userId, String gameId, String action) {
+        AppUser user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        com.pixelgamez.entity.Game game = gameRepository.findById(gameId)
+                .orElseThrow(() -> new RuntimeException("Game not found"));
+
+        if ("remove".equals(action)) {
+            user.getFavoriteGames().remove(game);
+        } else {
+            if (!user.getFavoriteGames().contains(game)) {
+                user.getFavoriteGames().add(game);
+            }
+        }
+        
+        user = userRepository.save(user);
+        return authService.mapToPublicDto(user);
     }
 }

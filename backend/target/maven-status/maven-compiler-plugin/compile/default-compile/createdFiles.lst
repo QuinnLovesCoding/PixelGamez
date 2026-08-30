@@ -47,7 +47,6 @@ com\pixelgamez\security\JwtTokenProvider.class
 com\pixelgamez\service\UserService.class
 com\pixelgamez\controller\AuthController$ErrorResponse.class
 com\pixelgamez\service\ChatService.class
-com\pixelgamez\config\RedisConfig.class
 com\pixelgamez\entity\Follow$FollowBuilder.class
 com\pixelgamez\entity\Conversation$ConversationBuilder.class
 com\pixelgamez\entity\Message$MessageBuilder.class

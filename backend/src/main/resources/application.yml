@@ -21,6 +21,9 @@ spring:
         format_sql: true
     open-in-view: false
 
+  cache:
+    type: simple
+
   data:
     redis:
       host: ${REDIS_HOST:localhost}

@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 public class AuthController {
 
     private final AuthService authService;
+    private final com.pixelgamez.service.UserService userService;
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody RegisterRequest requestBody, HttpServletRequest request, HttpServletResponse response) {
@@ -76,13 +77,24 @@ public class AuthController {
         
         return ResponseEntity.ok().build();
     }
-
     @GetMapping("/me")
     public ResponseEntity<?> getMe(@AuthenticationPrincipal AppUser user) {
         if (user == null) {
             return ResponseEntity.status(401).body(new ErrorResponse("Not authenticated"));
         }
         return ResponseEntity.ok(authService.mapToPublicDto(user));
+    }
+
+    @PostMapping("/favorite/{gameId}")
+    public ResponseEntity<?> toggleFavorite(@PathVariable String gameId, @RequestBody java.util.Map<String, String> body, @AuthenticationPrincipal AppUser user) {
+        if (user == null) {
+            return ResponseEntity.status(401).body(new ErrorResponse("Not authenticated"));
+        }
+        try {
+            return ResponseEntity.ok(java.util.Map.of("user", userService.toggleFavorite(user.getId(), gameId, body.get("action"))));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(new ErrorResponse(e.getMessage()));
+        }
     }
 
     private void setCookie(HttpServletRequest request, HttpServletResponse response, String token) {

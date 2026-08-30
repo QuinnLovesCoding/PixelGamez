@@ -5,8 +5,8 @@ import com.pixelgamez.repository.GameRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.CacheManager;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
@@ -16,7 +16,7 @@ import java.util.List;
 public class GameService {
 
     private final GameRepository gameRepository;
-    private final RedisTemplate<String, Object> redisTemplate;
+    private final CacheManager cacheManager;
 
     @Cacheable(value = "games", key = "'all'")
     public List<Game> getAllGames() {
@@ -55,9 +55,13 @@ public class GameService {
         gameRepository.findById(id).ifPresent(game -> {
             game.setPlays(game.getPlays() + 1);
             gameRepository.save(game);
+            if (game.getPlays() % 10 == 0) {
+                org.springframework.cache.Cache cache = cacheManager.getCache("games");
+                if (cache != null) {
+                    cache.evict("popular");
+                }
+            }
         });
-        // Also evict the popular cache
-        redisTemplate.delete("games::popular");
     }
 
     @Transactional

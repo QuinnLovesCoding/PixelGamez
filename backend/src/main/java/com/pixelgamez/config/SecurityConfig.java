@@ -32,10 +32,12 @@ public class SecurityConfig {
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/api/auth", "/api/auth/**").permitAll()
                 .requestMatchers("/api/games", "/api/games/**").permitAll()
+                .requestMatchers("/api/votes", "/api/votes/**").permitAll()
                 .requestMatchers("/api/users", "/api/users/**").permitAll()
                 .requestMatchers("/api/proxy-game").permitAll()
                 .requestMatchers("/api/contact").permitAll()
                 .requestMatchers("/api/ads", "/api/ads/**").permitAll()
+                .requestMatchers("/error").permitAll()
                 .requestMatchers("/api/admin", "/api/admin/**").hasAnyRole("OWNER", "MODERATOR")
                 .requestMatchers("/api/developer", "/api/developer/**").authenticated()
                 .anyRequest().authenticated()
