@@ -1,7 +1,6 @@
 'use client';
 
 import { createContext, useContext, useState, useEffect, useCallback, ReactNode, useRef } from 'react';
-import { saveToSyncQueue, processSyncQueue } from '../lib/syncService';
 
 interface User {
   id: string;
@@ -42,25 +41,12 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [user, setUser] = useState<User | null>(() => {
-    if (typeof window !== 'undefined') {
-      const stored = localStorage.getItem('pixelgamez_user');
-      if (stored) {
-        try { return JSON.parse(stored); } catch {}
-      }
-    }
-    return null;
-  });
-  const [loading, setLoading] = useState(!user);
+  const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState(true);
   const [showAuthModal, setShowAuthModal] = useState(false);
 
   const updateUserState = useCallback((newUser: User | null) => {
     setUser(newUser);
-    if (newUser) {
-      localStorage.setItem('pixelgamez_user', JSON.stringify(newUser));
-    } else {
-      localStorage.removeItem('pixelgamez_user');
-    }
   }, []);
 
   const fetchUser = useCallback(async () => {
@@ -87,29 +73,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     fetchUser();
   }, [fetchUser]);
-
-  useEffect(() => {
-    // Start background sync interval
-    const interval = setInterval(() => {
-      processSyncQueue();
-    }, 5000); // Check every 5 seconds
-    
-    // Also try to sync when returning online
-    const handleOnline = () => {
-      processSyncQueue();
-    };
-    
-    if (typeof window !== 'undefined') {
-      window.addEventListener('online', handleOnline);
-    }
-    
-    return () => {
-      clearInterval(interval);
-      if (typeof window !== 'undefined') {
-        window.removeEventListener('online', handleOnline);
-      }
-    };
-  }, []);
 
   const login = async (email: string, password: string) => {
     const res = await fetch('/api/auth/login', {
@@ -210,12 +173,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   const toggleFavorite = async (gameId: string, action: 'add' | 'remove') => {
-    let previousFavorites: string[] = [];
-    if (user) {
-      previousFavorites = user.favoriteGames || [];
-      const newFavorites = action === 'add' ? [...previousFavorites, gameId] : previousFavorites.filter(id => id !== gameId);
-      updateUserState({ ...user, favoriteGames: newFavorites });
-    }
     try {
       const res = await fetch(`/api/auth/favorite/${gameId}`, {
         credentials: 'include',
@@ -227,15 +184,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       if (!res.ok) {
         throw new Error(result.error || 'Failed.');
       }
+      
+      // Update state immediately if the server responds successfully
+      if (user) {
+        const previousFavorites = user.favoriteGames || [];
+        const newFavorites = action === 'add' ? [...previousFavorites, gameId] : previousFavorites.filter(id => id !== gameId);
+        updateUserState({ ...user, favoriteGames: newFavorites });
+      }
     } catch (e) {
-      // Save action to offline sync queue instead of reverting
-      saveToSyncQueue({
-        id: Date.now().toString() + Math.random().toString(36).substring(2),
-        type: 'favorite',
-        gameId,
-        action,
-        timestamp: Date.now()
-      });
+      console.error('Failed to toggle favorite', e);
+      return { error: 'Failed to toggle favorite' };
     }
     return {};
   };

@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
-import { saveToSyncQueue } from '../lib/syncService';
 import { Game } from '../lib/data';
 import { useAuth } from './AuthContext';
 import { useI18n } from './I18nContext';
@@ -72,25 +71,23 @@ export default function GamePlayer({ game, initialPlays, initialLikes, initialDi
       fetchVotes();
     }
     
+    fetch(`/api/games/${game.id}/play`, { method: 'POST' }).catch(() => {});
+  }, [game.id, fetchVotes, initialLikes]);
+
+  useEffect(() => {
     // Attempt to fetch actual user vote from backend
     if (isLoggedIn) {
-      fetch(`/api/votes/${game.id}/user`)
+      fetch(`/api/votes/${game.id}/user`, { credentials: 'include' })
         .then(res => res.ok ? res.json() : null)
         .then(data => {
           if (data && data.type) {
             const mappedVote = data.type === 'up' ? 'like' : 'dislike';
             setUserVote(mappedVote);
-            localStorage.setItem(`vote_${game.id}`, mappedVote);
           }
         })
         .catch(() => {});
-    } else {
-      const storedVote = localStorage.getItem(`vote_${game.id}`);
-      if (storedVote) setUserVote(storedVote as 'like' | 'dislike');
     }
-    
-    fetch(`/api/games/${game.id}/play`, { method: 'POST' }).catch(() => {});
-  }, [game.id, fetchVotes, initialLikes, isLoggedIn]);
+  }, [game.id, isLoggedIn]);
 
   const handleVote = async (type: 'like' | 'dislike') => {
     if (!isLoggedIn) {
@@ -111,22 +108,16 @@ export default function GamePlayer({ game, initialPlays, initialLikes, initialDi
         try {
           const res = await fetch(`/api/votes/${game.id}`, {
             method: 'DELETE',
+            credentials: 'include',
           });
-          if (res.ok || res.status === 400) {
-            localStorage.removeItem(`vote_${game.id}`);
-          } else {
+          if (!res.ok && res.status !== 400) {
             throw new Error('Failed to remove vote from API');
           }
         } catch {
-          // Instead of reverting, queue it for background sync
-          localStorage.removeItem(`vote_${game.id}`); // Keep local state in sync
-          saveToSyncQueue({
-            id: Date.now().toString() + Math.random().toString(36).substring(2),
-            type: 'vote',
-            gameId: game.id,
-            action: 'remove',
-            timestamp: Date.now()
-          });
+          // Revert optimistic update
+          setUserVote(type);
+          if (type === 'like') setLikes(l => l + 1);
+          if (type === 'dislike') setDislikes(d => d + 1);
         }
       } else {
         setUserVote(type);
@@ -141,24 +132,23 @@ export default function GamePlayer({ game, initialPlays, initialLikes, initialDi
         try {
           const res = await fetch(`/api/votes/${game.id}`, {
             method: 'POST',
+            credentials: 'include',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ type: type === 'like' ? 'up' : 'down' }),
           });
-          if (res.ok || res.status === 400 || res.status === 409) {
-            localStorage.setItem(`vote_${game.id}`, type);
-          } else {
+          if (!res.ok && res.status !== 400 && res.status !== 409) {
             throw new Error('Failed to add vote via API');
           }
         } catch {
-          // Instead of reverting, queue it for background sync
-          localStorage.setItem(`vote_${game.id}`, type);
-          saveToSyncQueue({
-            id: Date.now().toString() + Math.random().toString(36).substring(2),
-            type: 'vote',
-            gameId: game.id,
-            action: type,
-            timestamp: Date.now()
-          });
+          // Revert optimistic update
+          setUserVote(previousUserVote);
+          if (type === 'like') {
+              setLikes(l => Math.max(0, l - 1));
+              if (previousUserVote === 'dislike') setDislikes(d => d + 1);
+          } else {
+              setDislikes(d => Math.max(0, d - 1));
+              if (previousUserVote === 'like') setLikes(l => l + 1);
+          }
         }
       }
     } catch (e) {

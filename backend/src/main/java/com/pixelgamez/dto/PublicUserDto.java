@@ -16,6 +16,7 @@ public class PublicUserDto {
     private String workingOn;
     private String country;
     private String[] recentGames;
+    private String[] favoriteGames;
     private String role;
     private Instant createdAt;
 }

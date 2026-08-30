@@ -15,9 +15,11 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
     @Index(name = "Game_category_idx", columnList = "category")
 })
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Game implements Serializable {
 
     @Id
+    @EqualsAndHashCode.Include
     private String id;
 
     @Column(nullable = false)

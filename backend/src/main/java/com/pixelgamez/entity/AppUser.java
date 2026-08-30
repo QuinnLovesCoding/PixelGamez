@@ -67,7 +67,7 @@ public class AppUser implements Serializable {
     @Column(columnDefinition = "text[] default '{}'")
     private String[] recentGames;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
         name = "_user_favorites",
         joinColumns = @JoinColumn(name = "b"),

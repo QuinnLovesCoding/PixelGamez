@@ -58,6 +58,7 @@ export async function processSyncQueue() {
         
         const res = await fetch(`/api/votes/${item.gameId}`, {
           method,
+          credentials: 'include',
           headers: method === 'POST' ? { 'Content-Type': 'application/json' } : undefined,
           body: method === 'POST' ? JSON.stringify({ type: item.action === 'like' ? 'up' : 'down' }) : undefined,
         });
@@ -70,6 +71,7 @@ export async function processSyncQueue() {
       } else if (item.type === 'favorite') {
         const res = await fetch(`/api/auth/favorite/${item.gameId}`, {
           method: 'POST',
+          credentials: 'include',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ action: item.action }),
         });

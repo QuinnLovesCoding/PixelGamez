@@ -143,6 +143,7 @@ public class AuthService {
                 .workingOn(user.getWorkingOn())
                 .country(user.getCountry())
                 .recentGames(user.getRecentGames())
+                .favoriteGames(user.getFavoriteGames() != null ? user.getFavoriteGames().stream().map(com.pixelgamez.entity.Game::getId).toArray(String[]::new) : new String[0])
                 .role(user.getRole())
                 .createdAt(user.getCreatedAt())
                 .build();
