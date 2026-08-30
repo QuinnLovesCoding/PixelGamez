@@ -53,6 +53,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(!user);
   const [showAuthModal, setShowAuthModal] = useState(false);
 
+  const updateUserState = useCallback((newUser: User | null) => {
+    setUser(newUser);
+    if (newUser) {
+      localStorage.setItem('pixelgamez_user', JSON.stringify(newUser));
+    } else {
+      localStorage.removeItem('pixelgamez_user');
+    }
+  }, []);
+
   const fetchUser = useCallback(async () => {
     try {
       const res = await fetch('/api/auth/me', {
@@ -64,15 +73,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         }
       });
       const data = await res.json();
-      setUser(data.user || null);
-      if (data.user) {
-        localStorage.setItem('pixelgamez_user', JSON.stringify(data.user));
-      } else {
-        localStorage.removeItem('pixelgamez_user');
-      }
+      // /api/auth/me returns the user object directly, not wrapped in a user field
+      const fetchedUser = res.ok && data.id ? data : null;
+      updateUserState(fetchedUser);
     } catch {
-      setUser(null);
-      localStorage.removeItem('pixelgamez_user');
+      updateUserState(null);
     } finally {
       setLoading(false);
     }
@@ -91,7 +96,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     });
     const data = await res.json();
     if (!res.ok) return { error: data.error || 'Login failed.' };
-    setUser(data.user);
+    updateUserState(data.user);
     return { success: true };
   };
 
@@ -104,7 +109,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     });
     const data = await res.json();
     if (!res.ok) return { error: data.error || 'Google login failed.' };
-    setUser(data.user);
+    updateUserState(data.user);
     return { success: true, isNewUser: data.isNewUser };
   };
 
@@ -129,14 +134,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     });
     const data = await res.json();
     if (!res.ok) return { error: data.error || 'Registration failed.' };
-    setUser(data.user);
+    updateUserState(data.user);
     return { success: true };
   };
 
   const logout = async () => {
     await fetch('/api/auth/logout', {
       credentials: 'include', method: 'POST' });
-    setUser(null);
+    updateUserState(null);
   };
 
   const uploadAvatar = async (file: File) => {
@@ -146,7 +151,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       credentials: 'include', method: 'POST', body: formData });
     const data = await res.json();
     if (!res.ok) return { error: data.error || 'Upload failed.' };
-    setUser(data.user);
+    updateUserState(data.user);
     return {};
   };
 
@@ -163,7 +168,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     });
     const result = await res.json();
     if (!res.ok) return { error: result.error || 'Update failed.' };
-    setUser(result.user);
+    updateUserState(result.user);
     return {};
   };
 
@@ -176,7 +181,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     });
     const result = await res.json();
     if (!res.ok) return { error: result.error || 'Update failed.' };
-    setUser(result.user);
+    updateUserState(result.user);
     return {};
   };
 
@@ -184,7 +189,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     if (user) {
       const prevFavorites = user.favoriteGames || [];
       const newFavorites = action === 'add' ? [...prevFavorites, gameId] : prevFavorites.filter(id => id !== gameId);
-      setUser({ ...user, favoriteGames: newFavorites });
+      updateUserState({ ...user, favoriteGames: newFavorites });
     }
     const res = await fetch(`/api/auth/favorite/${gameId}`, {
       credentials: 'include',
@@ -209,7 +214,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     });
     if (res.ok) {
       const data = await res.json();
-      setUser(data.user);
+      updateUserState(data.user);
     }
   };
 

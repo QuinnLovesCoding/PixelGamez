@@ -57,7 +57,7 @@ public class AuthController {
     }
 
     @PostMapping("/logout")
-    public ResponseEntity<?> logout(@CookieValue(value = "pgz_session", required = false) String token, HttpServletResponse response) {
+    public ResponseEntity<?> logout(@CookieValue(value = "pgz_session", required = false) String token, HttpServletRequest request, HttpServletResponse response) {
         if (token != null) {
             authService.logout(token);
         }
