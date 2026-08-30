@@ -10,6 +10,8 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
@@ -59,10 +61,19 @@ public class AuthController {
         if (token != null) {
             authService.logout(token);
         }
-        Cookie cookie = new Cookie("pgz_session", "");
-        cookie.setPath("/");
-        cookie.setMaxAge(0);
-        response.addCookie(cookie);
+        
+        String proto = request != null ? request.getHeader("X-Forwarded-Proto") : null;
+        boolean isSecure = (proto != null && proto.toLowerCase().contains("https"));
+        
+        ResponseCookie cookie = ResponseCookie.from("pgz_session", "")
+                .httpOnly(true)
+                .secure(isSecure)
+                .path("/")
+                .maxAge(0)
+                .sameSite("Lax")
+                .build();
+        response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
+        
         return ResponseEntity.ok().build();
     }
 
@@ -75,15 +86,18 @@ public class AuthController {
     }
 
     private void setCookie(HttpServletRequest request, HttpServletResponse response, String token) {
-        Cookie cookie = new Cookie("pgz_session", token);
-        cookie.setHttpOnly(true);
         String proto = request.getHeader("X-Forwarded-Proto");
-        boolean isSecure = (proto != null && proto.equalsIgnoreCase("https")) || request.isSecure();
-        cookie.setSecure(isSecure);
-        cookie.setPath("/");
-        cookie.setMaxAge(30 * 24 * 60 * 60); // 30 days
-        cookie.setAttribute("SameSite", "Lax");
-        response.addCookie(cookie);
+        boolean isSecure = (proto != null && proto.toLowerCase().contains("https")) || request.isSecure();
+        
+        ResponseCookie cookie = ResponseCookie.from("pgz_session", token)
+                .httpOnly(true)
+                .secure(isSecure)
+                .path("/")
+                .maxAge(30 * 24 * 60 * 60) // 30 days
+                .sameSite("Lax")
+                .build();
+                
+        response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
     }
 
     static class ErrorResponse {
