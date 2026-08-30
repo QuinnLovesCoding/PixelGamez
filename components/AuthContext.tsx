@@ -1,6 +1,7 @@
 'use client';
 
-import { createContext, useContext, useState, useEffect, useCallback, ReactNode } from 'react';
+import { createContext, useContext, useState, useEffect, useCallback, ReactNode, useRef } from 'react';
+import { saveToSyncQueue, processSyncQueue } from '../lib/syncService';
 
 interface User {
   id: string;
@@ -86,6 +87,29 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     fetchUser();
   }, [fetchUser]);
+
+  useEffect(() => {
+    // Start background sync interval
+    const interval = setInterval(() => {
+      processSyncQueue();
+    }, 5000); // Check every 5 seconds
+    
+    // Also try to sync when returning online
+    const handleOnline = () => {
+      processSyncQueue();
+    };
+    
+    if (typeof window !== 'undefined') {
+      window.addEventListener('online', handleOnline);
+    }
+    
+    return () => {
+      clearInterval(interval);
+      if (typeof window !== 'undefined') {
+        window.removeEventListener('online', handleOnline);
+      }
+    };
+  }, []);
 
   const login = async (email: string, password: string) => {
     const res = await fetch('/api/auth/login', {
@@ -186,20 +210,32 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   const toggleFavorite = async (gameId: string, action: 'add' | 'remove') => {
+    let previousFavorites: string[] = [];
     if (user) {
-      const prevFavorites = user.favoriteGames || [];
-      const newFavorites = action === 'add' ? [...prevFavorites, gameId] : prevFavorites.filter(id => id !== gameId);
+      previousFavorites = user.favoriteGames || [];
+      const newFavorites = action === 'add' ? [...previousFavorites, gameId] : previousFavorites.filter(id => id !== gameId);
       updateUserState({ ...user, favoriteGames: newFavorites });
     }
-    const res = await fetch(`/api/auth/favorite/${gameId}`, {
-      credentials: 'include',
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ action }),
-    });
-    const result = await res.json();
-    if (!res.ok) {
-      return { error: result.error || 'Failed.' };
+    try {
+      const res = await fetch(`/api/auth/favorite/${gameId}`, {
+        credentials: 'include',
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action }),
+      });
+      const result = await res.json();
+      if (!res.ok) {
+        throw new Error(result.error || 'Failed.');
+      }
+    } catch (e) {
+      // Save action to offline sync queue instead of reverting
+      saveToSyncQueue({
+        id: Date.now().toString() + Math.random().toString(36).substring(2),
+        type: 'favorite',
+        gameId,
+        action,
+        timestamp: Date.now()
+      });
     }
     return {};
   };

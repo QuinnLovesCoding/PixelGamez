@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
+import { saveToSyncQueue } from '../lib/syncService';
 import { Game } from '../lib/data';
 import { useAuth } from './AuthContext';
 import { useI18n } from './I18nContext';
@@ -100,8 +101,6 @@ export default function GamePlayer({ game, initialPlays, initialLikes, initialDi
     setIsVoting(true);
     
     const previousUserVote = userVote;
-    const previousLikes = likes;
-    const previousDislikes = dislikes;
 
     try {
       if (userVote === type) {
@@ -109,17 +108,25 @@ export default function GamePlayer({ game, initialPlays, initialLikes, initialDi
         if (type === 'like') setLikes(l => Math.max(0, l - 1));
         if (type === 'dislike') setDislikes(d => Math.max(0, d - 1));
 
-        const res = await fetch(`/api/votes/${game.id}`, {
-          method: 'DELETE',
-        });
-        if (res.ok) {
-          localStorage.removeItem(`vote_${game.id}`);
-        } else {
-          // Revert optimistic update
-          setUserVote(type);
-          if (type === 'like') setLikes(l => l + 1);
-          if (type === 'dislike') setDislikes(d => d + 1);
-          throw new Error('Failed to remove vote');
+        try {
+          const res = await fetch(`/api/votes/${game.id}`, {
+            method: 'DELETE',
+          });
+          if (res.ok || res.status === 400) {
+            localStorage.removeItem(`vote_${game.id}`);
+          } else {
+            throw new Error('Failed to remove vote from API');
+          }
+        } catch {
+          // Instead of reverting, queue it for background sync
+          localStorage.removeItem(`vote_${game.id}`); // Keep local state in sync
+          saveToSyncQueue({
+            id: Date.now().toString() + Math.random().toString(36).substring(2),
+            type: 'vote',
+            gameId: game.id,
+            action: 'remove',
+            timestamp: Date.now()
+          });
         }
       } else {
         setUserVote(type);
@@ -131,24 +138,27 @@ export default function GamePlayer({ game, initialPlays, initialLikes, initialDi
             if (previousUserVote === 'like') setLikes(l => Math.max(0, l - 1));
         }
 
-        const res = await fetch(`/api/votes/${game.id}`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ type: type === 'like' ? 'up' : 'down' }),
-        });
-        if (res.ok) {
-          localStorage.setItem(`vote_${game.id}`, type);
-        } else {
-          // Revert optimistic update
-          setUserVote(previousUserVote);
-          if (type === 'like') {
-              setLikes(l => Math.max(0, l - 1));
-              if (previousUserVote === 'dislike') setDislikes(d => d + 1);
+        try {
+          const res = await fetch(`/api/votes/${game.id}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ type: type === 'like' ? 'up' : 'down' }),
+          });
+          if (res.ok || res.status === 400 || res.status === 409) {
+            localStorage.setItem(`vote_${game.id}`, type);
           } else {
-              setDislikes(d => Math.max(0, d - 1));
-              if (previousUserVote === 'like') setLikes(l => l + 1);
+            throw new Error('Failed to add vote via API');
           }
-          throw new Error('Failed to add vote');
+        } catch {
+          // Instead of reverting, queue it for background sync
+          localStorage.setItem(`vote_${game.id}`, type);
+          saveToSyncQueue({
+            id: Date.now().toString() + Math.random().toString(36).substring(2),
+            type: 'vote',
+            gameId: game.id,
+            action: type,
+            timestamp: Date.now()
+          });
         }
       }
     } catch (e) {
