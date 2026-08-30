@@ -56,6 +56,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const fetchUser = useCallback(async () => {
     try {
       const res = await fetch('/api/auth/me', {
+      credentials: 'include',
         cache: 'no-store',
         headers: {
           'Cache-Control': 'no-cache',
@@ -83,6 +84,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const login = async (email: string, password: string) => {
     const res = await fetch('/api/auth/login', {
+      credentials: 'include',
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password }),
@@ -95,6 +97,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const loginWithGoogle = async (credential: string) => {
     const res = await fetch('/api/auth/google', {
+      credentials: 'include',
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ idToken: credential }),
@@ -107,6 +110,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const requestOTP = async (email: string) => {
     const res = await fetch('/api/auth/register-otp', {
+      credentials: 'include',
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email }),
@@ -118,6 +122,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const register = async (email: string, password: string, displayName: string, code: string) => {
     const res = await fetch('/api/auth/register', {
+      credentials: 'include',
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password, displayName, code }),
@@ -129,14 +134,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   const logout = async () => {
-    await fetch('/api/auth/logout', { method: 'POST' });
+    await fetch('/api/auth/logout', {
+      credentials: 'include', method: 'POST' });
     setUser(null);
   };
 
   const uploadAvatar = async (file: File) => {
     const formData = new FormData();
     formData.append('avatar', file);
-    const res = await fetch('/api/auth/avatar', { method: 'POST', body: formData });
+    const res = await fetch('/api/auth/avatar', {
+      credentials: 'include', method: 'POST', body: formData });
     const data = await res.json();
     if (!res.ok) return { error: data.error || 'Upload failed.' };
     setUser(data.user);
@@ -149,6 +156,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const updateBio = async (data: { aboutMe?: string; workingOn?: string; country?: string }) => {
     const res = await fetch('/api/auth/bio', {
+      credentials: 'include',
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
@@ -161,6 +169,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const updateDisplayName = async (displayName: string) => {
     const res = await fetch('/api/auth/display-name', {
+      credentials: 'include',
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ displayName }),
@@ -178,6 +187,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setUser({ ...user, favoriteGames: newFavorites });
     }
     const res = await fetch(`/api/auth/favorite/${gameId}`, {
+      credentials: 'include',
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ action }),
@@ -192,6 +202,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const addRecentGame = async (gameId: string) => {
     if (!user) return;
     const res = await fetch('/api/user/recent', {
+      credentials: 'include',
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ gameId })

@@ -7,6 +7,7 @@ import com.pixelgamez.dto.RegisterRequest;
 import com.pixelgamez.entity.AppUser;
 import com.pixelgamez.service.AuthService;
 import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -21,10 +22,10 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody RegisterRequest request, HttpServletResponse response) {
+    public ResponseEntity<?> register(@RequestBody RegisterRequest requestBody, HttpServletRequest request, HttpServletResponse response) {
         try {
-            AuthResponse authRes = authService.register(request);
-            setCookie(response, authRes.getToken());
+            AuthResponse authRes = authService.register(requestBody);
+            setCookie(request, response, authRes.getToken());
             return ResponseEntity.ok(authRes);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(new ErrorResponse(e.getMessage()));
@@ -32,10 +33,10 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody AuthRequest request, HttpServletResponse response) {
+    public ResponseEntity<?> login(@RequestBody AuthRequest requestBody, HttpServletRequest request, HttpServletResponse response) {
         try {
-            AuthResponse authRes = authService.login(request);
-            setCookie(response, authRes.getToken());
+            AuthResponse authRes = authService.login(requestBody);
+            setCookie(request, response, authRes.getToken());
             return ResponseEntity.ok(authRes);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(new ErrorResponse(e.getMessage()));
@@ -43,10 +44,10 @@ public class AuthController {
     }
 
     @PostMapping("/google")
-    public ResponseEntity<?> googleLogin(@RequestBody GoogleAuthRequest request, HttpServletResponse response) {
+    public ResponseEntity<?> googleLogin(@RequestBody GoogleAuthRequest requestBody, HttpServletRequest request, HttpServletResponse response) {
         try {
-            AuthResponse authRes = authService.googleLogin(request);
-            setCookie(response, authRes.getToken());
+            AuthResponse authRes = authService.googleLogin(requestBody);
+            setCookie(request, response, authRes.getToken());
             return ResponseEntity.ok(authRes);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(new ErrorResponse(e.getMessage()));
@@ -73,10 +74,12 @@ public class AuthController {
         return ResponseEntity.ok(authService.mapToPublicDto(user));
     }
 
-    private void setCookie(HttpServletResponse response, String token) {
+    private void setCookie(HttpServletRequest request, HttpServletResponse response, String token) {
         Cookie cookie = new Cookie("pgz_session", token);
         cookie.setHttpOnly(true);
-        cookie.setSecure(true); // Should be true in production (Render)
+        String proto = request.getHeader("X-Forwarded-Proto");
+        boolean isSecure = (proto != null && proto.equalsIgnoreCase("https")) || request.isSecure();
+        cookie.setSecure(isSecure);
         cookie.setPath("/");
         cookie.setMaxAge(30 * 24 * 60 * 60); // 30 days
         cookie.setAttribute("SameSite", "Lax");
